@@ -59,3 +59,5 @@ WHERE
         AND p.pno = 1
 ORDER BY
         pimg.ord ASC;
+
+-- 테스트 커밋
