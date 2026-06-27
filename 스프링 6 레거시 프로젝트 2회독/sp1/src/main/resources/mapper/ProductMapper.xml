@@ -122,4 +122,38 @@
         AND pno = #{pno}
     </update>
 
+    <select id="list">
+        SELECT
+        p.pno,
+        pname,
+        pdesc,
+        price,
+        sale,
+        writer,
+        p.regdate,
+        ino,
+        UUID,
+        filename,
+        ord
+        FROM
+        tbl_product p
+        LEFT OUTER JOIN
+        tbl_product_image pimg ON p.pno = pimg.pno
+        WHERE
+        1 = 1
+        AND pimg.ord =
+        0
+        ORDER BY
+        p.pno DESC
+        LIMIT #{count}
+        OFFSET #{skip}
+    </select>
+
+    <select id="listCount">
+        SELECT
+        count(*)
+        FROM
+        tbl_product p
+    </select>
+
 </mapper>
