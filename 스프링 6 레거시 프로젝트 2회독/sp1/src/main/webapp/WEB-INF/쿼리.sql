@@ -60,4 +60,28 @@ WHERE
 ORDER BY
         pimg.ord ASC;
 
--- 테스트 커밋
+-- 상품목록
+SELECT
+        p.pno,
+        pname,
+        pdesc,
+        price,
+        sale,
+        writer,
+        p.regdate,
+        ino,
+        UUID,
+        filename,
+        ord
+FROM
+        tbl_product p
+        LEFT OUTER JOIN tbl_product_image pimg ON p.pno = pimg.pno
+WHERE
+        1 = 1
+        AND pimg.ord = 0
+ORDER BY
+        p.pno DESC
+LIMIT
+        10
+OFFSET
+        0;
