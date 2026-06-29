@@ -36,14 +36,8 @@ file="/WEB-INF/views/includes/header.jsp"%>
                         </tr>
                     </thead>
                     <tbody class="tbody">
-                        <c:forEach
-                            var="product"
-                            items="${dto.productDTOList}"
-                        >
-                            <tr
-                                data-bno="${product.pno}"
-                                class="${not product.sale ? 'deleted-row' : ''}"
-                            >
+                        <c:forEach var="product" items="${dto.productDTOList}">
+                            <tr data-bno="${product.pno}" class="${not product.sale ? 'deleted-row' : ''}">
                                 <td>
                                     <a href="/product/read/${product.pno}">
                                         <c:out value="${product.pno}" />
@@ -51,9 +45,7 @@ file="/WEB-INF/views/includes/header.jsp"%>
                                 </td>
 
                                 <td>
-                                    <img
-                                        src="/images/s_${product.uuid}_${product.fileName }"
-                                    />
+                                    <img src="/images/s_${product.uuid}_${product.fileName }" />
                                     <c:out value="${product.pname}" />
                                 </td>
                                 <td>
@@ -71,16 +63,12 @@ file="/WEB-INF/views/includes/header.jsp"%>
                     <ul class="pagination">
                         <c:if test="${dto.prev}">
                             <li class="page-item">
-                                <a class="page-link" href="" tabindex="-1"
-                                    >Previous</a
-                                >
+                                <a class="page-link" href="" tabindex="-1">Previous</a>
                             </li>
                         </c:if>
 
                         <c:forEach var="num" items="${dto.pageNums}">
-                            <li
-                                class="page-item ${dto.page == num ? 'active':'' }"
-                            >
+                            <li class="page-item ${dto.page == num ? 'active':'' }">
                                 <a class="page-link" href="${num}">${num}</a>
                             </li>
                         </c:forEach>
@@ -97,36 +85,21 @@ file="/WEB-INF/views/includes/header.jsp"%>
     </div>
 </div>
 
-<div
-    class="modal fade"
-    id="myModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
                     Modal title
                 </h5>
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">New Product Added.</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">
                     Save changes
                 </button>
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                 </button>
             </div>
