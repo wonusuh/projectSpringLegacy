@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:context="http://www.springframework.org/schema/context"
-  xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-  xmlns:aop="http://www.springframework.org/schema/aop"
-  xmlns:tx="http://www.springframework.org/schema/tx"
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
 
-  xsi:schemaLocation="
+    xsi:schemaLocation="
     http://www.springframework.org/schema/beans
     https://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context
@@ -19,47 +20,81 @@
     https://www.springframework.org/schema/tx/spring-tx.xsd
     ">
 
-  <!-- bean definitions here -->
-  <context:component-scan
-    base-package="org.zerock.service" />
+    <!-- bean definitions here -->
+    <context:component-scan
+        base-package="org.zerock.service" />
 
-  <bean name="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-    <property name="driverClassName"
-      value="org.mariadb.jdbc.Driver" />
-    <property name="jdbcUrl"
-      value="jdbc:mariadb://localhost:3306/springdb" />
-    <property name="username" value="springdbuser" />
-    <property name="password" value="springdbuser" />
-    <property name="connectionTimeout" value="30000" />
-    <property name="minimumIdle" value="2" />
-  </bean>
+    <bean
+        name="hikariConfig"
+        class="com.zaxxer.hikari.HikariConfig">
+        <property
+            name="driverClassName"
+            value="org.mariadb.jdbc.Driver" />
+        <property
+            name="jdbcUrl"
+            value="jdbc:mariadb://localhost:3306/springdb" />
+        <property
+            name="username"
+            value="springdbuser" />
+        <property
+            name="password"
+            value="springdbuser" />
+        <property
+            name="connectionTimeout"
+            value="30000" />
+        <property
+            name="minimumIdle"
+            value="2" />
+    </bean>
 
-  <bean name="dataSource"
-    class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-    <constructor-arg ref="hikariConfig" />
-  </bean>
+    <bean
+        name="dataSource"
+        class="com.zaxxer.hikari.HikariDataSource"
+        destroy-method="close">
+        <constructor-arg
+            ref="hikariConfig" />
+    </bean>
 
-  <bean id="transactionManager"
-    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource" ref="dataSource" />
-  </bean>
+    <bean
+        id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property
+            name="dataSource"
+            ref="dataSource" />
+    </bean>
 
-  <bean class="org.mybatis.spring.SqlSessionFactoryBean">
-    <property name="dataSource" ref="dataSource"></property>
-    <property name="mapperLocations"
-      value="classpath:/mapper/*.xml" />
-    <property name="configLocation"
-      value="classpath:mybatis-config.xml" />
-  </bean>
+    <bean
+        class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property
+            name="dataSource"
+            ref="dataSource"></property>
+        <property
+            name="mapperLocations"
+            value="classpath:/mapper/*.xml" />
+        <property
+            name="configLocation"
+            value="classpath:mybatis-config.xml" />
+    </bean>
 
-  <mybatis-spring:scan
-    base-package="org.zerock.mapper" />
+    <mybatis-spring:scan
+        base-package="org.zerock.mapper" />
 
-  <context:component-scan
-    base-package="org.zerock.aop"></context:component-scan>
+    <context:component-scan
+        base-package="org.zerock.aop"></context:component-scan>
 
-  <aop:aspectj-autoproxy />
+    <aop:aspectj-autoproxy />
 
-  <tx:annotation-driven />
+    <tx:annotation-driven />
+
+    <!-- p. 407 -->
+    <mybatis-spring:scan
+        base-package="org.zerock.mapper" />
+    <context:component-scan
+        base-package="org.zerock.aop"></context:component-scan>
+    <context:component-scan
+        base-package="org.zerock.security"></context:component-scan>
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    <tx:annotation-driven />
+    <!-- // p. 407 -->
 
 </beans>
