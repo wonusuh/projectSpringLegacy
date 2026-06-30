@@ -29,8 +29,8 @@ import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 @RequestMapping("/product")
-@RequiredArgsConstructor
 @Log4j2
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService service;

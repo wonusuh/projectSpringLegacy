@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,71 +15,100 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
-@RequestMapping("/sample")
 @RequiredArgsConstructor
 @ToString
 @Log4j2
+@RequestMapping("/sample")
 public class HelloController {
+
     private final HelloService helloService;
 
-    @GetMapping("/ex1")
-    public void ex1() {
-	log.info("/sample/ex1");
-	helloService.hello1();
+    @GetMapping("access-denied")
+    public String accessDenied() {
+
+	return "/sample/accessDenied";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/ex1")
+    public void ex1() {
+
+	log.info("/sample/ex1");
+
+	helloService.hello1();
+
+    }
+
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/ex2")
     public String ex2() {
+
 	log.info("/sample/ex2");
-	helloService.hello2("Wonu Suh");
+
+	helloService.hello2("Hong Gil Dong");
+
 	return "sample/success";
+
     }
 
     @GetMapping("/ex3")
     public String ex3() {
+
 	log.info("/sample/ex3");
+
 	return "redirect:/sample/ex3re";
+
     }
 
-    @GetMapping("ex3re")
+    @GetMapping("/ex3re")
     public String ex3Re() {
+
 	log.info("/sample/ex3Re");
+
 	return "sample/ex3Result";
+
     }
 
+    @PreAuthorize("authentication.name == 'aaa'")
     @GetMapping("/ex4")
     public void ex4(@RequestParam(name = "n1", defaultValue = "1") int num, @RequestParam(name = "name") String name) {
+
 	log.info("/sample/ex4");
-	log.info("num : " + num);
-	log.info("name : " + name);
+	log.info("num :" + num);
+	log.info("name: " + name);
     }
 
+    @PreAuthorize("authentication.name == #dto.name")
     @GetMapping("/ex5")
     public void ex5(SampleDTO dto) {
+
 	log.info("/sample/ex5");
+
 	log.info(dto);
     }
 
     @GetMapping("/ex6")
     public void ex6(Model model) {
-	model.addAttribute("name", "Wonu Suh");
+
+	model.addAttribute("name", "Hong Gil Dong");
+
 	model.addAttribute("age", 16);
+
     }
 
-    @GetMapping("/ex7")
     public String ex7(RedirectAttributes rttr) {
+
 	rttr.addAttribute("name", "Hong");
+
 	rttr.addFlashAttribute("age", 16);
+
 	return "redirect:/sample/ex8";
     }
 
     @GetMapping("/ex8")
     public void ex8() {
 	log.info("/sample/ex8");
+
     }
 
-    @GetMapping("access-denied")
-    public String accessDenied() {
-	return "/sample/accessDenied";
-    }
 }

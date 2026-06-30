@@ -12,10 +12,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductImageDTO {
-    private Integer ino; // PK
-    Integer pno; // FK
+
+    private Integer ino;
+
+    private Integer pno;
+
     private String fileName;
+
     private String uuid;
+
     private int ord;
+
     private LocalDateTime regDate;
+
 }

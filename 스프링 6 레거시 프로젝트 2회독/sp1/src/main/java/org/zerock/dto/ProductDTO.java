@@ -14,17 +14,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
+
     private Integer pno;
+
     private String pname;
+
     private String pdesc;
+
     private int price;
+
     private boolean sale;
+
     private String writer;
+
     private LocalDateTime regDate;
+
     private LocalDateTime modDate;
-    private List<ProductImageDTO> imageList; // 상품의 이미지들
+
+    // 상품 이미지들
+    private List<ProductImageDTO> imageList;
 
     public void addImage(String uuid, String fileName) {
+
 	if (imageList == null) {
 	    imageList = new ArrayList<>();
 	}
@@ -33,9 +44,12 @@ public class ProductDTO {
 		.ord(this.imageList.size()).build();
 
 	imageList.add(imageDTO);
+
     }
 
     public void clearImages() {
+
 	imageList.clear();
     }
+
 }

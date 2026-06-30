@@ -12,40 +12,43 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.Data;
 
 @Data
+
 public class AccountDTO implements UserDetails {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
+
     private String uid;
+
     private String upw;
+
     private String uname;
+
     private String email;
+
     private List<AccountRole> roleNames;
 
     public void addRole(AccountRole role) {
-	// 방어 로직
+
 	if (roleNames == null) {
+
 	    roleNames = new ArrayList<>();
 	}
-
 	roleNames.add(role);
     }
 
-    public void clearRole() {
+    public void clearRoles() {
+
 	roleNames.clear();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-	// 방어 로직
+
 	if (roleNames == null || roleNames.size() == 0) {
 	    return List.of();
 	}
 
-	return roleNames.stream().map((accountRole) -> {
-	    return new SimpleGrantedAuthority("ROLE_" + accountRole.name());
-	}).collect(Collectors.toList());
+	return roleNames.stream().map(accountRole -> new SimpleGrantedAuthority("ROLE_" + accountRole.name()))
+		.collect(Collectors.toList());
+
     }
 
     @Override
@@ -82,15 +85,4 @@ public class AccountDTO implements UserDetails {
 	return true;
     }
 
-//    @Override
-//    protected Object clone() throws CloneNotSupportedException {
-//	// TODO Auto-generated method stub
-//	return super.clone();
-//    }
-//
-//    @Override
-//    protected void finalize() throws Throwable {
-//	// TODO Auto-generated method stub
-//	super.finalize();
-//    }
 }
