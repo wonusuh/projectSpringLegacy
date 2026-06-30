@@ -14,4 +14,9 @@ public class AccountController {
     public void loginGET() {
 	//
     }
+
+    @GetMapping("logout")
+    public void logoutGET() {
+	//
+    }
 }

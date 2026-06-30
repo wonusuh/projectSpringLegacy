@@ -129,3 +129,13 @@ FROM
 WHERE
         1 = 1
         AND ac.uid = 'user100';
+
+-- 자동로그인 키
+CREATE TABLE
+        persistant_logins (
+                username VARCHAR(64) NOT NULL,
+                series VARCHAR(64) PRIMARY KEY,
+                token VARCHAR(64) NOT NULL,
+                last_used TIMESTAMP NOT NULL
+        );
+        SELECT * FROM persistant_logins;

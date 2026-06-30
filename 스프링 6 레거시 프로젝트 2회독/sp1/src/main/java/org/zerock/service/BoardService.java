@@ -89,4 +89,5 @@ public class BoardService {
 	return new BoardListPagingDTO(list, total, page, size, typeStr, keyword);
 
     }
+
 }

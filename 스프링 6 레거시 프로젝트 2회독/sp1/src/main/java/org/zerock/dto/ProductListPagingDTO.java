@@ -20,7 +20,6 @@ public class ProductListPagingDTO {
 
     private List<Integer> pageNums;
 
-    // 생성자
     public ProductListPagingDTO(List<ProductListDTO> productDTOList, int totalCount, int page, int size) {
 
 	this.productDTOList = productDTOList;
@@ -51,5 +50,6 @@ public class ProductListPagingDTO {
 	// 화면에 출력한 번호들 계산
 
 	this.pageNums = IntStream.rangeClosed(start, end).boxed().toList();
+
     }
 }

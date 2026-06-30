@@ -11,21 +11,26 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @Service
-@RequiredArgsConstructor
 @Log4j2
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
+
     private final AccountMapper accountMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	log.info("-------------------------------loadUserByUsername---------------------------------------");
+
+	log.info("-------------loadUserByUsername------------", username);
+
 	AccountDTO accountDTO = accountMapper.selectOne(username);
 
-	// 계정 못찾음
 	if (accountDTO == null) {
 	    throw new UsernameNotFoundException("Account Not Found");
 	}
 
+	log.info("-------------accountDTO------------" + accountDTO);
+
 	return accountDTO;
     }
+
 }
