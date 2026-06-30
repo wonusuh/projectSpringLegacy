@@ -85,3 +85,47 @@ LIMIT
         10
 OFFSET
         0;
+
+-- 계정 테이블
+CREATE TABLE
+        TBL_ACCOUNT (
+                UID VARCHAR(50) PRIMARY KEY,
+                UPW VARCHAR(100) NOT NULL,
+                UNAME VARCHAR(100) NOT NULL,
+                EMAIL VARCHAR(100) UNIQUE,
+                ENABLED BOOLEAN DEFAULT TRUE,
+                CREATEDATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UPDATEDATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        );
+
+SELECT
+        *
+FROM
+        tbl_account;
+
+-- 권한 테이블
+CREATE TABLE
+        TBL_ACCOUNT_ROLES (
+                UID VARCHAR(50) NOT NULL,
+                ROLENAME VARCHAR(50) NOT NULL,
+                -- 동일 계정에 동일한 역할 중복방지
+                FOREIGN KEY (UID) REFERENCES TBL_ACCOUNT (UID)
+        );
+
+SELECT
+        *
+FROM
+        tbl_account_roles;
+
+-- 계정 조회
+SELECT
+        ac.uid,
+        ac.upw,
+        ac.email,
+        ar.rolename
+FROM
+        tbl_account ac
+        INNER JOIN tbl_account_roles ar ON ac.uid = ar.uid
+WHERE
+        1 = 1
+        AND ac.uid = 'user100';

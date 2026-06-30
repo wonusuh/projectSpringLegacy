@@ -19,7 +19,7 @@ public class SecurityConfig {
 	log.info("--------------------  security config --------------------");
 
 	httpSecurity.formLogin((config) -> {
-	    //
+	    config.loginPage("/account/login");
 	});
 
 	// Cross-Site Request Forgery 사용 안함
