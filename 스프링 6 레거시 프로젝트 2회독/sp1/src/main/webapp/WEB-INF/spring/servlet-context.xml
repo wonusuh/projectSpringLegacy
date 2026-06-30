@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-    xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:mvc="http://www.springframework.org/schema/mvc"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:context="http://www.springframework.org/schema/context"
@@ -17,30 +16,30 @@
     https://www.springframework.org/schema/security/spring-security.xsd
     ">
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven>
+        <!-- p. 482 -->
+        <mvc:argument-resolvers>
+            <bean
+                class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver" />
+        </mvc:argument-resolvers>
+        <!-- p. // 482 -->
+    </mvc:annotation-driven>
 
     <context:component-scan
         base-package="org.zerock.controller" />
 
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property
-            name="prefix"
-            value="/WEB-INF/views/" />
-        <property
-            name="suffix"
-            value=".jsp" />
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
     </bean>
 
-    <mvc:resources
-        mapping="/resources/**"
+    <mvc:resources mapping="/resources/**"
         location="/resources/" />
-    <mvc:resources
-        mapping="/images/**"
+    <mvc:resources mapping="/images/**"
         location="file:C:/upload/" />
 
-    <bean
-        id="multipartResolver"
+    <bean id="multipartResolver"
         class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 
     <!-- p. 422 -->
