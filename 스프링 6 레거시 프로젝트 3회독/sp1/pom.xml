@@ -67,6 +67,40 @@
 		</dependency>
 		<!-- // p. 39-->
 
+		<!-- p. 73-->
+		<!-- Source: https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>7.1.0</version>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>3.5.9</version>
+		</dependency>
+		<!-- // p. 73-->
+
+		<!-- p. 76 Test, Jupiter -->
+		<!-- Source:
+https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>7.0.8</version>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>6.1.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- // p. 76 Test, Jupiter -->
+
 	</dependencies>
 
 	<build>

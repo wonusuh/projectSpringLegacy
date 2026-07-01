@@ -2,9 +2,10 @@
 .metadata/
 
 # 서버는 깃에 X
-# Servers/
+Servers/
 
 # 이클립스 마켓플레이스 소나린트
-# .sonarlint/
+.sonarlint/
 
-# test commit
+# 세팅
+.settings/
