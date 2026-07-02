@@ -1,27 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
- xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-https://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/context
-https://www.springframework.org/schema/context/spring-context.xsd">
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
 
- <!-- bean definitions here -->
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
 
- <context:component-scan base-package="org.zerock.service" />
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
 
- <!-- p. 74 DB 연동 -->
- <bean name="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-  <property name="driverClassName" value="org.mariadb.jdbc.Driver" />
-  <property name="jdbcUrl" value="jdbc:mariadb://localhost:3306/springdb" />
-  <property name="username" value="springdbuser" />
-  <property name="password" value="springdbuser" />
-  <property name="connectionTimeout" value="30000" />
-  <property name="minimumIdle" value="2" />
- </bean>
- <bean name="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-  <constructor-arg ref="hikariConfig" />
- </bean>
- <!-- // p. 74 DB 연동 -->
+        http://mybatis.org/schema/mybatis-spring
+        http://mybatis.org/schema/mybatis-spring.xsd
+
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd
+
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        ">
+
+        <!-- bean definitions here -->
+
+        <context:component-scan
+                base-package="org.zerock.service" />
+
+        <!-- p. 74 DB 연동 -->
+        <bean
+                name="hikariConfig"
+                class="com.zaxxer.hikari.HikariConfig">
+                <property
+                        name="driverClassName"
+                        value="org.mariadb.jdbc.Driver" />
+                <property
+                        name="jdbcUrl"
+                        value="jdbc:mariadb://localhost:3306/springdb" />
+                <property
+                        name="username"
+                        value="springdbuser" />
+                <property
+                        name="password"
+                        value="springdbuser" />
+                <property
+                        name="connectionTimeout"
+                        value="30000" />
+                <property
+                        name="minimumIdle"
+                        value="2" />
+        </bean>
+        <bean
+                name="dataSource"
+                class="com.zaxxer.hikari.HikariDataSource"
+                destroy-method="close">
+                <constructor-arg ref="hikariConfig" />
+        </bean>
+        <!-- // p. 74 DB 연동 -->
+
+        <!-- p. 105, SqlSessionFactoryBean 이라는 빈을 등록 -->
+        <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property
+                        name="dataSource"
+                        ref="dataSource">
+                </property>
+                <!-- p. 112 mapper.xml 파일의 위치를 설정 -->
+                <property
+                        name="mapperLocations"
+                        value="classpath:/mapper/*.xml"></property>
+                <!-- // p. 112 mapper.xml 파일의 위치를 설정 -->
+        </bean>
+        <!-- // p. 105, SqlSessionFactoryBean 이라는 빈을 등록 -->
+
+        <!-- p. 107, mapper java패키지의 위치 설정 -->
+        <mybatis-spring:scan
+                base-package="org.zerock.mapper"></mybatis-spring:scan>
+        <!-- // p. 107, mapper java패키지의 위치 설정 -->
+
+        <!-- p. 122, AOP LogAdvice 를 bean 으로 인식 -->
+        <context:component-scan
+                base-package="org.zerock.aop"></context:component-scan>
+        <!-- // p. 122, AOP LogAdvice 를 bean 으로 인식 -->
+
+        <!-- p. 126, AOP Proxy 설정 -->
+        <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+        <!-- // p. 126, AOP Proxy 설정 -->
+
+        <!-- p.133, Transaction 설정 -->
+        <bean
+                id="transactionManager"
+                class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                <property
+                        name="dataSource"
+                        ref="dataSource"></property>
+        </bean>
+        <tx:annotation-driven></tx:annotation-driven>
+        <!-- // p.133, Transaction 설정 -->
 
 </beans>

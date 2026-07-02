@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="https://jakarta.ee/xml/ns/jakartaee"
-	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0xsd"
-	id="WebApp_ID" version="6.0">
+<web-app
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://jakarta.ee/xml/ns/jakartaee"
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+        id="WebApp_ID"
+        version="6.0">
 
-	<display-name>sp1</display-name>
+        <display-name>sp1</display-name>
 
-	<!-- p. 34 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
-	</context-param>
-	<!-- // p. 34 -->
+        <!-- p. 34 -->
+        <listener>
+                <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        </listener>
+        <context-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>/WEB-INF/spring/root-context.xml</param-value>
+        </context-param>
 
-	<!-- p. 37 -->
-	<servlet>
-		<servlet-name>appServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-	<!-- // p. 37 -->
+        <!-- p. 37 -->
+        <servlet>
+                <servlet-name>appServlet</servlet-name>
+                <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+                <init-param>
+                        <param-name>contextConfigLocation</param-name>
+                        <param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+                </init-param>
+                <load-on-startup>1</load-on-startup>
+        </servlet>
+        <servlet-mapping>
+                <servlet-name>appServlet</servlet-name>
+                <url-pattern>/</url-pattern>
+        </servlet-mapping>
 
 </web-app>

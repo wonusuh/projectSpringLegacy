@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
 
-    <!-- Appender, Layout 설정 -->
-    <Appenders>
-        <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%c %l %5p %m%n" />
-        </Console>
-    </Appenders>
+        <!-- Appender, Layout 설정 -->
+        <Appenders>
+                <Console
+                        name="console"
+                        target="SYSTEM_OUT">
+                        <PatternLayout
+                                pattern="%c %l %5p %m%n" />
+                </Console>
+        </Appenders>
 
-    <!-- Logger 설정 -->
-    <Loggers>
-        <Logger name="org.springframework" level="DEBUG"
-            additivity="false">
-            <AppenderRef ref="console" />
-        </Logger>
+        <!-- Logger 설정 -->
+        <Loggers>
+                <!-- p. 109 -->
+                <Logger
+                        name="com.zaxxer"
+                        level="DEBUG"
+                        additivity="false">
+                        <AppenderRef ref="console"></AppenderRef>
+                </Logger>
+                <Logger
+                        name="org.springframework"
+                        level="INFO"
+                        additivity="false">
+                        <AppenderRef ref="console"></AppenderRef>
+                </Logger>
+                <Logger
+                        name="org.zerock"
+                        level="DEBUG"
+                        additivity="false">
+                        <AppenderRef ref="console"></AppenderRef>
+                </Logger>
+                <!-- // p. 109 -->
 
-        <Root level="INFO">
-            <AppenderRef ref="console" />
-        </Root>
-    </Loggers>
+                <Root level="INFO">
+                        <AppenderRef ref="console" />
+                </Root>
+        </Loggers>
 
 </Configuration>
