@@ -101,6 +101,58 @@ https://mvnrepository.com/artifact/org.springframework/spring-test -->
 		</dependency>
 		<!-- // p. 76 Test, Jupiter -->
 
+		<!-- p. 103 -->
+		<!-- Source: https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.19</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
+https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>4.1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>7.0.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>7.0.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- // p. 103 -->
+
+		<!-- p. 120, 관점지향 프로그래밍-->
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.25.1</version>
+			<!-- <scope>runtime</scope> -->
+		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.9.25.1</version>
+			<!-- <scope>runtime</scope> -->
+		</dependency>
+		<!-- // p. 120, 관점지향 프로그래밍-->
+
 	</dependencies>
 
 	<build>
