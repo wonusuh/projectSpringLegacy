@@ -16,3 +16,22 @@ WHERE
 DELETE FROM tbl_testB
 WHERE
     1 = 1;
+
+-- p. 156, 게시물 관리 분석과 설계
+SELECT
+    *
+FROM
+    tbl_board;
+
+DELETE FROM tbl_board
+WHERE
+    1 = 1;
+
+select
+    *
+from
+    tbl_reply;
+
+delete from tbl_reply
+WHERE
+    1 = 1;
