@@ -71,6 +71,12 @@
                         name="mapperLocations"
                         value="classpath:/mapper/*.xml"></property>
                 <!-- // p. 112 mapper.xml 파일의 위치를 설정 -->
+                <!-- p. 178, 타입 애일리어스 설정 -->
+                <property
+                        name="configLocation"
+                        value="classpath:/mybatis-config.xml">
+                </property>
+                <!-- // p. 178, 타입 애일리어스 설정 -->
         </bean>
         <!-- // p. 105, SqlSessionFactoryBean 이라는 빈을 등록 -->
 
