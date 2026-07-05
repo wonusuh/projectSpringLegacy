@@ -163,7 +163,15 @@
 <script
   type="text/javascript"
   defer="defer">
-  //
+  const result = '${result}'
+  const myModal = new bootstrap.Modal(document.getElementById('myModal'))
+
+  console.log(myModal)
+
+  // 새로고침 했을 때에는 !result
+  if (result) {
+    myModal.show()
+  }
 </script>
 
 <%@include file="/WEB-INF/views/includes/footer.jsp"%>
