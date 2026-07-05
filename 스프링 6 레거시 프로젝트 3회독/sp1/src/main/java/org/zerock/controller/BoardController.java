@@ -23,11 +23,19 @@ public class BoardController {
     @Autowired
     private final BoardService boardService;
 
+//    @GetMapping("/list")
+//    public void list(Model model) {
+//	log.info("---------------------------------------------------------");
+//	log.info("board list");
+//	model.addAttribute("list", boardService.getList());
+//    }
+
     @GetMapping("/list")
-    public void list(Model model) {
-	log.info("---------------------------------------------------------");
-	log.info("board list");
-	model.addAttribute("list", boardService.getList());
+    public void list(@RequestParam(name = "page", defaultValue = "1") int page,
+	    @RequestParam(name = "size", defaultValue = "10") int size, Model model) {
+	log.info("page : " + page);
+	log.info("size : " + size);
+	model.addAttribute("dto", boardService.getList(page, size));
     }
 
     @GetMapping("/register")

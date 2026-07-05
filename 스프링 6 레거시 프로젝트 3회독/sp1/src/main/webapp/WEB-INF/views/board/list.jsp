@@ -20,30 +20,40 @@
               <option value="">--</option>
               <option
                 value="T"
-                selected="${dto.types == 'T' ? 'selected' : ''}">
+                selected="">
                 제목
               </option>
-              <!-- <option
+              <option
                 value="C"
-                ${dto.types == 'C' ? 'selected' : ''}>내용</option>
+                selected="">
+                내용
+              </option>
               <option
                 value="W"
-                ${dto.types == 'W' ? 'selected' : ''}>작성자</option>
+                selected="">
+                작성자
+              </option>
               <option
                 value="TC"
-                ${dto.types == 'TC' ? 'selected' : ''}>제목 OR 내용</option>
+                selected="">
+                제목 OR 내용
+              </option>
               <option
                 value="TW"
-                ${dto.types == 'TW' ? 'selected' : ''}>제목 OR 작성자</option>
+                selected="">
+                제목 OR 작성자
+              </option>
               <option
                 value="TCW"
-                ${dto.types == 'TCW' ? 'selected' : ''}>제목 OR 내용 OR 작성자</option> -->
+                selected="">
+                제목 OR 내용 OR 작성자
+              </option>
             </select>
             <input
               type="text"
               class="form-control me-2"
               name="keywordInput"
-              value="<c:out value='${dto.keyword}'/>" />
+              value="" />
             <button class="btn btn-outline-info searchBtn">Search</button>
           </div>
         </div>
@@ -62,7 +72,7 @@
           <tbody class="tbody">
             <c:forEach
               var="board"
-              items="${list}">
+              items="${dto.boardDTOList}">
               <tr data-bno="${board.bno}">
                 <td>
                   <a href="/board/read/${board.bno}"><c:out value="${board.bno}" /></a>
@@ -74,7 +84,7 @@
                   <c:out value="${board.writer}" />
                 </td>
                 <td>
-                  <c:out value="${board.createdDate}" />
+                  <c:out value="${board.regDate}" />
                 </td>
               </tr>
             </c:forEach>
@@ -101,7 +111,7 @@
                 <a
                   class="page-link"
                   href="${num}">
-                  <!-- ${num} -->
+                  ${num}
                 </a>
               </li>
             </c:forEach>
@@ -110,7 +120,7 @@
               <li class="page-item">
                 <a
                   class="page-link"
-                  href="">
+                  href="${ dto.end + 1 }">
                   Next
                 </a>
               </li>
@@ -172,6 +182,27 @@
   if (result) {
     myModal.show()
   }
+
+  // 페이징
+  const pagingDiv = document.querySelector('.pagination')
+  pagingDiv.addEventListener(
+    'click',
+    (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+
+      const target = e.target
+      const targetPage = target.getAttribute('href')
+      const size = `${dto.size}` || 10
+      const params = new URLSearchParams({
+        page: !targetPage ? '' : targetPage,
+        size: size
+      })
+
+      self.location = `/board/list?\${params.toString()}`
+    },
+    false
+  )
 </script>
 
 <%@include file="/WEB-INF/views/includes/footer.jsp"%>
