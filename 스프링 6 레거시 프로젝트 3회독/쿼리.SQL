@@ -45,3 +45,4 @@ LIMIT
     10
 OFFSET
     10;
+    SELECT COUNT(*) from tbl_board;
