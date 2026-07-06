@@ -18,12 +18,17 @@ public class BoardListPagingDTO {
     private boolean prev; // "이전" 버튼 활성화 여부
     private boolean next; // "이후" 버튼 활성화 여부
     private List<Integer> pageNums; // 페이지바에 출력할 번호들 리스트
+    private String types; // 검색 종류 "T", "C", "W"
+    private String keyword; // 검색어
 
-    public BoardListPagingDTO(List<BoardDTO> boardDTOList, int totalCount, int page, int size) {
+    public BoardListPagingDTO(List<BoardDTO> boardDTOList, int totalCount, int page, int size, String types,
+	    String keyword) {
 	this.boardDTOList = boardDTOList;
 	this.totalCount = totalCount;
 	this.page = page;
 	this.size = size;
+	this.types = types;
+	this.keyword = keyword;
 
 	// start 계산을 위한 end 페이지
 	int tempEnd = (int) (Math.ceil(page / 10.0)) * 10;

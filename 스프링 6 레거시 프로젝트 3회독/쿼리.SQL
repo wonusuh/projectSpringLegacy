@@ -11,7 +11,7 @@ SELECT
     writer,
     regDate,
 FROM
-    tbl_board
+    tabl_board
 WHERE
     1 = 1
     AND delflag = false
@@ -45,4 +45,24 @@ LIMIT
     10
 OFFSET
     10;
-    SELECT COUNT(*) from tbl_board;
+
+SELECT
+    COUNT(*)
+from
+    tbl_board;
+
+-- 게시글 테이블
+SELECT
+    *
+FROM
+    tbl_board
+ORDER BY
+    bno DESC;
+
+-- 댓글 테이블
+SELECT
+    *
+FROM
+    tbl_reply
+ORDER BY
+    rno DESC;
