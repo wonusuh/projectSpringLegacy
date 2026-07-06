@@ -18,13 +18,11 @@
         <mvc:annotation-driven />
 
         <!-- p. 69 -->
-        <context:component-scan
-                base-package="org.zerock.controller">
+        <context:component-scan base-package="org.zerock.controller">
         </context:component-scan>
 
         <!-- p. 84 View Resolver -->
-        <bean
-                class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
                 <property
                         name="prefix"
                         value="/WEB-INF/views/"></property>
@@ -39,5 +37,12 @@
                 location="/resources/">
         </mvc:resources>
         <!-- // p. 139, 정적 리소스 설정 -->
+
+        <!-- p. 274 멀티파트 설정 -->
+        <bean
+                id="multipartResolver"
+                class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+        </bean>
+        <!-- // p. 274 멀티파트 설정 -->
 
 </beans>

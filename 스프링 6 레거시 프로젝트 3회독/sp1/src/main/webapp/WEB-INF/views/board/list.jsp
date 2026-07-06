@@ -18,42 +18,28 @@
               name="typeSelect"
               class="form-select form-control me-2">
               <option value="">--</option>
-              <option
+              <!-- <option
                 value="T"
-                selected="">
-                제목
-              </option>
+                ${dto.types == 'T' ? 'selected' : ''}>제목</option>
               <option
                 value="C"
-                selected="">
-                내용
-              </option>
+                ${dto.types == 'C' ? 'selected' : ''}>내용</option>
               <option
                 value="W"
-                selected="">
-                작성자
-              </option>
+                ${dto.types == 'W' ? 'selected' : ''}>작성자</option>
               <option
                 value="TC"
-                selected="">
-                제목 OR 내용
-              </option>
+                ${dto.types == 'TC' ? 'selected' : ''}>제목 OR 내용</option>
               <option
                 value="TW"
-                selected="">
-                제목 OR 작성자
-              </option>
-              <option
-                value="TCW"
-                selected="">
-                제목 OR 내용 OR 작성자
-              </option>
+                ${dto.types == 'TW' ? 'selected' : ''}>제목 OR 작성자</option> -->
+              <option value="TCW" ${dto.types == 'TCW' ? 'selected' : ''}>제목 OR 내용 OR 작성자</option>
             </select>
             <input
               type="text"
               class="form-control me-2"
               name="keywordInput"
-              value="" />
+              value="<c:out value='${dto.keyword}' />" />
             <button class="btn btn-outline-info searchBtn">Search</button>
           </div>
         </div>
@@ -197,6 +183,31 @@
       const params = new URLSearchParams({
         page: !targetPage ? '' : targetPage,
         size: size
+      })
+
+      const types = '${dto.types}'
+      const keyword = '${dto.keyword}'
+
+      if (types && keyword) {
+        params.set('types', types)
+        params.set('keyword', keyword)
+      }
+
+      self.location = `/board/list?\${params.toString()}`
+    },
+    false
+  )
+
+  // 검색
+  document.querySelector('.searchBtn').addEventListener(
+    'click',
+    (e) => {
+      const keyword = document.querySelector('input[name="keywordInput"]').value
+      const selectObj = document.querySelector('select[name="typeSelect"]')
+      const types = selectObj.options[selectObj.selectedIndex].value
+      const params = new URLSearchParams({
+        types: types,
+        keyword: !keyword ? null : keyword
       })
 
       self.location = `/board/list?\${params.toString()}`

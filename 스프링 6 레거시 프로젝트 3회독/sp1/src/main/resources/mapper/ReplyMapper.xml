@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.ReplyMapper">
+
+        <insert id="insert">
+                <selectKey
+                        order="AFTER"
+                        keyProperty="rno"
+                        resultType="long">
+                        SELECT last_insert_id()
+                </selectKey>
+
+                INSERT INTO
+                tbl_reply (
+                bno,
+                replytext,
+                replyer
+                ) VALUES (
+                #{bno},
+                #{replyText},
+                #{replyer}
+                )
+        </insert>
+
+        <select
+                id="read"
+                resultType="ReplyDTO">
+                SELECT *
+                FROM tbl_reply
+                WHERE 1 = 1
+                AND rno = #{rno}
+        </select>
+
+        <update id="delete">
+                UPDATE tbl_reply
+                SET delFlag = true
+                WHERE 1 = 1
+                AND rno = #{rno}
+        </update>
+
+        <update id="update">
+                UPDATE
+                tbl_reply
+                SET
+                replytext = #{replyText},
+                updatedate = NOW()
+                WHERE
+                1 = 1
+                AND rno = #{rno}
+        </update>
+
+        <select
+                id="listOfBoard"
+                resultType="ReplyDTO">
+                SELECT *
+                FROM tbl_reply
+                WHERE 1 = 1
+                AND rno > 0
+                ORDER BY rno ASC
+                LIMIT #{limit}
+                OFFSET #{skip}
+        </select>
+
+        <select id="countOfBoard">
+                SELECT count(rno)
+                FROM tbl_reply
+                WHERE 1 = 1
+                AND bno = #{bno}
+                AND rno > 0
+                AND delflag = false
+        </select>
+
+</mapper>

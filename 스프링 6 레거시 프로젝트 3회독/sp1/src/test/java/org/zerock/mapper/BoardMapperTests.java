@@ -89,4 +89,21 @@ public class BoardMapperTests {
 	    log.info("\n" + eachDto + "\n");
 	});
     }
+
+    @Test
+    public void testSearch() {
+	int page = 2;
+
+	// 계산
+	int skip = (page - 1) * 10;
+	int count = 10;
+
+//	String[] types = new String[] { "T", "C", "W" };
+//	String[] types = new String[] { "T", "W" };
+//	String[] types = new String[] { "W" };
+	String[] types = new String[] {};
+	String keyword = "Test";
+
+	boardMapper.listSearch(skip, count, types, keyword);
+    }
 }
