@@ -120,3 +120,5 @@ FROM
 WHERE
     1 = 1
     AND p.pno = 48;
+
+커밋 테스트
