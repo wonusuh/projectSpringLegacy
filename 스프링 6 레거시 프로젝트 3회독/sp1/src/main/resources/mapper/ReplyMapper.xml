@@ -58,6 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 SELECT *
                 FROM tbl_reply
                 WHERE 1 = 1
+                AND bno = #{bno}
                 AND rno > 0
                 ORDER BY rno ASC
                 LIMIT #{limit}

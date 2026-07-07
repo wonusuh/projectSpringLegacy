@@ -21,6 +21,9 @@ public class BoardDTO {
     private LocalDateTime updateDate;
     private boolean delFlag;
 
+    // JOIN 댓글 개수
+    private int replyCnt;
+
     public String getCreatedDate() {
 	return regDate.format(DateTimeFormatter.ISO_DATE);
     }

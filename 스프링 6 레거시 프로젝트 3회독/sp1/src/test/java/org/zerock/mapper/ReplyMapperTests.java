@@ -48,7 +48,7 @@ public class ReplyMapperTests {
 
     @Test
     public void testInserts() {
-	Long[] bnoList = { 7148L, 7147L, 7019L };
+	Long[] bnoList = { 7148L, 7147L };
 	for (Long bno : bnoList) {
 	    for (int i = 0; i < 10; i += 1) {
 		ReplyDTO replyDTO = ReplyDTO.builder().bno(bno).replyer("replyer1").replyText("Sample Reply").build();

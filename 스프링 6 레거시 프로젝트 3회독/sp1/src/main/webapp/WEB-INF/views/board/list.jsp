@@ -18,7 +18,7 @@
               name="typeSelect"
               class="form-select form-control me-2">
               <option value="">--</option>
-              <!-- <option
+              <option
                 value="T"
                 ${dto.types == 'T' ? 'selected' : ''}>제목</option>
               <option
@@ -32,7 +32,7 @@
                 ${dto.types == 'TC' ? 'selected' : ''}>제목 OR 내용</option>
               <option
                 value="TW"
-                ${dto.types == 'TW' ? 'selected' : ''}>제목 OR 작성자</option> -->
+                ${dto.types == 'TW' ? 'selected' : ''}>제목 OR 작성자</option>
               <option value="TCW" ${dto.types == 'TCW' ? 'selected' : ''}>제목 OR 내용 OR 작성자</option>
             </select>
             <input
@@ -65,6 +65,7 @@
                 </td>
                 <td>
                   <c:out value="${board.title}" />
+                  <b style="color: blue">[ <c:out value="${board.replyCnt}" /> ]</b>
                 </td>
                 <td>
                   <c:out value="${board.writer}" />

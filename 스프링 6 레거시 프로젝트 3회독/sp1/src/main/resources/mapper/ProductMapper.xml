@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.ProductMapper">
+
+        <insert id="insert">
+                <selectKey
+                        order="AFTER"
+                        keyProperty="pno"
+                        resultType="int">
+                        SELECT LAST_INSERT_ID()
+                </selectKey>
+                INSERT INTO tbl_product
+                (
+                pname,
+                pdesc,
+                price,
+                sale,
+                writer
+                )
+                VALUES
+                (
+                #{pname},
+                #{pdesc},
+                #{price},
+                true,
+                #{writer}
+                )
+        </insert>
+
+        <insert id="insertImages">
+                INSERT INTO tbl_product_image
+                (
+                pno,
+                fileName,
+                uuid,
+                ord
+                )
+                VALUES
+                <foreach
+                        collection="imageList"
+                        item="image"
+                        separator=",">
+                        (
+                        #{pno},
+                        #{image.fileName},
+                        #{image.uuid},
+                        #{image.ord}
+                        )
+                </foreach>
+        </insert>
+
+        <resultMap
+                id="selectMap"
+                type="ProductDTO">
+                <id
+                        property="pno"
+                        column="pno" />
+                <result
+                        property="pname"
+                        column="pname" />
+                <result
+                        property="pdesc"
+                        column="pdesc" />
+                <result
+                        property="price"
+                        column="price" />
+                <result
+                        property="sale"
+                        column="sale" />
+                <result
+                        property="writer"
+                        column="writer" />
+
+                <collection
+                        property="imageList"
+                        ofType="ProductImageDTO">
+                        <id
+                                property="ino"
+                                column="ino" />
+                        <result
+                                property="uuid"
+                                column="uuid" />
+                        <result
+                                property="fileName"
+                                column="fileName" />
+                        <result
+                                property="ord"
+                                column="ord" />
+                </collection>
+        </resultMap>
+
+        <select
+                id="selectOne"
+                resultMap="selectMap">
+                SELECT
+                p.pno,
+                pname,
+                pdesc,
+                price,
+                sale,
+                writer,
+                p.regdate,
+                ino,
+                uuid,
+                filename,
+                ord
+                FROM
+                tbl_product AS p
+                LEFT OUTER JOIN
+                tbl_product_image AS pimg
+                ON p.pno = pimg.pno
+                WHERE 1 = 1
+                AND p.pno = #{pno}
+                ORDER BY pimg.ord
+        </select>
+
+        <update id="deleteOne">
+                UPDATE tbl_product
+                SET sale = false
+                WHERE 1 = 1
+                AND pno = #{pno}
+        </update>
+
+        <delete id="deleteImages">
+                DELETE FROM tbl_product_image
+                WHERE 1 = 1
+                AND pno = #{pno}
+        </delete>
+
+</mapper>
