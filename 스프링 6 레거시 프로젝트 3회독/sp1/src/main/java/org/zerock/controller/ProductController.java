@@ -135,5 +135,6 @@ public class ProductController {
 	    @RequestParam(name = "size", defaultValue = "10") int size, org.springframework.ui.Model model) {
 	ProductListPagingDTO dto = productService.getList(page, size);
 	model.addAttribute("dto", dto);
+	log.debug(model.toString());
     }
 }

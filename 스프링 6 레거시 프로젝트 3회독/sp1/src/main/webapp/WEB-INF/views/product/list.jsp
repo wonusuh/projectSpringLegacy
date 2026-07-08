@@ -139,13 +139,21 @@
   type="text/javascript"
   defer="defer">
   const pno = '${product}'
+
+  const result = '${result}'
+
   const myModal = new bootstrap.Modal(document.getElementById('myModal'))
 
-  if (pno) {
+  if (result) {
+    document.querySelector('.modal-body').innerHTML = result
+  }
+
+  if (pno || result) {
     myModal.show()
   }
 
   const pagingDiv = document.querySelector('.pagination')
+
   pagingDiv.addEventListener(
     'click',
     (e) => {
@@ -153,16 +161,21 @@
       e.stopPropagation()
 
       const target = e.target
+
+      //console.log(target)
+
       const targetPage = target.getAttribute('href')
-      const size = '${dto.size}' || 10
+
+      const size = '${dto.size}' || 10 // BoardListPagingDT의 size
+
       const params = new URLSearchParams({
         page: targetPage,
         size: size
       })
 
-      console.log('params.toString()', params.toString())
+      console.log(params.toString())
 
-      self.location = `/product/list?\${params.toString()}`
+      self.location = `/product/list?\${params.toString()}` //JavaScript 백틱, 템플릿
     },
     false
   )
