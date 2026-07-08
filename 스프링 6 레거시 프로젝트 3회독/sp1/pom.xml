@@ -187,6 +187,16 @@ https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		</dependency>
 		<!-- // p. 272 JSON-->
 
+		<!-- p. 367 썸네일-->
+		<!-- Source:
+		https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.21</version>
+		</dependency>
+		<!-- // p. 367 썸네일-->
+
 	</dependencies>
 
 	<build>

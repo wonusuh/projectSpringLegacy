@@ -45,4 +45,10 @@
         </bean>
         <!-- // p. 274 멀티파트 설정 -->
 
+        <!-- p. 371 웹브라우저에서 서버파일 조회 -->
+        <mvc:resources
+                location="file:C:/upload/"
+                mapping="/images/**"></mvc:resources>
+        <!-- // p. 371 웹브라우저에서 서버파일 조회 -->
+
 </beans>

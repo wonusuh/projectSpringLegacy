@@ -1,11 +1,11 @@
 # Eclipse-specific files
 .metadata/
 
+# 이클립스 소나린트
+.sonarlint/
+
 # 서버설정은 깃에 X
 # Servers/
-
-# 이클립스 마켓플레이스 소나린트
-.sonarlint/
 
 # 세팅
 # .settings/

@@ -121,4 +121,42 @@ WHERE
     1 = 1
     AND p.pno = 48;
 
-커밋 테스트
+--
+SELECT
+    *
+FROM
+    tbl_product
+WHERE
+    1 = 1
+ORDER BY
+    pno DESC;
+
+-- 상품 목록 조회
+SELECT
+    p.pno,
+    pname,
+    pdesc,
+    price,
+    sale,
+    writer,
+    p.regdate,
+    ino,
+    uuid,
+    filename,
+    ord
+FROM
+    tbl_product AS p
+    LEFT OUTER JOIN tbl_product_image AS pimg ON p.pno = pimg.pno
+WHERE
+    1 = 1
+    AND pimg.ord = 0
+ORDER BY
+    p.pno DESC
+LIMIT
+    10
+OFFSET
+    0;
+    
+    SELECT * FROM tbl_product_image
+	 ORDER BY regdate DESC;
+	 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="org.zerock.mapper.ProductMapper">
 
@@ -129,5 +129,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 WHERE 1 = 1
                 AND pno = #{pno}
         </delete>
+
+        <update id="updateOne">
+                UPDATE
+                tbl_product
+                SET
+                pname = #{pname},
+                pdesc = #{pdesc},
+                price = #{price}
+                WHERE
+                1 = 1
+                AND pno = #{pno}
+        </update>
+
+        <select id="list">
+                SELECT
+                p.pno,
+                pname,
+                pdesc,
+                price,
+                sale,
+                writer,
+                p.regdate,
+                ino,
+                uuid,
+                filename,
+                ord
+                FROM
+                tbl_product AS p
+                LEFT OUTER JOIN
+                tbl_product_image AS pimg
+                ON p.pno = pimg.pno
+                WHERE
+                1 = 1
+                AND pimg.ord = 0
+                ORDER BY
+                p.pno DESC
+                LIMIT #{count}
+                OFFSET #{skip}
+        </select>
+
+        <select id="listCount">
+                SELECT
+                COUNT(pno)
+                FROM
+                tbl_product AS p
+                WHERE 1 = 1
+        </select>
 
 </mapper>
