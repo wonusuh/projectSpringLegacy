@@ -26,6 +26,7 @@ public class ProductDTO {
     // 상품 이미지들
     private List<ProductImageDTO> imageList;
 
+    // 상품에 이미지 등록
     public void addImage(String uuid, String fileName) {
 	if (imageList == null) {
 	    imageList = new ArrayList<>();
@@ -35,5 +36,10 @@ public class ProductDTO {
 		.ord(this.imageList.size()).build();
 
 	imageList.add(imageDTO);
+    }
+
+    // 상품의 이미지를 전부 삭제
+    public void clearImages() {
+	imageList.clear();
     }
 }
