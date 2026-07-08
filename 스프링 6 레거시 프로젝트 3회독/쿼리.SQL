@@ -156,3 +156,7 @@ LIMIT
     10
 OFFSET
     0;
+    
+    SELECT * FROM tbl_product_image
+	 ORDER BY regdate DESC;
+	 
