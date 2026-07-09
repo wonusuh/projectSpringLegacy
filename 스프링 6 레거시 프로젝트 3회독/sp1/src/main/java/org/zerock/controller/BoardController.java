@@ -1,6 +1,8 @@
 package org.zerock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
+@EnableMethodSecurity
 @Log4j2
 public class BoardController {
     @Autowired
@@ -57,6 +60,7 @@ public class BoardController {
 
     // 게시물 조회
     @GetMapping("/read/{bno}")
+    @PreAuthorize("isAuthenticated()")
     public String read(@PathVariable("bno") Long bno, Model model) {
 	log.info("---------------------------------------------------------");
 	log.info("board read");
