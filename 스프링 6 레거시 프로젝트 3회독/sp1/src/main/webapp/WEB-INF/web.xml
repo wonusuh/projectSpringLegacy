@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="https://jakarta.ee/xml/ns/jakartaee"
-        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-        id="WebApp_ID"
-        version="6.0">
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="https://jakarta.ee/xml/ns/jakartaee"
+xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+id="WebApp_ID"
+version="6.0">
 
-        <display-name>sp1</display-name>
+<display-name>sp1</display-name>
 
-        <!-- p. 34 -->
-        <listener>
-                <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-        </listener>
-        <context-param>
-                <param-name>contextConfigLocation</param-name>
-                <param-value>/WEB-INF/spring/root-context.xml</param-value>
-        </context-param>
+<!-- p. 34 -->
+<listener>
+<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+</listener>
+<context-param>
+<param-name>contextConfigLocation</param-name>
+<param-value>/WEB-INF/spring/root-context.xml</param-value>
+</context-param>
 
-        <!-- p. 37 -->
-        <servlet>
-                <servlet-name>appServlet</servlet-name>
-                <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-                <init-param>
-                        <param-name>contextConfigLocation</param-name>
-                        <param-value>/WEB-INF/spring/servlet-context.xml</param-value>
-                </init-param>
-                <load-on-startup>1</load-on-startup>
-                <!-- p. 273 JOSN -->
-                <multipart-config>
-                        <max-file-size>20971520</max-file-size><!-- 최대크기 1MB * 20 -->
-                        <max-request-size>41943040</max-request-size><!-- 1MB * 40 -->
-                        <file-size-threshold>20971520</file-size-threshold><!-- 1MB * 20 -->
-                </multipart-config>
-                <!-- // p. 273 JOSN -->
-        </servlet>
-        <servlet-mapping>
-                <servlet-name>appServlet</servlet-name>
-                <url-pattern>/</url-pattern>
-        </servlet-mapping>
+<!-- p. 37 -->
+<servlet>
+<servlet-name>appServlet</servlet-name>
+<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+<init-param>
+<param-name>contextConfigLocation</param-name>
+<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+</init-param>
+<load-on-startup>1</load-on-startup>
+<!-- p. 273 JOSN -->
+<multipart-config>
+<max-file-size>20971520</max-file-size><!-- 최대크기 1MB * 20 -->
+<max-request-size>41943040</max-request-size><!-- 1MB * 40 -->
+<file-size-threshold>20971520</file-size-threshold><!-- 1MB * 20 -->
+</multipart-config>
+<!-- // p. 273 JOSN -->
+</servlet>
+<servlet-mapping>
+<servlet-name>appServlet</servlet-name>
+<url-pattern>/</url-pattern>
+</servlet-mapping>
+
+<!-- p. 407 스프링 웹 시큐리티 필터 설정 -->
+<filter>
+<filter-name>springSecurityFilterChain</filter-name>
+<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+<filter-mapping>
+<filter-name>springSecurityFilterChain</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
+<!-- // p. 407 스프링 웹 시큐리티 필터 설정 -->
 
 </web-app>
