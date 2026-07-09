@@ -17,6 +17,7 @@ public class AccountDTO implements UserDetails {
     private String uid;
     private String upw;
     private String uname;
+    private String email;
     private List<AccountRole> roleNames;
 
     public void addRole(AccountRole role) {
@@ -27,7 +28,7 @@ public class AccountDTO implements UserDetails {
 	roleNames.add(role);
     }
 
-    public void clearRole() {
+    public void clearRoles() {
 	roleNames.clear();
     }
 
