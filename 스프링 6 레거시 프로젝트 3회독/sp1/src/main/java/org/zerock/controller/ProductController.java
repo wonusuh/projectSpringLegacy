@@ -114,23 +114,23 @@ public class ProductController {
 	return uploadNames;
     }
 
-    // 파일 삭제
-    private void deleteFiles(List<String> fileNameList) {
-	try {
-	    File uploadPath = new File("C:\\upload");
-
-	    for (String fileName : fileNameList) {
-		File targetFile = new File(uploadPath, fileName);
-		targetFile.delete();
-
-		// 썸네일 삭제
-		File targetThumb = new File(uploadPath, "s_" + fileName);
-		targetThumb.delete();
-	    }
-	} catch (Exception e) {
-	} finally {
-	}
-    }
+//    // 파일 삭제
+//    private void deleteFiles(List<String> fileNameList) {
+//	try {
+//	    File uploadPath = new File("C:\\upload");
+//
+//	    for (String fileName : fileNameList) {
+//		File targetFile = new File(uploadPath, fileName);
+//		targetFile.delete();
+//
+//		// 썸네일 삭제
+//		File targetThumb = new File(uploadPath, "s_" + fileName);
+//		targetThumb.delete();
+//	    }
+//	} catch (Exception e) {
+//	} finally {
+//	}
+//    }
 
     // 상품목록 조회
     @GetMapping("/list")
