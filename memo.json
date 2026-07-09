@@ -1,6 +1,5 @@
 {
   "스프링 6 레거시 프로젝트": "교재의 오탈자 모음",
   "page": "desc",
-  "123": "",
-  "123": ""
+  "424": "스프링 웹 시큐리티 7 버전부터는 servlet-context.xml 에 <security:global-method-security pre-post-annotations='' / > 선언하지 않고, 컨트롤러에 @EnableMethodSecurity 를 선언"
 }
