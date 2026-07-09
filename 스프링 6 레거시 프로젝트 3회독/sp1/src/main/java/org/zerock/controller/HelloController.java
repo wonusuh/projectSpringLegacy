@@ -15,13 +15,13 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
+@RequestMapping("/sample")
 @RequiredArgsConstructor
 @ToString
 @Log4j2
-@RequestMapping("/sample")
 public class HelloController {
     @Autowired
-    private final HelloService helloService;
+    private HelloService helloService;
 
     @GetMapping("/ex1")
     public void ex1() {
@@ -76,5 +76,10 @@ public class HelloController {
     @GetMapping("/ex8")
     public void ex8() {
 	log.info("/sample/ex8");
+    }
+
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+	return "/sample/accessDenied";
     }
 }

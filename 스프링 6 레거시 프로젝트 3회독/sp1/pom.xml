@@ -230,6 +230,11 @@ https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 				<version>3.13.0</version>
 				<configuration>
 					<release>26</release>
+					<!-- p. 427, 스프링 시큐리티가 메서드로 전달되는 파라미터를 인식할 수 있게 설정 -->
+					<compilerArgs>
+						<arg>-parameters</arg>
+					</compilerArgs>
+					<!-- // p. 427, 스프링 시큐리티가 메서드로 전달되는 파라미터를 인식할 수 있게 설정 -->
 				</configuration>
 			</plugin>
 			<plugin>

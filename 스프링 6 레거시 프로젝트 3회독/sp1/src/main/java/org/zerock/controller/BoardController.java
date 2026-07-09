@@ -79,6 +79,7 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
+    @PreAuthorize("authentication.name == #boardDTO.writer")
     public String modifyPOST(BoardDTO boardDTO) {
 	log.info("---------------------------------------------------------");
 	log.info("board modify post");

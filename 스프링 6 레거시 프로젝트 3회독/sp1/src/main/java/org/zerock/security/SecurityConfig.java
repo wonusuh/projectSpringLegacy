@@ -13,7 +13,7 @@ import lombok.extern.log4j.Log4j2;
 @Configuration
 @EnableWebSecurity
 @Log4j2
-public class SecurityConfiguration {
+public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 	log.info("========== security config ==========");
@@ -26,6 +26,11 @@ public class SecurityConfiguration {
 	// CSRF 설정
 	httpSecurity.csrf((config) -> {
 	    config.disable(); // 사용 안함
+	});
+
+	// 403 핸들러
+	httpSecurity.exceptionHandling((handler) -> {
+	    handler.accessDeniedHandler(new Custom403Handler());
 	});
 
 	return httpSecurity.build();
