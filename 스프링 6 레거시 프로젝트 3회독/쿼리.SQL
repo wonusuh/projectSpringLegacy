@@ -156,7 +156,21 @@ LIMIT
     10
 OFFSET
     0;
-    
-    SELECT * FROM tbl_product_image
-	 ORDER BY regdate DESC;
-	 
+
+SELECT
+    *
+FROM
+    tbl_product_image
+ORDER BY
+    regdate DESC;
+
+-- 계정 테이블
+SELECT
+    *
+FROM
+    tbl_account;
+
+SELECT
+    *
+FROM
+    tbl_account_roles;
