@@ -48,4 +48,26 @@ public class ProductService {
 
 	return new ProductListPagingDTO(list, totalCount, page, size);
     }
+
+    // 상품 조회
+    public ProductDTO read(Integer pno) {
+	return productMapper.selectOne(pno);
+    }
+
+    // 상품 삭제
+    public void remove(Integer pno) {
+	productMapper.deleteOne(pno);
+    }
+
+    // 상품 수정
+    public void modify(ProductDTO productDTO) {
+	// 기존 이미지 삭제
+	productMapper.deleteImages(productDTO.getPno());
+
+	// 상품 정보 수정
+	productMapper.updateOne(productDTO);
+
+	// 상품 이미지 갱신
+	productMapper.insertImages(productDTO);
+    }
 }
