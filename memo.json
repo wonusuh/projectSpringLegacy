@@ -2,5 +2,7 @@
   "스프링 6 레거시 프로젝트": "교재의 오탈자, 주의사항 모음",
   "page": "desc",
   "424": "스프링 웹 시큐리티 7 버전부터는 servlet-context.xml 에 <security:global-method-security pre-post-annotations='' / > 선언하지 않고, 컨트롤러에 @EnableMethodSecurity 를 선언",
-  "470": "서버 에러메시지 : 테이블명을 참조하지 못함, 테이블명 스펠링 조심 persistant_logins -> persistent_logins"
+  "470": "서버 에러메시지 : 테이블명을 참조하지 못함, 테이블명 스펠링 조심 persistant_logins -> persistent_logins",
+  "475": "readonly 뒤에 태그를 닫아야 포맷됨, <%@ taglib prefix='sec' uri='http://www.springframework.org/security/tags'%> <sec: ... /> 추가하기",
+  "467": "readonly 뒤에 태그를 닫아야 포맷됨, principal.uid 를 더블 쿼테이션으로 감싸야함, 로그인 하지 않은상태로 화면을 호출하면 uid 가 없으므로 에러 발생"
 }
