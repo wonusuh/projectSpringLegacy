@@ -7,6 +7,7 @@ include file="/WEB-INF/views/includes/header.jsp"%>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 fw-bold text-primary">Board Read</h6>
+        <sec:authentication property="principal" />
       </div>
       <div class="card-body">
         <div class="mb-3 input-group input-group-lg">
