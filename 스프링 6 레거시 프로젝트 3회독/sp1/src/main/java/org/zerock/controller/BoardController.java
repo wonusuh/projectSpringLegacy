@@ -3,6 +3,7 @@ package org.zerock.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.dto.AccountDTO;
 import org.zerock.dto.BoardDTO;
 import org.zerock.service.BoardService;
 
@@ -61,9 +63,12 @@ public class BoardController {
     // 게시물 조회
     @GetMapping("/read/{bno}")
     @PreAuthorize("isAuthenticated()")
-    public String read(@PathVariable("bno") Long bno, Model model) {
+    public String read(@AuthenticationPrincipal AccountDTO accountDTO, @PathVariable("bno") Long bno, Model model) {
 	log.info("---------------------------------------------------------");
 	log.info("board read");
+
+	log.info("\n\n\n" + accountDTO + "\n\n\n");
+
 	BoardDTO boardDTO = boardService.read(bno);
 	model.addAttribute("board", boardDTO);
 	return "/board/read";

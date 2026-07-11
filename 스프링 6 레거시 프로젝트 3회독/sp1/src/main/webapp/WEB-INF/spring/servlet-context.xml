@@ -1,11 +1,11 @@
 <beans
-  xmlns="http://www.springframework.org/schema/beans"
-  xmlns:mvc="http://www.springframework.org/schema/mvc"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:context="http://www.springframework.org/schema/context"
-  xmlns:security="http://www.springframework.org/schema/security"
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:security="http://www.springframework.org/schema/security"
 
-  xsi:schemaLocation="
+xsi:schemaLocation="
                 http://www.springframework.org/schema/beans
                 https://www.springframework.org/schema/beans/spring-beans.xsd
 
@@ -19,44 +19,46 @@
                 https://www.springframework.org/schema/security/spring-security.xsd
                 ">
 
-  <mvc:annotation-driven />
+<mvc:annotation-driven>
+<!-- p. 482, 인증정보를 정해진 타입으로 강제전환 -->
+<mvc:argument-resolvers>
+<bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver"></bean>
+</mvc:argument-resolvers>
+<!-- // p. 482, 인증정보를 정해진 타입으로 강제전환 -->
+</mvc:annotation-driven>
 
-  <!-- p. 69 -->
-  <context:component-scan base-package="org.zerock.controller">
-  </context:component-scan>
+<!-- p. 69 -->
+<context:component-scan base-package="org.zerock.controller">
+</context:component-scan>
 
-  <!-- p. 84 View Resolver -->
-  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <property
-      name="prefix"
-      value="/WEB-INF/views/"></property>
-    <property
-      name="suffix"
-      value=".jsp"></property>
-  </bean>
+<!-- p. 84 View Resolver -->
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<property
+name="prefix"
+value="/WEB-INF/views/"></property>
+<property
+name="suffix"
+value=".jsp"></property>
+</bean>
 
-  <!-- p. 139, 정적 리소스 설정 -->
-  <mvc:resources
-    mapping="/resources/**"
-    location="/resources/">
-  </mvc:resources>
-  <!-- // p. 139, 정적 리소스 설정 -->
+<!-- p. 139, 정적 리소스 설정 -->
+<mvc:resources
+mapping="/resources/**"
+location="/resources/">
+</mvc:resources>
+<!-- // p. 139, 정적 리소스 설정 -->
 
-  <!-- p. 274 멀티파트 설정 -->
-  <bean
-    id="multipartResolver"
-    class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-  </bean>
-  <!-- // p. 274 멀티파트 설정 -->
+<!-- p. 274 멀티파트 설정 -->
+<bean
+id="multipartResolver"
+class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+</bean>
+<!-- // p. 274 멀티파트 설정 -->
 
-  <!-- p. 371 웹브라우저에서 서버파일 조회 -->
-  <mvc:resources
-    location="file:C:/upload/"
-    mapping="/images/**"></mvc:resources>
-  <!-- // p. 371 웹브라우저에서 서버파일 조회 -->
-
-  <!-- p. 423, 로그인사용자 권한설정 -->
-  <!-- <security:global-method-security pre-post-annotations="enabled"></security:global-method-security> -->
-  <!-- // p. 423, 로그인사용자 권한설정 -->
+<!-- p. 371 웹브라우저에서 서버파일 조회 -->
+<mvc:resources
+location="file:C:/upload/"
+mapping="/images/**"></mvc:resources>
+<!-- // p. 371 웹브라우저에서 서버파일 조회 -->
 
 </beans>
