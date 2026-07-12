@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+        <!-- Appender, Layout 설정 -->
+        <Appenders>
+                <Console
+                        name="console"
+                        target="SYSTEM_OUT">
+                        <PatternLayout pattern="%c %l %5p %m%n" />
+                </Console>
+        </Appenders>
+        <!-- // Appender, Layout 설정 -->
+
+        <!-- Logger 설정 -->
+        <Loggers>
+                <!-- p. 41 -->
+                <Logger
+                        name="org.springframework"
+                        level="DEBUG"
+                        additivity="false">
+                        <AppenderRef ref="console"></AppenderRef>
+                </Logger>
+                <!-- // p. 41 -->
+
+                <Root level="INFO">
+                        <AppenderRef ref="console" />
+                </Root>
+        </Loggers>
+        <!-- // Logger 설정 -->
+
+</Configuration>
