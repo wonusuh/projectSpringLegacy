@@ -2,11 +2,50 @@
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:context="http://www.springframework.org/schema/context"
+
         xsi:schemaLocation="
-http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+http://www.springframework.org/schema/beans
+https://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+https://www.springframework.org/schema/context/spring-context.xsd">
 
         <!-- bean definitions here -->
+
+        <!-- p. 66 서비스패키지를 스캔해서 빈으로 등록할 객체를 찾는다 -->
+        <context:component-scan base-package="org.zerock.service">
+        </context:component-scan>
+        <!-- // p. 66 서비스패키지를 스캔해서 빈으로 등록할 객체를 찾는다 -->
+
+        <!-- p. 74 히카리 커넥션 풀, JDBC -->
+        <bean
+                name="hikariConfig"
+                class="com.zaxxer.hikari.HikariConfig">
+                <property
+                        name="driverClassName"
+                        value="org.mariadb.jdbc.Driver" />
+                <property
+                        name="jdbcUrl"
+                        value="jdbc:mariadb://localhost:3306/springdb" />
+                <property
+                        name="username"
+                        value="springdbuser" />
+                <property
+                        name="password"
+                        value="springdbuser" />
+                <property
+                        name="connectionTimeout"
+                        value="30000" />
+                <property
+                        name="minimumIdle"
+                        value="2" />
+        </bean>
+        <bean
+                name="dataSource"
+                class="com.zaxxer.hikari.HikariDataSource"
+                destroy-method="close">
+                <constructor-arg ref="hikariConfig" />
+        </bean>
+        <!-- // p. 74 히카리 커넥션 풀, JDBC -->
 
 </beans>
