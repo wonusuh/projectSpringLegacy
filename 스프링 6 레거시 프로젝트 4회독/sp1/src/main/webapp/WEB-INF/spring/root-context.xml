@@ -3,12 +3,16 @@
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 
         xsi:schemaLocation="
 http://www.springframework.org/schema/beans
 https://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/context
-https://www.springframework.org/schema/context/spring-context.xsd">
+https://www.springframework.org/schema/context/spring-context.xsd
+http://mybatis.org/schema/mybatis-spring
+http://mybatis.org/schema/mybatis-spring.xsd
+">
 
         <!-- bean definitions here -->
 
@@ -47,5 +51,18 @@ https://www.springframework.org/schema/context/spring-context.xsd">
                 <constructor-arg ref="hikariConfig" />
         </bean>
         <!-- // p. 74 히카리 커넥션 풀, JDBC -->
+
+        <!-- p. 105, 마이바티스 설정 -->
+        <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property
+                        name="dataSource"
+                        ref="dataSource">
+                </property>
+        </bean>
+        <!-- // p. 105, 마이바티스 설정 -->
+
+        <!-- p. 107, 마이바티스가 Mapper interface 를 인식할 수 있게 설정 -->
+        <mybatis-spring:scan base-package="org.zerock.mapper" />
+        <!-- // p. 107, 마이바티스가 Mapper interface 를 인식할 수 있게 설정 -->
 
 </beans>
