@@ -4,6 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:context="http://www.springframework.org/schema/context"
         xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:tx="http://www.springframework.org/schema/tx"
 
         xsi:schemaLocation="
 http://www.springframework.org/schema/beans
@@ -12,6 +14,10 @@ http://www.springframework.org/schema/context
 https://www.springframework.org/schema/context/spring-context.xsd
 http://mybatis.org/schema/mybatis-spring
 http://mybatis.org/schema/mybatis-spring.xsd
+http://www.springframework.org/schema/aop
+https://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/tx
+https://www.springframework.org/schema/tx/spring-tx.xsd
 ">
 
         <!-- bean definitions here -->
@@ -58,11 +64,36 @@ http://mybatis.org/schema/mybatis-spring.xsd
                         name="dataSource"
                         ref="dataSource">
                 </property>
+                <!-- p. 112 -->
+                <property
+                        name="mapperLocations"
+                        value="classpath:/mapper/*.xml" />
+                <!-- // p. 112 -->
         </bean>
         <!-- // p. 105, 마이바티스 설정 -->
 
         <!-- p. 107, 마이바티스가 Mapper interface 를 인식할 수 있게 설정 -->
         <mybatis-spring:scan base-package="org.zerock.mapper" />
         <!-- // p. 107, 마이바티스가 Mapper interface 를 인식할 수 있게 설정 -->
+
+
+        <!-- p. 122, AOP 설정 -->
+        <context:component-scan base-package="org.zerock.aop" />
+        <!-- // p. 122, AOP 설정 -->
+
+        <!-- p. 126 AOP -->
+        <aop:aspectj-autoproxy />
+        <!-- // p. 126 AOP -->
+
+        <!-- p. 133, 트랜잭션 -->
+        <bean
+                id="transactionManager"
+                class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                <property
+                        name="dataSource"
+                        ref="dataSource" />
+        </bean>
+        <tx:annotation-driven />
+        <!-- // p. 133, 트랜잭션 -->
 
 </beans>
