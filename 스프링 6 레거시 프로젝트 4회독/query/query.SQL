@@ -19,3 +19,17 @@ SELECT
     *
 FROM
     tbl_reply;
+
+-- 게시물 목록
+SELECT
+    bno,
+    title,
+    writer,
+    regDate
+FROM
+    tbl_board
+WHERE
+    1 = 1
+    AND delflag = false
+ORDER BY
+    bno DESC;

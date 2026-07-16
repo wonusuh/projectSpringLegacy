@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.BoardMapper">
+
+        <insert id="insert">
+                <selectKey
+                        order="AFTER"
+                        keyProperty="bno"
+                        resultType="long">
+                        SELECT LAST_INSERT_ID()
+                </selectKey>
+                INSERT INTO
+                tbl_board
+                (
+                title,
+                content,
+                writer
+                )
+                VALUES
+                (
+                #{title},
+                #{content},
+                #{writer}
+                )
+        </insert>
+
+        <select
+                id="selectOne"
+                resultType="BoardDTO">
+                SELECT *
+                FROM tbl_board
+                WHERE 1 = 1
+                AND bno = #{bno}
+        </select>
+
+        <update id="remove">
+                UPDATE tbl_board
+                SET delflag = true
+                WHERE 1 = 1
+                AND bno = #{bno}
+        </update>
+
+        <update id="update">
+                UPDATE
+                tbl_board
+                SET
+                title = #{title},
+                content = #{content},
+                updatedate = NOW(),
+                delflag = #{delFlag}
+                WHERE
+                1 = 1
+                AND bno = #{bno}
+        </update>
+
+        <select
+                id="list"
+                resultType="BoardDTO">
+                SELECT
+                bno,
+                title,
+                writer,
+                regDate
+                FROM
+                tbl_board
+                WHERE
+                1 = 1
+                AND delflag = false
+                ORDER BY
+                bno DESC
+        </select>
+
+</mapper>
