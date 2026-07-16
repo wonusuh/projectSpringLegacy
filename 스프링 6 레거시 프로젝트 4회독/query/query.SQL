@@ -8,3 +8,28 @@ SELECT
     *
 FROM
     tbl_testB;
+
+-- 게시글 테이블
+SELECT
+    *
+FROM
+    tbl_board;
+
+SELECT
+    *
+FROM
+    tbl_reply;
+
+-- 게시물 목록
+SELECT
+    bno,
+    title,
+    writer,
+    regDate
+FROM
+    tbl_board
+WHERE
+    1 = 1
+    AND delflag = false
+ORDER BY
+    bno DESC;

@@ -1,0 +1,46 @@
+@charset "UTF-8";
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-custom {
+  height: 70px;
+  background-color: #0d6efd; /* Bootstrap primary blue */
+}
+
+.navbar-custom .nav-link,
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: #ffffff;
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #0b5ed7; /* darker blue */
+  height: calc(100vh - 70px);
+}
+
+.sidebar .list-group-item {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
+.sidebar .list-group-item:hover,
+.sidebar .list-group-item.active {
+  background-color: #0a58ca;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}

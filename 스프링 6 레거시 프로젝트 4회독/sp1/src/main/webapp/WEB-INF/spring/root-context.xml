@@ -69,6 +69,11 @@ https://www.springframework.org/schema/tx/spring-tx.xsd
                         name="mapperLocations"
                         value="classpath:/mapper/*.xml" />
                 <!-- // p. 112 -->
+                <!-- p. 178 -->
+                <property
+                        name="configLocation"
+                        value="classpath:mybatis-config.xml" />
+                <!-- // p. 178 -->
         </bean>
         <!-- // p. 105, 마이바티스 설정 -->
 

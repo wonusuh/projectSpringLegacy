@@ -35,4 +35,11 @@ https://www.springframework.org/schema/context/spring-context.xsd
         </bean>
         <!-- // p. 83, JSP 를 위한 뷰 리졸버 설정 -->
 
+        <!-- p. 158 정적 리소스설정 -->
+        <mvc:resources
+                location="/resources/"
+                mapping="/resources/**">
+        </mvc:resources>
+        <!-- // p. 158 정적 리소스설정 -->
+
 </beans>
