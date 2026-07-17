@@ -1,6 +1,7 @@
 package org.zerock.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -68,6 +69,20 @@ public class BoardMapperTests {
 	log.info("-------------------------");
 	boardDTOList.stream().forEach((boardDTO) -> {
 	    log.info(boardDTO);
+	});
+    }
+
+    @Test
+    public void testList2() {
+	int page = 2;
+
+	// 계산
+	int skip = (page - 1) * 10;
+	int count = 10;
+
+	List<BoardDTO> boardDTOList = boardMapper.list2(skip, count);
+	boardDTOList.stream().forEach((boardDto) -> {
+	    log.info("\n" + boardDto + "\n");
 	});
     }
 }

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ include file="/WEB-INF/views/includes/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core"%><%@ include file="/WEB-INF/views/includes/header.jsp"%>
 
 <div class="row justify-content-center">
   <div class="col-lg-12">
@@ -37,8 +38,8 @@
               class="form-control"
               name="content"
               rows="3">
-              <c:out value="${board.content}" />
-            </textarea>
+<c:out value="${board.content}" /></textarea
+            >
           </div>
 
           <div class="mb-3 input-group input-group-lg">
@@ -85,6 +86,7 @@
 <script type="text/javascript">
   const formObj = document.querySelector('#actionForm')
 
+  // 수정
   document.querySelector('.btnModify').addEventListener(
     'click',
     () => {
@@ -95,11 +97,23 @@
     false
   )
 
+  // 목록으로
   document.querySelector('.btnList').addEventListener(
     'click',
     () => {
       formObj.action = '/board/list'
       formObj.method = 'get'
+      formObj.submit()
+    },
+    false
+  )
+
+  // 삭제
+  document.querySelector('.btnRemove').addEventListener(
+    'click',
+    () => {
+      formObj.action = '/board/remove'
+      formObj.method = 'post'
       formObj.submit()
     },
     false
