@@ -33,3 +33,28 @@ WHERE
     AND delflag = false
 ORDER BY
     bno DESC;
+
+-- 페이지네이션
+INSERT INTO
+    tbl_board (title, content, writer)
+SELECT
+    title,
+    content,
+    writer
+FROM
+    tbl_board;
+
+SELECT
+    *
+FROM
+    tbl_board
+WHERE
+    1 = 1
+    AND bno > 0
+    AND delflag = false
+ORDER BY
+    bno DESC
+LIMIT
+    10
+OFFSET
+    0;

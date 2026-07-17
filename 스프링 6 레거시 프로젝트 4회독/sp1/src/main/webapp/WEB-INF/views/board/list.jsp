@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@include file="/WEB-INF/views/includes/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/WEB-INF/views/includes/header.jsp"%>
 
 <div class="row justify-content-center">
   <div class="col-lg-12">
@@ -16,20 +17,12 @@
             class="d-flex">
             <select
               name="typeSelect"
-              class="form-select form-control me-2">
-              <option value="">--</option>
-              <!-- <option value="T" ${dto.types == 'T' ? 'selected' : ''}>제목</option>
-			        <option value="C" ${dto.types == 'C' ? 'selected' : ''}>내용</option>
-			        <option value="W" ${dto.types == 'W' ? 'selected' : ''}>작성자</option>
-			        <option value="TC" ${dto.types == 'TC' ? 'selected' : ''}>제목 OR 내용</option>
-			        <option value="TW" ${dto.types == 'TW' ? 'selected' : ''}>제목 OR 작성자</option>
-			        <option value="TCW" ${dto.types == 'TCW' ? 'selected' : ''}>제목 OR 내용 OR 작성자</option> -->
-            </select>
+              class="form-select form-control me-2"></select>
             <input
               type="text"
               class="form-control me-2"
               name="keywordInput"
-              value="<c:out value='${dto.keyword}'/>" />
+              value="<c:out value=''/>" />
             <button class="btn btn-outline-info searchBtn">Search</button>
           </div>
         </div>
@@ -53,7 +46,6 @@
                 <td>
                   <a href="/board/read/${board.bno}"> <c:out value="${board.bno}" /> </a>
                 </td>
-
                 <td><c:out value="${board.title}" /></td>
                 <td><c:out value="${board.writer}" /></td>
                 <td><c:out value="${board.createdDate}" /></td>
@@ -68,7 +60,7 @@
               <li class="page-item">
                 <a
                   class="page-link"
-                  href=""
+                  href="${ dto.start - 1 }"
                   tabindex="-1">
                   Previous
                 </a>
@@ -92,7 +84,7 @@
               <li class="page-item">
                 <a
                   class="page-link"
-                  href="">
+                  href="${ dto.end + 1 }">
                   Next
                 </a>
               </li>
@@ -144,6 +136,36 @@
 
 <script
   type="text/javascript"
-  defer="defer"></script>
+  defer="defer">
+  const result = `${result}`
+  const myModal = new bootstrap.Modal(document.getElementById('myModal'))
+  console.log('myModal', myModal)
+
+  // 게시글을 등록후 게시글목록으로 리다이렉트되면 result 가 존재함
+  if (result) {
+    myModal.show()
+  }
+
+  // 페이지네이션
+  const pagingDiv = document.querySelector('.pagination')
+  pagingDiv.addEventListener(
+    'click',
+    (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+
+      const target = e.target
+      console.log(target)
+      const targetPage = target.getAttribute('href')
+      const size = `${dto.size}` || 10
+      const params = new URLSearchParams({
+        page: targetPage,
+        size: size
+      })
+      self.location = `/board/list?\${params.toString()}`
+    },
+    false
+  )
+</script>
 
 <%@include file="/WEB-INF/views/includes/footer.jsp"%>

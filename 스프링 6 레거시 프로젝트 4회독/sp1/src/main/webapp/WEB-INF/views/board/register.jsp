@@ -1,9 +1,4 @@
-<%@ page
-  language="java"
-  contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
-
-<%@include file="/WEB-INF/views/includes/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@include file="/WEB-INF/views/includes/header.jsp"%>
 
 <div class="row justify-content-center">
   <div class="col-lg-12">
@@ -18,7 +13,8 @@
           method="post"
           class="p-3">
           <div class="mb-3">
-            <label class="form-label">Title</label> <input
+            <label class="form-label">Title</label>
+            <input
               type="text"
               name="title"
               class="form-control" />
@@ -29,12 +25,12 @@
             <textarea
               class="form-control"
               name="content"
-              rows="3">
-            </textarea>
+              rows="3"></textarea>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Writer</label> <input
+            <label class="form-label">Writer</label>
+            <input
               type="text"
               name="writer"
               class="form-control" />
@@ -43,7 +39,9 @@
           <div class="d-flex justify-content-end">
             <button
               type="submit"
-              class="btn btn-primary btn-lg">Submit</button>
+              class="btn btn-primary btn-lg">
+              Submit
+            </button>
           </div>
         </form>
       </div>
