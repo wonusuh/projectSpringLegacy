@@ -140,8 +140,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 AND delflag = false
                 <include refid="search"></include>
                 ORDER BY bno DESC
-                LIMIT #{skip}
-                OFFSET #{count}
+                LIMIT #{count}
+                OFFSET #{skip}
         </select>
 
         <select

@@ -58,3 +58,9 @@ LIMIT
     10
 OFFSET
     0;
+
+-- 댓글
+SELECT
+    *
+FROM
+    tbl_reply;

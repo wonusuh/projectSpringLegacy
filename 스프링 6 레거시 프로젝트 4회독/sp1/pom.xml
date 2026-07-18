@@ -168,6 +168,23 @@
 		</dependency>
 		<!-- // p. 208, JSTL -->
 
+		<!-- p. 272, RestAPI 설정 -->
+		<!-- Source:
+		https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.22.1</version>
+		</dependency>
+		<!-- // p. 272, RestAPI 설정 -->
+
 	</dependencies>
 
 	<build>

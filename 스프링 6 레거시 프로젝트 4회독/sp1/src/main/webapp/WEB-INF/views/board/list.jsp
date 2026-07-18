@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/views/includes/header.jsp"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="/WEB-INF/views/includes/header.jsp"%>
 <div class="row justify-content-center">
   <div class="col-lg-12">
     <div class="card shadow mb-4">
@@ -19,36 +18,12 @@
               name="typeSelect"
               class="form-select form-control me-2">
               <option value="">--</option>
-              <option
-                value="T"
-                ${ dto.types == 'T' ? 'selected' : '' }>
-                제목
-              </option>
-              <option
-                value="C"
-                ${ dto.types == 'C' ? 'selected' : '' }>
-                내용
-              </option>
-              <option
-                value="W"
-                ${ dto.types == 'W' ? 'selected' : '' }>
-                작성자
-              </option>
-              <option
-                value="TC"
-                ${ dto.types == 'TC' ? 'selected' : '' }>
-                제목 or 내용
-              </option>
-              <option
-                value="TW"
-                ${ dto.types == 'TW' ? 'selected' : '' }>
-                제목 or 작성자
-              </option>
-              <option
-                value="TCW"
-                ${ dto.types == 'TCW' ? 'selected' : '' }>
-                제목 or 내용 or 작성자
-              </option>
+              <option value="T" ${dto.types == 'T' ? 'selected' : ''}>제목</option>
+			        <option value="C" ${dto.types == 'C' ? 'selected' : ''}>내용</option>
+			        <option value="W" ${dto.types == 'W' ? 'selected' : ''}>작성자</option>
+			        <option value="TC" ${dto.types == 'TC' ? 'selected' : ''}>제목 OR 내용</option>
+			        <option value="TW" ${dto.types == 'TW' ? 'selected' : ''}>제목 OR 작성자</option>
+			        <option value="TCW" ${dto.types == 'TCW' ? 'selected' : ''}>제목 OR 내용 OR 작성자</option>
             </select>
             <input
               type="text"
@@ -76,7 +51,9 @@
               items="${dto.boardDTOList}">
               <tr data-bno="${board.bno}">
                 <td>
-                  <a href="/board/read/${board.bno}"> <c:out value="${board.bno}" /> </a>
+                  <a href="/board/read/${board.bno}">
+                    <c:out value="${board.bno}" />
+                  </a>
                 </td>
                 <td><c:out value="${board.title}" /></td>
                 <td><c:out value="${board.writer}" /></td>
@@ -169,17 +146,18 @@
 <script
   type="text/javascript"
   defer="defer">
-  const result = `${result}`
-  const myModal = new bootstrap.Modal(document.getElementById('myModal'))
-  console.log('myModal', myModal)
+  const result = '${result}'
 
-  // 게시글을 등록후 게시글목록으로 리다이렉트되면 result 가 존재함
+  const myModal = new bootstrap.Modal(document.getElementById('myModal'))
+
+  console.log(myModal)
+
   if (result) {
     myModal.show()
   }
 
-  // 페이지네이션
   const pagingDiv = document.querySelector('.pagination')
+
   pagingDiv.addEventListener(
     'click',
     (e) => {
@@ -187,17 +165,51 @@
       e.stopPropagation()
 
       const target = e.target
-      console.log(target)
+
+      //console.log(target)
+
       const targetPage = target.getAttribute('href')
-      const size = `${dto.size}` || 10
+
+      const size = `${dto.size}` || 10 // BoardListPagingDT의 size
+
       const params = new URLSearchParams({
         page: targetPage,
         size: size
       })
+
+      const types = '${dto.types}'
+      const keyword = '${dto.keyword}'
+
+      if (types && keyword) {
+        params.set('types', types)
+        params.set('keyword', keyword)
+      }
+
+      console.log(params.toString())
+
+      self.location = `/board/list?\${params.toString()}` //JavaScript 백틱, 템플릿
+    },
+    false
+  )
+
+  document.querySelector('.searchBtn').addEventListener(
+    'click',
+    (e) => {
+      const keyword = document.querySelector("input[name='keywordInput']").value
+
+      const selectObj = document.querySelector("select[name='typeSelect']")
+
+      const types = selectObj.options[selectObj.selectedIndex].value
+
+      const params = new URLSearchParams({
+        types: types,
+        keyword: keyword
+      })
+
       self.location = `/board/list?\${params.toString()}`
     },
     false
   )
 </script>
 
-<%@include file="/WEB-INF/views/includes/footer.jsp"%>
+<%@include file="/WEB-INF/views/includes/footer.jsp" %>
