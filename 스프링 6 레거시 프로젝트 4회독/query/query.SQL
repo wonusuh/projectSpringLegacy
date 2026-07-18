@@ -64,3 +64,12 @@ SELECT
     *
 FROM
     tbl_reply;
+
+SELECT
+    *
+FROM
+    tbl_reply
+WHERE
+    1 = 1
+ORDER BY
+    rno DESC;
