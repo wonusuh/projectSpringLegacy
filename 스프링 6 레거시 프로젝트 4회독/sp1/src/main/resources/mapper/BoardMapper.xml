@@ -104,4 +104,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 AND delFlag = false
         </select>
 
+        <sql id="search">
+                <if test="types != null and keyword != null and keyword != ''">
+                        <foreach
+                                collection="types"
+                                item="type"
+                                open=" AND ( "
+                                close=" ) "
+                                separator=" OR ">
+                                <if test='type.equals("T")'>
+                                        title LIKE CONCAT('%', #{keyword}, '%')
+                                </if>
+                                <if test='type.equals("C")'>
+                                        content LIKE CONCAT('%', #{keyword}, '%')
+                                </if>
+                                <if test='type.equals("W")'>
+                                        writer LIKE CONCAT('%', #{keyword}, '%')
+                                </if>
+                        </foreach>
+                </if>
+        </sql>
+
+        <select
+                id="listSearch"
+                resultType="BoardDTO">
+                SELECT
+                bno,
+                title,
+                writer,
+                regDate
+                FROM
+                tbl_board
+                WHERE
+                1 = 1
+                AND delflag = false
+                <include refid="search"></include>
+                ORDER BY bno DESC
+                LIMIT #{skip}
+                OFFSET #{count}
+        </select>
+
+        <select
+                id="listCountSearch"
+                resultType="int">
+                SELECT
+                count(bno)
+                FROM
+                tbl_board
+                WHERE
+                1 = 1
+                AND delFlag = false
+                <include refid="search"></include>
+        </select>
+
 </mapper>

@@ -27,14 +27,16 @@ public class BoardController {
     // 게시물 목록 조회
     @GetMapping("/list")
     public void list(@RequestParam(name = "page", defaultValue = "1") int page,
-	    @RequestParam(name = "size", defaultValue = "10") int size, Model model) {
+	    @RequestParam(name = "size", defaultValue = "10") int size,
+	    @RequestParam(name = "types", required = false) String types,
+	    @RequestParam(name = "keyword", required = false) String keyword, Model model) {
 //	log.info("----------");
 //	log.info("board list");
 //	model.addAttribute("list", boardService.getList());
 
 	log.info("page : " + page);
 	log.info("size : " + size);
-	model.addAttribute("dto", boardService.getList(page, size));
+	model.addAttribute("dto", boardService.getList(page, size, types, keyword));
     }
 
     // 게시물 등록화면 호출

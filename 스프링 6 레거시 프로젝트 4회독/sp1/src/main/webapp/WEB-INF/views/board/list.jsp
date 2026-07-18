@@ -17,12 +17,44 @@
             class="d-flex">
             <select
               name="typeSelect"
-              class="form-select form-control me-2"></select>
+              class="form-select form-control me-2">
+              <option value="">--</option>
+              <option
+                value="T"
+                ${ dto.types == 'T' ? 'selected' : '' }>
+                제목
+              </option>
+              <option
+                value="C"
+                ${ dto.types == 'C' ? 'selected' : '' }>
+                내용
+              </option>
+              <option
+                value="W"
+                ${ dto.types == 'W' ? 'selected' : '' }>
+                작성자
+              </option>
+              <option
+                value="TC"
+                ${ dto.types == 'TC' ? 'selected' : '' }>
+                제목 or 내용
+              </option>
+              <option
+                value="TW"
+                ${ dto.types == 'TW' ? 'selected' : '' }>
+                제목 or 작성자
+              </option>
+              <option
+                value="TCW"
+                ${ dto.types == 'TCW' ? 'selected' : '' }>
+                제목 or 내용 or 작성자
+              </option>
+            </select>
             <input
               type="text"
               class="form-control me-2"
               name="keywordInput"
-              value="<c:out value=''/>" />
+              value="<c:out value='${ dto.keyword }'/>" />
             <button class="btn btn-outline-info searchBtn">Search</button>
           </div>
         </div>
