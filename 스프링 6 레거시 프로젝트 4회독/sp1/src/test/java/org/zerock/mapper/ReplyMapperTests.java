@@ -1,5 +1,7 @@
 package org.zerock.mapper;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,38 +15,59 @@ import lombok.extern.log4j.Log4j2;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j2
 public class ReplyMapperTests {
-    @Autowired
-    private ReplyMapper replyMapper;
+  @Autowired
+  private ReplyMapper replyMapper;
 
-    @Test
-    public void testInsert() {
-	Long bno = 7524L;
+  @Test
+  public void testInsert() {
+    Long bno = 7524L;
 
-	ReplyDTO replyDTO = ReplyDTO.builder().bno(bno).replyText("댓글 내용").replyer("user1").build();
+    ReplyDTO replyDTO = ReplyDTO.builder().bno(bno).replyText("댓글 내용").replyer("user1").build();
 
-	replyMapper.insert(replyDTO);
-    }
+    replyMapper.insert(replyDTO);
+  }
 
-    @Test
-    public void testRead() {
-    }
+  @Test
+  public void testRead() {
+  }
 
-    @Test
-    public void testDelete() {
-	Long rno = 167L;
-	int deletedCount = replyMapper.delete(rno);
-	log.info("---------------------------------");
-	log.info("deletedCount : " + deletedCount);
-    }
+  @Test
+  public void testDelete() {
+    Long rno = 167L;
+    int deletedCount = replyMapper.delete(rno);
+    log.info("---------------------------------");
+    log.info("deletedCount : " + deletedCount);
+  }
 
-    // 댓글 수정 테스트
-    @Test
-    public void testUpdate() {
-	Long rno = 167L;
-	ReplyDTO replyDTO = ReplyDTO.builder().rno(rno).replyText("수정된 댓글내용").build();
+  // 댓글 수정 테스트
+  @Test
+  public void testUpdate() {
+    Long rno = 167L;
+    ReplyDTO replyDTO = ReplyDTO.builder().rno(rno).replyText("수정된 댓글내용").build();
 
-	int updatedCount = replyMapper.update(replyDTO);
-	log.info("---------------------------------");
-	log.info("updatedCount : " + updatedCount);
-    }
+    int updatedCount = replyMapper.update(replyDTO);
+    log.info("---------------------------------");
+    log.info("updatedCount : " + updatedCount);
+  }
+
+  @Test
+  public void testInserts() {
+    Long[] bnoList = { 7524L, 7523L, 7522L };
+
+    for (Long bno : bnoList) {
+      for (int i = 0; i < 10; i += 1) {
+        ReplyDTO replyDTO = ReplyDTO.builder().bno(bno).replyer("replyer1").replyText("Sample Reply").build();
+        replyMapper.insert(replyDTO);
+      } // inner for
+    } // outer for
+  }
+
+  @Test
+  public void testListOfBoard() {
+    Long bno = 7524L;
+    List<ReplyDTO> replyList = replyMapper.listOfBoard(bno, 0, 10);
+    replyList.stream().forEach((eachReply) -> {
+      log.info(eachReply.toString() + "\n\n");
+    });
+  }
 }

@@ -69,4 +69,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </update>
         <!-- // 댓글 수정 -->
 
+        <!-- 댓글 목록 조회 -->
+        <select
+                id="listOfBoard"
+                resultType="ReplyDTO">
+                SELECT
+                *
+                FROM
+                tbl_reply
+                WHERE
+                1 = 1
+                AND bno = #{bno}
+                AND rno > 0
+                ORDER BY rno ASC
+                LIMIT #{limit}
+                OFFSET #{skip}
+        </select>
+        <!-- // 댓글 목록 조회 -->
+
+        <!-- 특정 게시물의 댓글수 획득 -->
+        <select
+                id="getNumberOfRepliesByBno"
+                resultType="int">
+                SELECT count(rno)
+                FROM tbl_reply
+                WHERE 1 = 1
+                AND rno > 0
+                AND delflag = false
+                AND bno = #{bno}
+        </select>
+        <!-- //특정 게시물의 댓글수 획득 -->
+
 </mapper>
