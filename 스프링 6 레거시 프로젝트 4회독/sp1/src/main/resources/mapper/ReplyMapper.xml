@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.ReplyMapper">
+
+        <!-- 댓글 등록 -->
+        <insert id="insert">
+                <selectKey
+                        order="AFTER"
+                        keyProperty="rno"
+                        resultType="long">
+                        SELECT LAST_INSERT_ID()
+                </selectKey>
+                INSERT INTO
+                tbl_reply
+                (
+                bno,
+                replytext,
+                replyer
+                )
+                VALUES
+                (
+                #{bno},
+                #{replyText},
+                #{replyer}
+                )
+        </insert>
+        <!-- // 댓글 등록 -->
+
+        <!-- 댓글 조회 -->
+        <select
+                id="read"
+                resultType="ReplyDTO">
+                SELECT
+                *
+                FROM
+                tbl_reply
+                WHERE
+                1 = 1
+                AND rno = ${rno}
+        </select>
+        <!-- // 댓글 조회 -->
+
+        <!-- 댓글 삭제 -->
+        <update id="delete">
+                UPDATE
+                tbl_reply
+                SET
+                delflag = true
+                WHERE
+                1 = 1
+                AND rno = #{rno}
+        </update>
+        <!-- // 댓글 삭제 -->
+
+        <!-- 댓글 수정 -->
+        <update id="update">
+                UPDATE
+                tbl_reply
+                SET
+                replytext = #{replyText},
+                updatedate = NOW()
+                WHERE
+                1 = 1
+                AND rno = #{rno}
+        </update>
+        <!-- // 댓글 수정 -->
+
+</mapper>

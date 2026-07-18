@@ -21,9 +21,9 @@ public class BoardService {
     private BoardMapper boardMapper;
 
     // 게시물 목록 조회
-    public List<BoardDTO> getList() {
-	return boardMapper.list();
-    }
+//    public List<BoardDTO> getList() {
+//	return boardMapper.list();
+//    }
 
     // 게시물 등록
     public Long register(BoardDTO boardDTO) {
@@ -49,7 +49,7 @@ public class BoardService {
     }
 
     // 게시물 페이지네이션
-    public BoardListPagingDTO getList(int page, int size) {
+    public BoardListPagingDTO getList(int page, int size, String typeStr, String keyword) {
 	// 현재 페이지가 1보다 작으면 1로 고정
 	page = page < 1 ? 1 : page;
 
@@ -59,9 +59,10 @@ public class BoardService {
 	// 현재 2페이지를 보고있다면 10개를 건너뛰어야함
 	int skip = (page - 1) * size;
 
-	List<BoardDTO> list = boardMapper.list2(skip, size);
-	int total = boardMapper.listCount();
+	String[] types = typeStr == null ? null : typeStr.split("");
+	List<BoardDTO> list = boardMapper.listSearch(skip, size, types, keyword);
+	int total = boardMapper.listCountSearch(types, keyword);
 
-	return new BoardListPagingDTO(list, total, page, size);
+	return new BoardListPagingDTO(list, total, page, size, typeStr, keyword);
     }
 }
