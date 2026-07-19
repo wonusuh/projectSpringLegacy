@@ -262,6 +262,7 @@
 <script>
   const replyForm = document.querySelector('#replyForm')
 
+  // 댓글 등록
   document.querySelector('.addReplyBtn').addEventListener(
     'click',
     async (e) => {
@@ -276,6 +277,8 @@
     },
     false
   )
+
+  // 댓글 목록 호출
 </script>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
