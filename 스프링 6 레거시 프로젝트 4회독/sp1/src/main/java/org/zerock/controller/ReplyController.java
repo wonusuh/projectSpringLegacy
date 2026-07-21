@@ -43,4 +43,11 @@ public class ReplyController {
     log.info("size : " + size);
     return ResponseEntity.ok(replyService.listOfBoard(bno, page, size));
   }
+
+  // 댓글 조회
+  @GetMapping("/{rno}")
+  public ResponseEntity<ReplyDTO> read(@PathVariable("rno") Long rno) {
+    log.info("rno : " + rno);
+    return ResponseEntity.ok(replyService.getOne(rno));
+  }
 }
