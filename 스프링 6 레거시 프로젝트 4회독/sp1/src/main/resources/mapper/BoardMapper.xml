@@ -129,17 +129,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 id="listSearch"
                 resultType="BoardDTO">
                 SELECT
-                bno,
+                board.bno,
                 title,
+                content,
                 writer,
-                regDate
+                regDate,
+                board.updateDate,
+                COUNT(reply.rno) AS replyCnt
                 FROM
-                tbl_board
+                tbl_board AS board
+                LEFT OUTER JOIN
+                tbl_reply AS
+                reply
+                ON board.bno = reply.bno
                 WHERE
                 1 = 1
-                AND delflag = false
+                AND board.bno > 0
+                AND board.delflag = FALSE
                 <include refid="search"></include>
-                ORDER BY bno DESC
+                GROUP BY board.bno
+                ORDER BY board.bno DESC
                 LIMIT #{count}
                 OFFSET #{skip}
         </select>

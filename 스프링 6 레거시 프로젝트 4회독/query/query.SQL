@@ -73,3 +73,28 @@ WHERE
     1 = 1
 ORDER BY
     rno DESC;
+
+-- 게시물 목록에 댓글개수 join 처리
+SELECT
+    board.bno,
+    title,
+    content,
+    writer,
+    regDate,
+    board.updateDate,
+    COUNT(reply.rno) AS replyCnt
+FROM
+    tbl_board AS board
+    LEFT OUTER JOIN tbl_reply AS reply ON board.bno = reply.bno
+WHERE
+    1 = 1
+    AND board.delflag = FALSE
+    AND board.bno > 0
+GROUP BY
+    board.bno
+ORDER BY
+    board.bno DESC
+LIMIT
+    1000
+OFFSET
+    0;

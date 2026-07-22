@@ -422,6 +422,7 @@
     false
   )
 
+  // 댓글 삭제
   document.querySelector('.btnReplyDel').addEventListener(
     'click',
     (e) => {
@@ -446,6 +447,7 @@
     false
   )
 
+  // 댓글 수정
   document.querySelector('.btnReplyMod').addEventListener(
     'click',
     (e) => {

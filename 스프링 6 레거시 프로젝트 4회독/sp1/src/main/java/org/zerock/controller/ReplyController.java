@@ -4,9 +4,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,5 +51,22 @@ public class ReplyController {
   public ResponseEntity<ReplyDTO> read(@PathVariable("rno") Long rno) {
     log.info("rno : " + rno);
     return ResponseEntity.ok(replyService.getOne(rno));
+  }
+
+  // 댓글 삭제
+  @DeleteMapping("/{rno}")
+  public ResponseEntity<Map<String, String>> delete(@PathVariable("rno") Long rno) {
+    log.info("delete rno : " + rno);
+    replyService.remove(rno);
+    return ResponseEntity.ok(Map.of("result", "deleted"));
+  }
+
+  // 댓글 수정
+  @PutMapping("/{rno}")
+  public ResponseEntity<Map<String, String>> modify(@PathVariable("rno") Long rno, ReplyDTO replyDto) {
+    log.info("modify rno : " + rno);
+    replyDto.setRno(rno);
+    replyService.modify(replyDto);
+    return ResponseEntity.ok(Map.of("result", "modified"));
   }
 }
