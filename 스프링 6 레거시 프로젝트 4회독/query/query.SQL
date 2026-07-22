@@ -98,3 +98,45 @@ LIMIT
     1000
 OFFSET
     0;
+
+-- 상품 테이블
+SELECT
+    *
+FROM
+    tbl_product
+WHERE
+    1 = 1
+    AND pno > 0
+ORDER BY
+    pno DESC;
+
+-- 상품 이미지 테이블
+SELECT
+    *
+FROM
+    tbl_product_image
+WHERE
+    1 = 1
+    AND ino > 0
+ORDER BY
+    ino DESC;
+
+-- 상품 & 상품이미지 join
+SELECT
+    p.pno,
+    pname,
+    pdesc,
+    price,
+    sale,
+    writer,
+    p.regdate,
+    ino,
+    uuid,
+    filename,
+    ord
+FROM
+    tbl_product AS p
+    LEFT OUTER JOIN tbl_product_image AS pimg ON p.pno = pimg.pno
+WHERE
+    1 = 1
+    AND p.pno = 96;
