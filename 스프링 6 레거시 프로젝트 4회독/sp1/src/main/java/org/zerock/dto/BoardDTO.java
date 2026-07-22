@@ -13,16 +13,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardDTO {
-    private Long bno;
-    private String title;
-    private String writer;
-    private String content;
-    private LocalDateTime regDate;
-    private LocalDateTime updateDate;
-    private boolean delFlag;
+  private Long bno;
+  private String title;
+  private String writer;
+  private String content;
+  private LocalDateTime regDate;
+  private LocalDateTime updateDate;
+  private boolean delFlag;
 
-    // JSTL 날짜 처리
-    public String getCreatedDate() {
-	return this.regDate.format(DateTimeFormatter.ISO_DATE);
-    }
+  // JSTL 날짜 처리
+  public String getCreatedDate() {
+    return this.regDate.format(DateTimeFormatter.ISO_DATE);
+  }
+
+  // 댓글 개수
+  private int replyCnt;
 }
