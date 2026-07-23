@@ -45,4 +45,56 @@ public class ProductMapperTests {
       log.info("image : " + image.toString());
     });
   }
+
+  @Test
+  @Transactional
+  @Commit
+  public void testUpdateOne() {
+    ProductDTO productDto = ProductDTO.builder().pno(96).pname("Updated pname").pdesc("Updated pdesc").price(4321)
+        .build();
+
+    productDto.addImage(UUID.randomUUID().toString(), "updated_test3.jpg");
+    productDto.addImage(UUID.randomUUID().toString(), "updated_test4.jpg");
+    productDto.addImage(UUID.randomUUID().toString(), "updated_test5.jpg");
+
+    // 기존 이미지 삭제
+    productMapper.deleteImages(productDto.getPno());
+
+    // 상품 정보 수정
+    productMapper.updateOne(productDto);
+
+    // 상품 이미지 갱신
+    productMapper.insertImages(productDto);
+  }
+
+  // 상품목록 더미 데이터
+  @Test
+  @Transactional
+  @Commit
+  public void testInsertDummies() {
+    for (int i = 0; i < 45; i += 1) {
+      ProductDTO productDto = ProductDTO.builder().pname("pName_" + i).pdesc("pDesc_" + i).writer("user" + (i % 10))
+          .price(3800).build();
+
+      // INSERT INTO tbl_product
+      productMapper.insert(productDto);
+      productDto.addImage(UUID.randomUUID().toString(), i + "_test1.jpg");
+      productDto.addImage(UUID.randomUUID().toString(), i + "_test2.jpg");
+
+      log.info("-------------------------------------------------------");
+      log.info(productDto.getImageList());
+
+      // INSERT INTO tbl_product_image
+      productMapper.insertImages(productDto);
+    } // end of for
+  }
+
+  @Test
+  public void testList() {
+    productMapper.list(0, 10).stream().forEach((eachProduct) -> {
+      log.info(eachProduct.toString() + "\n");
+    });
+
+    log.info(productMapper.listCount());
+  }
 }
