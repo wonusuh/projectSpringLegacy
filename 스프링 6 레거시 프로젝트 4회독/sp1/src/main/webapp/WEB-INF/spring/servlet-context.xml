@@ -48,4 +48,11 @@ https://www.springframework.org/schema/context/spring-context.xsd
                 class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
         <!-- // p. 274 파일 전송 설정 -->
 
+        <!-- p. 371, 이미지 경로 호출 -->
+        <mvc:resources
+                location="file:C:/upload/"
+                mapping="/images/**">
+        </mvc:resources>
+        <!-- // p. 371, 이미지 경로 호출 -->
+
 </beans>
