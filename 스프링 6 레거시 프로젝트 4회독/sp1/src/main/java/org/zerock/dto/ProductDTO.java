@@ -28,13 +28,18 @@ public class ProductDTO {
 
   // 상품에 이미지 등록
   public void addImage(String uuid, String fileName) {
+    // 방어 로직
     if (imageList == null) {
       imageList = new ArrayList<>();
     }
 
     ProductImageDTO imageDTO = ProductImageDTO.builder().uuid(uuid).fileName(fileName).pno(this.pno)
         .ord(this.imageList.size()).build();
-
     this.imageList.add(imageDTO);
+  }
+
+  // 상품 이미지들을 삭제
+  public void clearImages() {
+    this.imageList.clear();
   }
 }

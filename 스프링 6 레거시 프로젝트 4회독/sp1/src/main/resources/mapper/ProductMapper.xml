@@ -148,8 +148,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <!-- // 특정 상품의 이미지 삭제 -->
 
         <!-- 상품 수정 -->
-        <update id="">
+        <update id="updateOne">
+                UPDATE
+                tbl_product
+                SET
+                pname = #{pname},
+                pdesc = #{pdesc},
+                price = #{price}
+                WHERE
+                1 = 1
+                AND pno = #{pno}
         </update>
         <!-- // 상품 수정 -->
+
+        <!-- 상품 목록 -->
+        <select id="list">
+                SELECT
+                p.pno,
+                p.pname,
+                p.pdesc,
+                price,
+                p.sale,
+                p.writer,
+                p.regdate,
+                i.ino,
+                i.uuid,
+                i.filename,
+                i.ord
+                FROM
+                tbl_product AS p
+                LEFT OUTER JOIN
+                tbl_product_image AS i
+                ON p.pno = i.pno
+                WHERE
+                1 = 1
+                AND p.pno > 0
+                AND i.ord = 0
+                ORDER BY
+                p.pno DESC
+                LIMIT #{count}
+                OFFSET #{skip}
+        </select>
+        <!-- // 상품 목록 -->
+
+        <!-- 상품목록 페이징 계산용 -->
+        <select id="listCount">
+                SELECT count(pno)
+                FROM tbl_product
+                WHERE 1 = 1
+                AND pno > 0
+        </select>
+        <!-- // 상품목록 페이징 계산용 -->
 
 </mapper>

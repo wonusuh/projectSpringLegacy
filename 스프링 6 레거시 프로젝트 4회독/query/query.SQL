@@ -140,3 +140,30 @@ FROM
 WHERE
     1 = 1
     AND p.pno = 96;
+
+-- 상품 목록 조회
+SELECT
+    p.pno,
+    p.pname,
+    p.pdesc,
+    price,
+    p.sale,
+    p.writer,
+    p.regdate,
+    i.ino,
+    i.uuid,
+    i.filename,
+    i.ord
+FROM
+    tbl_product AS p
+    LEFT OUTER JOIN tbl_product_image AS i ON p.pno = i.pno
+WHERE
+    1 = 1
+    AND p.pno > 0
+    AND i.ord = 0
+ORDER BY
+    p.pno DESC
+LIMIT
+    10
+OFFSET
+    0;
