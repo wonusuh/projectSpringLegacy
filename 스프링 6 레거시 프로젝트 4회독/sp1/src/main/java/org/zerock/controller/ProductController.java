@@ -120,26 +120,26 @@ public class ProductController {
 	return uploadNames;
     }
 
-    // 이미지 삭제
-    private void deleteFiles(List<String> fileNames) {
-	try {
-	    File uploadPath = new File("C:\\upload");
-	    for (String fileName : fileNames) {
-		File targetFile = new File(uploadPath, fileName);
-
-		// 파일 삭제
-		targetFile.delete();
-
-		// 썸네일 삭제
-		File targetThumbnail = new File(uploadPath, "s_" + fileName);
-		targetThumbnail.delete();
-	    }
-	} catch (Exception e) {
-	    //
-	} finally {
-	    //
-	}
-    }
+//    // 이미지 삭제
+//    private void deleteFiles(List<String> fileNames) {
+//	try {
+//	    File uploadPath = new File("C:\\upload");
+//	    for (String fileName : fileNames) {
+//		File targetFile = new File(uploadPath, fileName);
+//
+//		// 파일 삭제
+//		targetFile.delete();
+//
+//		// 썸네일 삭제
+//		File targetThumbnail = new File(uploadPath, "s_" + fileName);
+//		targetThumbnail.delete();
+//	    }
+//	} catch (Exception e) {
+//	    //
+//	} finally {
+//	    //
+//	}
+//    }
 
     // 상품목록 조회
     @GetMapping("/list")
@@ -189,7 +189,9 @@ public class ProductController {
 
 	if (newFileNames != null && newFileNames.size() > 0) {
 	    for (String newImage : newFileNames) {
-		//
+		String uuid = newImage.substring(0, 36);
+		String fileName = newImage.substring(37);
+		productDTO.addImage(uuid, fileName);
 	    } // end of for
 	}
 
