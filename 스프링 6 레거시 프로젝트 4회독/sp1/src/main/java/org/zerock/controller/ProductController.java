@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,5 +147,54 @@ public class ProductController {
 	    @RequestParam(name = "size", defaultValue = "10") int size, Model model) {
 	ProductListPagingDTO productListPagingDTO = productService.getList(page, size);
 	model.addAttribute("dto", productListPagingDTO);
+    }
+
+    // 상품 조회
+    @GetMapping("/read/{pno}")
+    public String read(@PathVariable("pno") Integer pno, Model model) {
+	log.info("pno : " + pno);
+	model.addAttribute("product", productService.read(pno));
+	return "/product/read";
+    }
+
+    // 상품 수정화면 호출
+    @GetMapping("/modify/{pno}")
+    public String modify(@PathVariable("pno") Integer pno, Model model) {
+	log.info("pno : " + pno);
+	model.addAttribute("product", productService.read(pno));
+	return "/product/modify";
+    }
+
+    // 상품 삭제
+    @PostMapping("/remove")
+    public String remove(@RequestParam("pno") Integer pno, RedirectAttributes redirectAttributes) {
+	productService.remove(pno);
+	redirectAttributes.addFlashAttribute("result", "deleted");
+	return "redirect:/product/list";
+    }
+
+    // 상품 수정서비스 호출
+    @PostMapping("/modify")
+    public String modifyPOST(ProductDTO productDTO, @RequestParam("oldImages") String[] oldImages,
+	    @RequestParam("files") MultipartFile[] files) {
+	List<String> newFileNames = this.uploadFiles(files);
+
+	if (oldImages != null && oldImages.length > 0) {
+	    for (String oldImage : oldImages) {
+		String uuid = oldImage.substring(0, 36);
+		String fileName = oldImage.substring(37);
+		productDTO.addImage(uuid, fileName);
+	    } // end of for
+	}
+
+	if (newFileNames != null && newFileNames.size() > 0) {
+	    for (String newImage : newFileNames) {
+		//
+	    } // end of for
+	}
+
+	productService.modify(productDTO);
+
+	return "redirect:/product/read/" + productDTO.getPno();
     }
 }

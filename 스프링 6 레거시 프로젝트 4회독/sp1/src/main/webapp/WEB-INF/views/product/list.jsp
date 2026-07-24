@@ -141,9 +141,16 @@
   type="text/javascript"
   defer="defer">
   const pno = '${product}'
+  const result = '${result}'
   const myModal = new bootstrap.Modal(document.getElementById('myModal'))
 
-  if (pno) {
+  // 상품 삭제후 리디렉션 된 경우
+  if (result) {
+    document.querySelector('.modal-body').innerHTML = result
+  }
+
+  // 상품 등록했거나 삭제한 경우
+  if (pno || result) {
     myModal.show()
   }
 
