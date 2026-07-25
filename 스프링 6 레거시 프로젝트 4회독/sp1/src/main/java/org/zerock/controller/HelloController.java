@@ -10,18 +10,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.dto.SampleDTO;
 import org.zerock.service.HelloService;
 
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
 @RequestMapping("/sample")
-@RequiredArgsConstructor
 @ToString
 @Log4j2
 public class HelloController {
+  private final HelloService helloService;
+
   @Autowired
-  private HelloService helloService;
+  public HelloController(HelloService helloService) {
+    this.helloService = helloService;
+  }
 
   @GetMapping("/ex1")
   public void ex1() {
@@ -79,5 +81,10 @@ public class HelloController {
   @GetMapping("/ex8")
   public void ex8() {
     log.info("/sample/ex8");
+  }
+
+  @GetMapping("/access-denied")
+  public String accessDenied() {
+    return "/sample/accessDenied";
   }
 }
