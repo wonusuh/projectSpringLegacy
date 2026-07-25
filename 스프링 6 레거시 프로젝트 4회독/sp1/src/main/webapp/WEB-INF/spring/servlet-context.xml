@@ -4,6 +4,7 @@
         xmlns:mvc="http://www.springframework.org/schema/mvc"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:security="http://www.springframework.org/schema/security"
 
         xsi:schemaLocation="
 http://www.springframework.org/schema/beans
@@ -14,6 +15,9 @@ https://www.springframework.org/schema/mvc/spring-mvc.xsd
 
 http://www.springframework.org/schema/context
 https://www.springframework.org/schema/context/spring-context.xsd
+
+http://www.springframework.org/schema/security
+https://www.springframework.org/schema/security/spring-security.xsd
 ">
 
         <mvc:annotation-driven />
@@ -54,5 +58,9 @@ https://www.springframework.org/schema/context/spring-context.xsd
                 mapping="/images/**">
         </mvc:resources>
         <!-- // p. 371, 이미지 경로 호출 -->
+
+        <!-- (p. 423) 권한 관련 설정 -->
+        <!-- <security:global-method-security pre-post-annotations="enabled" /> -->
+        <!-- // (p. 423) 권한 관련 설정 -->
 
 </beans>

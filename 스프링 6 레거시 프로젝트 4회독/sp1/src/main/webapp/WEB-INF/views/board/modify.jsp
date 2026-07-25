@@ -47,6 +47,7 @@ uri="http://java.sun.com/jsp/jstl/core"%><%@ include file="/WEB-INF/views/includ
             <input
               type="text"
               class="form-control"
+              name="writer"
               value="<c:out value='${board.writer}'/>"
               readonly />
           </div>
