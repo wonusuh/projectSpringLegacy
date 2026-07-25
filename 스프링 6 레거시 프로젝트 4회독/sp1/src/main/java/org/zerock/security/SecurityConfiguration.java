@@ -14,30 +14,30 @@ import lombok.extern.log4j.Log4j2;
 @EnableWebSecurity
 @Log4j2
 public class SecurityConfiguration {
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    log.info("========== security config ==========");
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+		log.info("========== security config ==========");
 
-    // 로그인 폼 설정
-    httpSecurity.formLogin((config) -> {
-      //
-    });
+		// 로그인 폼 설정
+		httpSecurity.formLogin((config) -> {
+			config.loginPage("/account/login");
+		});
 
-    // Cross-Site Request Forgery 설정
-    httpSecurity.csrf((config) -> {
-      config.disable(); // 사용 안함
-    });
+		// Cross-Site Request Forgery 설정
+		httpSecurity.csrf((config) -> {
+			config.disable(); // 사용 안함
+		});
 
-    // 403 핸들러
-    httpSecurity.exceptionHandling((handler) -> {
-      handler.accessDeniedHandler(new Custom403Handler());
-    });
+		// 403 핸들러
+		httpSecurity.exceptionHandling((handler) -> {
+			handler.accessDeniedHandler(new Custom403Handler());
+		});
 
-    return httpSecurity.build();
-  }
+		return httpSecurity.build();
+	}
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
