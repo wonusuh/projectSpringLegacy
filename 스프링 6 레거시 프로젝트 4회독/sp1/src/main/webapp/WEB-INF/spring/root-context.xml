@@ -6,7 +6,6 @@
         xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
         xmlns:aop="http://www.springframework.org/schema/aop"
         xmlns:tx="http://www.springframework.org/schema/tx"
-
         xsi:schemaLocation="
 http://www.springframework.org/schema/beans
 https://www.springframework.org/schema/beans/spring-beans.xsd
@@ -19,14 +18,11 @@ https://www.springframework.org/schema/aop/spring-aop.xsd
 http://www.springframework.org/schema/tx
 https://www.springframework.org/schema/tx/spring-tx.xsd
 ">
-
         <!-- bean definitions here -->
-
         <!-- p. 66 서비스패키지를 스캔해서 빈으로 등록할 객체를 찾는다 -->
         <context:component-scan base-package="org.zerock.service">
         </context:component-scan>
         <!-- // p. 66 서비스패키지를 스캔해서 빈으로 등록할 객체를 찾는다 -->
-
         <!-- p. 74 히카리 커넥션 풀, JDBC -->
         <bean
                 name="hikariConfig"
@@ -57,7 +53,6 @@ https://www.springframework.org/schema/tx/spring-tx.xsd
                 <constructor-arg ref="hikariConfig" />
         </bean>
         <!-- // p. 74 히카리 커넥션 풀, JDBC -->
-
         <!-- p. 105, 마이바티스 설정 -->
         <bean class="org.mybatis.spring.SqlSessionFactoryBean">
                 <property
@@ -76,20 +71,15 @@ https://www.springframework.org/schema/tx/spring-tx.xsd
                 <!-- // p. 178 -->
         </bean>
         <!-- // p. 105, 마이바티스 설정 -->
-
         <!-- p. 107, 마이바티스가 Mapper interface 를 인식할 수 있게 설정 -->
         <mybatis-spring:scan base-package="org.zerock.mapper" />
         <!-- // p. 107, 마이바티스가 Mapper interface 를 인식할 수 있게 설정 -->
-
-
         <!-- p. 122, AOP 설정 -->
         <context:component-scan base-package="org.zerock.aop" />
         <!-- // p. 122, AOP 설정 -->
-
         <!-- p. 126 AOP -->
         <aop:aspectj-autoproxy />
         <!-- // p. 126 AOP -->
-
         <!-- p. 133, 트랜잭션 -->
         <bean
                 id="transactionManager"
@@ -100,5 +90,7 @@ https://www.springframework.org/schema/tx/spring-tx.xsd
         </bean>
         <tx:annotation-driven />
         <!-- // p. 133, 트랜잭션 -->
-
+        <!-- p. 407 security 패키지를 스캔할 수 있도록 설정 -->
+        <context:component-scan base-package="org.zerock.security"></context:component-scan>
+        <!-- // p. 407 security 패키지를 스캔할 수 있도록 설정 -->
 </beans>
