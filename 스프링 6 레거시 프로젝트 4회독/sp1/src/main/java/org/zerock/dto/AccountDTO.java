@@ -21,11 +21,11 @@ public class AccountDTO implements UserDetails {
   private List<AccountRole> roleNames;
 
   public void addRole(AccountRole role) {
-    if (roleNames == null) {
-      roleNames = new ArrayList<>();
+    if (this.roleNames == null) {
+      this.roleNames = new ArrayList<>();
     }
 
-    roleNames.add(role);
+    this.roleNames.add(role);
   }
 
   public void clearRoles() {
@@ -34,11 +34,11 @@ public class AccountDTO implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    if (roleNames == null || roleNames.size() == 0) {
+    if (this.roleNames == null || this.roleNames.size() == 0) {
       return List.of();
     }
 
-    List<SimpleGrantedAuthority> list = roleNames.stream().map((accountRole) -> {
+    List<SimpleGrantedAuthority> list = this.roleNames.stream().map((accountRole) -> {
       return new SimpleGrantedAuthority("ROLE_" + accountRole.name());
     }).collect(Collectors.toList());
 
