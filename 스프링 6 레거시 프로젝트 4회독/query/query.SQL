@@ -167,3 +167,36 @@ LIMIT
     10
 OFFSET
     0;
+
+-- 스프링 웹 시큐리티
+SELECT
+    *
+FROM
+    tbl_account
+ORDER BY
+    uid ASC;
+
+SELECT
+    *
+FROM
+    tbl_account_roles
+ORDER BY
+    uid ASC,
+    rolename DESC;
+
+-- 계정 조회
+SELECT
+    ac.uid,
+    ac.upw,
+    ac.uname,
+    ac.email,
+    ar.rolename
+FROM
+    tbl_account AS ac
+    INNER JOIN tbl_account_roles AS ar ON ac.uid = ar.uid
+WHERE
+    1 = 1
+    AND ac.uid = 'user100'
+ORDER BY
+    ac.uid ASC,
+    ar.rolename DESC;

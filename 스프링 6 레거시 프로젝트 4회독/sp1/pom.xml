@@ -231,6 +231,13 @@
                 <version>3.13.0</version>
                 <configuration>
                     <release>26</release>
+
+                    <!-- (p. 427) 메서드 파라미터 표현식 설정 -->
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                    <!-- // (p. 427) 메서드 파라미터 표현식 설정 -->
+
                 </configuration>
             </plugin>
             <plugin>
