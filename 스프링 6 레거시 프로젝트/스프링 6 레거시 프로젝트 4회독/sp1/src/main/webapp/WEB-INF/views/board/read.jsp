@@ -1,5 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
-%> <%@ include file="/WEB-INF/views/includes/header.jsp" %>
+<%@ page
+  language="java"
+  contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8"%>
+<%@ taglib
+  prefix="c"
+  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib
+  prefix="fn"
+  uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib
+  prefix="sec"
+  uri="http://www.springframework.org/security/tags"%>
+<%@
+include file="/WEB-INF/views/includes/header.jsp"%>
 
 <div class="row justify-content-center">
   <div class="col-lg-12">
@@ -9,8 +22,7 @@
       </div>
       <div class="card-body">
         <div class="mb-3 input-group input-group-lg">
-          <span class="input-group-text">Bno</span>
-          <input
+          <span class="input-group-text">Bno</span> <input
             type="text"
             class="form-control"
             value="<c:out value='${board.bno}'/>"
@@ -18,8 +30,7 @@
         </div>
 
         <div class="mb-3 input-group input-group-lg">
-          <span class="input-group-text">Title</span>
-          <input
+          <span class="input-group-text">Title</span> <input
             type="text"
             name="title"
             class="form-control"
@@ -39,8 +50,7 @@
         </div>
 
         <div class="mb-3 input-group input-group-lg">
-          <span class="input-group-text">Writer</span>
-          <input
+          <span class="input-group-text">Writer</span> <input
             type="text"
             name="writer"
             class="form-control"
@@ -49,8 +59,7 @@
         </div>
 
         <div class="mb-3 input-group input-group-lg">
-          <span class="input-group-text">RegDate</span>
-          <input
+          <span class="input-group-text">RegDate</span> <input
             type="text"
             name="regDate"
             class="form-control"
@@ -64,20 +73,23 @@
             class="btn">
             <button
               type="button"
-              class="btn btn-info btnList">
-              LIST
-            </button>
+              class="btn btn-info btnList">LIST</button>
           </a>
 
-          <c:if test="${!board.delFlag}">
+          <sec:authentication
+            property="principal"
+            var="secInfo" />
+          <sec:authentication
+            property="authorities"
+            var="roles" />
+
+          <c:if test="${ !board.delFlag && (secInfo.uid == board.writer || fn:contains(roles, 'ROLE_ADMIN')) }">
             <a
               href="/board/modify/${board.bno}"
               class="btn">
               <button
                 type="button"
-                class="btn btn-warning btnModify">
-                MODIFY
-              </button>
+                class="btn btn-warning btnModify">MODIFY</button>
             </a>
           </c:if>
         </div>
@@ -100,8 +112,7 @@
           value="${board.bno}" />
 
         <div class="mb-3 input-group input-group-lg">
-          <span class="input-group-text">Replyer</span>
-          <input
+          <span class="input-group-text">Replyer</span> <input
             type="text"
             name="replyer"
             class="form-control"
@@ -120,9 +131,7 @@
         <div class="text-end">
           <button
             type="submit"
-            class="btn btn-primary addReplyBtn">
-            Submit Reply
-          </button>
+            class="btn btn-primary addReplyBtn">Submit Reply</button>
         </div>
       </form>
       <!-- 댓글 작성 폼 끝 -->
@@ -137,7 +146,9 @@
       <ul class="list-group replyList">
         <li class="list-group-item">
           <div class="d-flex justify-content-between">
-            <div><strong>번호</strong> - 댓글 내용</div>
+            <div>
+              <strong>번호</strong> - 댓글 내용
+            </div>
             <div class="text-muted small">작성일</div>
           </div>
           <div class="mt-1 text-secondary small">작성자</div>
@@ -150,42 +161,22 @@
         aria-label="댓글 페이지 네비게이션"
         class="mt-4">
         <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a
-              class="page-link"
-              href="#"
-              tabindex="-1">
-              이전
-            </a>
-          </li>
-          <li class="page-item active">
-            <a
-              class="page-link"
-              href="#">
-              1
-            </a>
-          </li>
-          <li class="page-item">
-            <a
-              class="page-link"
-              href="#">
-              2
-            </a>
-          </li>
-          <li class="page-item">
-            <a
-              class="page-link"
-              href="#">
-              3
-            </a>
-          </li>
-          <li class="page-item">
-            <a
-              class="page-link"
-              href="#">
-              다음
-            </a>
-          </li>
+          <li class="page-item disabled"><a
+            class="page-link"
+            href="#"
+            tabindex="-1"> 이전 </a></li>
+          <li class="page-item active"><a
+            class="page-link"
+            href="#"> 1 </a></li>
+          <li class="page-item"><a
+            class="page-link"
+            href="#"> 2 </a></li>
+          <li class="page-item"><a
+            class="page-link"
+            href="#"> 3 </a></li>
+          <li class="page-item"><a
+            class="page-link"
+            href="#"> 다음 </a></li>
         </ul>
       </div>
       <!-- 페이징 끝 -->
@@ -204,9 +195,7 @@
       <div class="modal-header">
         <h5
           class="modal-title"
-          id="replyModalLabel">
-          댓글 수정 / 삭제
-        </h5>
+          id="replyModalLabel">댓글 수정 / 삭제</h5>
         <button
           type="button"
           class="btn-close"
@@ -223,10 +212,7 @@
           <div class="mb-3">
             <label
               for="replyText"
-              class="form-label">
-              댓글 내용
-            </label>
-            <input
+              class="form-label"> 댓글 내용 </label> <input
               type="text"
               name="replyText"
               id="replyText"
@@ -239,20 +225,14 @@
       <div class="modal-footer">
         <button
           type="button"
-          class="btn btn-primary btnReplyMod">
-          수정
-        </button>
+          class="btn btn-primary btnReplyMod">수정</button>
         <button
           type="button"
-          class="btn btn-danger btnReplyDel">
-          삭제
-        </button>
+          class="btn btn-danger btnReplyDel">삭제</button>
         <button
           type="button"
           class="btn btn-secondary"
-          data-bs-dismiss="modal">
-          닫기
-        </button>
+          data-bs-dismiss="modal">닫기</button>
       </div>
     </div>
   </div>
@@ -473,4 +453,4 @@
   )
 </script>
 
-<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
+<%@ include file="/WEB-INF/views/includes/footer.jsp"%>

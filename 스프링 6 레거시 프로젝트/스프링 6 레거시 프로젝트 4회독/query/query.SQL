@@ -200,3 +200,13 @@ WHERE
 ORDER BY
     ac.uid ASC,
     ar.rolename DESC;
+
+-- 자동 로그인 테이블
+SELECT
+    *
+FROM
+    persistent_logins
+WHERE
+    1 = 1
+ORDER BY
+    username ASC;

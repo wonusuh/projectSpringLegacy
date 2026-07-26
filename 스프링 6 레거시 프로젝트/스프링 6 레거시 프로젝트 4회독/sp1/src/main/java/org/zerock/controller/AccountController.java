@@ -12,6 +12,9 @@ import lombok.extern.log4j.Log4j2;
 public class AccountController {
 	@GetMapping("/login")
 	public void loginGET() {
-		//
+	}
+
+	@GetMapping("/logout")
+	public void logoutGET() {
 	}
 }

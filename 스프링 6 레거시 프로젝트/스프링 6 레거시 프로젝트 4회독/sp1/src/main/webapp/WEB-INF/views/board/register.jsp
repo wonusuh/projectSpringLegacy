@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@include file="/WEB-INF/views/includes/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="sec"
+uri="http://www.springframework.org/security/tags" %> <%@include file="/WEB-INF/views/includes/header.jsp"%>
 
 <div class="row justify-content-center">
   <div class="col-lg-12">
@@ -6,6 +7,8 @@
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Board Register</h6>
       </div>
+
+      <sec:authentication property="principal"></sec:authentication>
 
       <div class="card-body">
         <form
@@ -33,7 +36,9 @@
             <input
               type="text"
               name="writer"
-              class="form-control" />
+              class="form-control"
+              value="<sec:authentication property='principal.uid'></sec:authentication>"
+              readonly />
           </div>
 
           <div class="d-flex justify-content-end">
