@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> <%@
-include file="/WEB-INF/views/includes/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
+%> <%@ include file="/WEB-INF/views/includes/header.jsp" %> <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> <%@ taglib
+prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="row justify-content-center">
   <div class="col-lg-12">
@@ -39,7 +39,7 @@ include file="/WEB-INF/views/includes/header.jsp"%>
               class="form-control"
               name="content"
               rows="3">
-<c:out value="${board.content}" /></textarea
+<c:out value="${board.content}"/></textarea
             >
           </div>
 
@@ -77,7 +77,7 @@ include file="/WEB-INF/views/includes/header.jsp"%>
             property="authorities"
             var="roles" />
 
-          <c:if test="${ !board.delFlag && (secInfo.uid == board.writer || fn:contains(roles, 'ROLE_ADMIN')) }">
+          <c:if test="${!board.delFlag && (secInfo.uid == board.writer || fn:contains(roles, 'ROLE_ADMIN'))}">
             <button
               type="button"
               class="btn btn-warning btnModify">
@@ -132,4 +132,4 @@ include file="/WEB-INF/views/includes/header.jsp"%>
   )
 </script>
 
-<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>

@@ -20,7 +20,12 @@ http://www.springframework.org/schema/security
 https://www.springframework.org/schema/security/spring-security.xsd
 ">
 
-        <mvc:annotation-driven />
+        <mvc:annotation-driven>
+                <!-- (p. 482) 인증정보를 주어진 타입으로 강제변환 -->
+                <mvc:argument-resolvers>
+                        <bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver" />
+                </mvc:argument-resolvers>
+        </mvc:annotation-driven>
 
         <!-- p. 69 컨트롤러를 스캔 -->
         <context:component-scan base-package="org.zerock.controller" />
