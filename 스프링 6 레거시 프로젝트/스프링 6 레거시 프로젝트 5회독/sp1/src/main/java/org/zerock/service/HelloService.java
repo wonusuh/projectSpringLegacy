@@ -1,26 +1,8 @@
-/**
- * 
- */
 package org.zerock.service;
 
-/**
- * 
- */
+import org.springframework.stereotype.Service;
+
+@Service
 public class HelloService {
-
-	/**
-	 * 
-	 */
-	public HelloService() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+	//
 }
