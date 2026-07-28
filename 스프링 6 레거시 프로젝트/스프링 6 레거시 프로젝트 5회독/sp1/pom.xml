@@ -67,6 +67,41 @@
       <version>2.26.1</version>
     </dependency>
 
+    <!-- (p. 73) Hikari 커넥션 풀, JDBC -->
+    <!-- Source: https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>7.1.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- Source:
+    https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+    <dependency>
+      <groupId>org.mariadb.jdbc</groupId>
+      <artifactId>mariadb-java-client</artifactId>
+      <version>3.5.9</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- (p. 76) 스프링 테스트 설정 -->
+    <!-- Source:
+    https://mvnrepository.com/artifact/org.springframework/spring-test -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>7.0.8</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- Source:
+    https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>6.1.1</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -2,11 +2,42 @@
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:util="http://www.springframework.org/schema/context"
+        xmlns:context="http://www.springframework.org/schema/context"
         xsi:schemaLocation="
           http://www.springframework.org/schema/beans
           https://www.springframework.org/schema/beans/spring-beans.xsd
           http://www.springframework.org/schema/context
           https://www.springframework.org/schema/context/spring-context.xsd">
         <!-- bean definitions here -->
+        <!-- (p. 66) 스프링이 service 패키지 안의 bean 을 스캔할 수 있게 설정 -->
+        <context:component-scan base-package="org.zerock.service" />
+        <!-- (p. 74) Hikari connection pool 빈 설정 -->
+        <bean
+                name="hikariConfig"
+                class="com.zaxxer.hikari.HikariConfig">
+                <property
+                        name="driverClassName"
+                        value="org.mariadb.jdbc.Driver" />
+                <property
+                        name="jdbcUrl"
+                        value="jdbc:mariadb://localhost:3306/springdb" />
+                <property
+                        name="username"
+                        value="springdbuser" />
+                <property
+                        name="password"
+                        value="springdbuser" />
+                <property
+                        name="connectionTimeout"
+                        value="30000" />
+                <property
+                        name="minimumIdle"
+                        value="2" />
+        </bean>
+        <bean
+                name="dataSource"
+                class="com.zaxxer.hikari.HikariDataSource"
+                destroy-method="close">
+                <constructor-arg ref="hikariConfig" />
+        </bean>
 </beans>
