@@ -28,12 +28,14 @@ public class HelloController {
 	@GetMapping("/ex1")
 	public String ex1() {
 		log.info("===== /sample/ex1 =====");
+		helloService.hello1();
 		return "/sample/ex1.jsp";
 	}
 
 	@GetMapping("/ex2")
 	public String ex2() {
 		log.info("===== /sample/ex2 =====");
+		helloService.hello2("Wonu Suh");
 		return "/sample/success.jsp";
 	}
 

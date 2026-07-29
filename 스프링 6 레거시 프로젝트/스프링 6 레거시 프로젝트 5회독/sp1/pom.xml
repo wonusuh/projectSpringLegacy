@@ -17,6 +17,7 @@
       <version>1.18.46</version>
       <scope>provided</scope>
     </dependency>
+    <!-- // (p. 30) 롬복 -->
 
     <!-- (p. 32) 스프링 -->
     <!-- Source:
@@ -43,8 +44,9 @@
       <version>7.0.8</version>
       <scope>compile</scope>
     </dependency>
+    <!-- // (p. 32) 스프링 -->
 
-    <!-- p. 39 로거-->
+    <!-- (p. 39) 로거-->
     <!-- Source:
     https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl -->
     <dependency>
@@ -66,6 +68,7 @@
       <artifactId>log4j-api</artifactId>
       <version>2.26.1</version>
     </dependency>
+    <!-- // (p. 39) 로거-->
 
     <!-- (p. 73) Hikari 커넥션 풀, JDBC -->
     <!-- Source: https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
@@ -83,6 +86,7 @@
       <version>3.5.9</version>
       <scope>compile</scope>
     </dependency>
+    <!-- // (p. 73) Hikari 커넥션 풀, JDBC -->
 
     <!-- (p. 76) 스프링 테스트 설정 -->
     <!-- Source:
@@ -101,6 +105,60 @@
       <version>6.1.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- // (p. 76) 스프링 테스트 설정 -->
+
+    <!-- (p. 103) 마이바티스 -->
+    <!-- Source: https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.5.19</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>4.1.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- // (p. 103) 마이바티스 -->
+
+    <!-- (p. 104) 스프링-데이터베이스 -->
+    <!-- Source:
+    https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>7.0.8</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- Source:
+    https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>7.0.8</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- // (p. 104) 스프링-데이터베이스 -->
+
+    <!-- (p. 120) spring AOP -->
+    <!-- Source: https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.9.25.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>1.9.25.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <!-- // (p. 120) spring AOP -->
 
   </dependencies>
 

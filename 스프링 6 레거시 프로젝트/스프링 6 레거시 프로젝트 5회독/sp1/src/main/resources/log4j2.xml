@@ -8,11 +8,23 @@
                         <PatternLayout pattern="%c %l %5p %m%n" />
                 </Console>
         </Appenders>
+        <!-- // Appender, Layout 설정 -->
         <!-- Logger 설정 -->
         <Loggers>
-                <!-- <Logger name="org.springframework.security.web" level="TRACE" additivity="false"> <AppenderRef ref="console" /> </Logger> -->
+                <Logger
+                        name="com.zaxxer"
+                        level="DEBUG"
+                        additivity="false">
+                        <AppenderRef ref="console" />
+                </Logger>
                 <Logger
                         name="org.springframework"
+                        level="INFO"
+                        additivity="false">
+                        <AppenderRef ref="console" />
+                </Logger>
+                <Logger
+                        name="org.zerock"
                         level="DEBUG"
                         additivity="false">
                         <AppenderRef ref="console" />
@@ -21,4 +33,5 @@
                         <AppenderRef ref="console" />
                 </Root>
         </Loggers>
+        <!-- // Logger 설정 -->
 </Configuration>
