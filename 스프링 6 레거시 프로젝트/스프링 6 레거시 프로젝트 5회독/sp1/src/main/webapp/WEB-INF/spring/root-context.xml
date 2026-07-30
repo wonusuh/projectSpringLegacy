@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -7,21 +8,23 @@
         xmlns:aop="http://www.springframework.org/schema/aop"
         xmlns:tx="http://www.springframework.org/schema/tx"
         xsi:schemaLocation="
-    http://www.springframework.org/schema/beans
-    https://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/context
-    https://www.springframework.org/schema/context/spring-context.xsd
-    http://mybatis.org/schema/mybatis-spring
-    http://mybatis.org/schema/mybatis-spring.xsd
-    http://www.springframework.org/schema/aop
-    https://www.springframework.org/schema/aop/spring-aop.xsd
-    http://www.springframework.org/schema/tx
-    https://www.springframework.org/schema/tx/spring-tx.xsd
+          http://www.springframework.org/schema/beans
+          https://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+          https://www.springframework.org/schema/context/spring-context.xsd
+          http://mybatis.org/schema/mybatis-spring
+          http://mybatis.org/schema/mybatis-spring.xsd
+          http://www.springframework.org/schema/aop
+          https://www.springframework.org/schema/aop/spring-aop.xsd
+          http://www.springframework.org/schema/tx
+          https://www.springframework.org/schema/tx/spring-tx.xsd
 ">
+
         <!-- bean definitions here -->
+
         <!-- (p. 66) 스프링이 service 패키지 안의 bean 을 스캔할 수 있게 설정 -->
         <context:component-scan base-package="org.zerock.service" />
-        <!-- // (p. 66) 스프링이 service 패키지 안의 bean 을 스캔할 수 있게 설정 -->
+
         <!-- (p. 74) Hikari connection pool 빈 설정 -->
         <bean
                 name="hikariConfig"
@@ -51,7 +54,7 @@
                 destroy-method="close">
                 <constructor-arg ref="hikariConfig" />
         </bean>
-        <!-- // (p. 74) Hikari connection pool 빈 설정 -->
+
         <!-- (p. 105) 마이바티스-스프링 연동 -->
         <bean class="org.mybatis.spring.SqlSessionFactoryBean">
                 <property
@@ -61,18 +64,21 @@
                 <property
                         name="mapperLocations"
                         value="classpath:/mapper/*.xml" />
-                <!-- //(p. 112) mapper xml 파일위치 특정 -->
+                <!-- (p. 177) 마이바티스 설정파일을 사용함 -->
+                <property
+                        name="configLocation"
+                        value="classpath:mybatis-config.xml" />
         </bean>
-        <!-- // (p. 105) 마이바티스-스프링 연동 -->
+
         <!-- (p. 107) mapper 패키지를 스캔 -->
         <mybatis-spring:scan base-package="org.zerock.mapper" />
-        <!-- // (p. 107) mapper 패키지를 스캔 -->
+
         <!-- (p. 122) AOP 패키지를 스캔 -->
         <context:component-scan base-package="org.zerock.aop" />
-        <!-- // (p. 122) AOP 패키지를 스캔 -->
+
         <!-- (p. 127) AOP Proxy 객체 -->
         <aop:aspectj-autoproxy />
-        <!-- // (p. 127) AOP Proxy 객체 -->
+
         <!-- (p. 132) 트랜잭션 설정 -->
         <bean
                 id="transactionManager"
@@ -82,5 +88,5 @@
                         ref="dataSource" />
         </bean>
         <tx:annotation-driven />
-        <!-- // (p. 132) 트랜잭션 설정 -->
+
 </beans>
