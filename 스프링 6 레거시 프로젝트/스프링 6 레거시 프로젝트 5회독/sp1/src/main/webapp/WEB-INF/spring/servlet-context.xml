@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -11,12 +12,13 @@
     https://www.springframework.org/schema/mvc/spring-mvc.xsd
     http://www.springframework.org/schema/context
     https://www.springframework.org/schema/context/spring-context.xsd">
+
         <!-- (p. 37) -->
         <mvc:annotation-driven />
-        <!-- // (p. 37) -->
+
         <!-- (p. 69) 스프링이 컨트롤러를 스캔할 수 있게 설정 -->
         <context:component-scan base-package="org.zerock.controller" />
-        <!-- // (p. 69) 스프링이 컨트롤러를 스캔할 수 있게 설정 -->
+
         <!-- (p. 83) JSP view resolver 설정 -->
         <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
                 <property
@@ -24,5 +26,10 @@
                         value="/WEB-INF/views/" />
                 <!-- <property name="suffix" value=".jsp" /> -->
         </bean>
-        <!-- // (p. 83) JSP view resolver 설정 -->
+
+        <!-- (p. 158) HTML, CSS, JS 정적 리소스 설정 -->
+        <mvc:resources
+                mapping="/resources/**"
+                location="/resources/" />
+
 </beans>
