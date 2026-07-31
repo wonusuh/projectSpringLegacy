@@ -1,4 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@include file="/WEB-INF/views/includes/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!--  -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!--  -->
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+
 <div class="row justify-content-center">
   <div class="col-lg-12">
     <div class="card shadow mb-4">
@@ -47,7 +52,7 @@
           <tbody class="tbody">
             <c:forEach
               var="board"
-              items="${dto.boardDTOList}">
+              items="${list}">
               <tr data-bno="${board.bno}">
                 <td>
                   <a href="/board/read/${board.bno}">
@@ -151,7 +156,13 @@
 <script
   type="text/javascript"
   defer="defer">
-  //
+  const result = '${result}'
+  const myModal = new bootstrap.Modal(document.getElementById('myModal'))
+
+  // 게시물 등록 후 리디렉션 된 경우
+  if (result) {
+    myModal.show()
+  }
 </script>
 
-<%@include file="/WEB-INF/views/includes/footer.jsp" %>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
