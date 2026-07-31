@@ -80,7 +80,7 @@
               <li class="page-item">
                 <a
                   class="page-link"
-                  href=""
+                  href="${ dto.start - 1 }"
                   tabindex="-1">
                   Previous
                 </a>
@@ -103,7 +103,7 @@
               <li class="page-item">
                 <a
                   class="page-link"
-                  href="">
+                  href="${ dto.end + 1 }">
                   Next
                 </a>
               </li>
@@ -156,6 +156,7 @@
 <script
   type="text/javascript"
   defer="defer">
+  console.log('list.jsp')
   const result = '${result}'
   const myModal = new bootstrap.Modal(document.getElementById('myModal'))
 
@@ -163,6 +164,31 @@
   if (result) {
     myModal.show()
   }
+
+  // 페이지번호 클릭이벤트
+  const pagingDiv = document.querySelector('.pagination')
+  pagingDiv.addEventListener(
+    'click',
+    (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+
+      const target = e.target
+      // console.log(target)
+      const targetPage = target.getAttribute('href').trim()
+      const size = `${dto.size}` || 10
+
+      // 요청 파라미터
+      const params = new URLSearchParams({
+        page: targetPage,
+        size: size
+      })
+
+      // 요청
+      self.location = `/board/list?\${params.toString()}`
+    },
+    false
+  )
 </script>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
