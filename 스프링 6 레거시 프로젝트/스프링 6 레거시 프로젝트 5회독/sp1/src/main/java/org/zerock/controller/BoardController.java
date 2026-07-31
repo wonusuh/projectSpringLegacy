@@ -27,9 +27,12 @@ public class BoardController {
 
 	// 게시물 목록 조회
 	@GetMapping("/list")
-	public String list(Model model) {
+	public String list(@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
 		log.info("========== list ==========");
-		model.addAttribute("list", boardService.getList());
+		log.info("========== page : {} ==========", page);
+		log.info("========== size : {} ==========", size);
+		model.addAttribute("dto", boardService.getList(page, size));
 		return "/board/list.jsp";
 	}
 
@@ -72,7 +75,8 @@ public class BoardController {
 	public String modifyPOST(BoardDTO boardDTO) {
 		log.info("========== modifyPOST ==========");
 		boardService.modify(boardDTO);
-		return "redirect:/board/read/" + boardDTO.getBno(); // 수정 후에 해당 게시물로 리디렉션
+		return "redirect:/board/read/" + boardDTO.getBno(); // 수정 후에 해당 게시물로
+															// 리디렉션
 	}
 
 	// 게시물 삭제

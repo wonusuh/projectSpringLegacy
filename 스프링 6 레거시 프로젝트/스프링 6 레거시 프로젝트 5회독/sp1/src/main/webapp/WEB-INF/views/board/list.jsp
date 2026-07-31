@@ -52,7 +52,7 @@
           <tbody class="tbody">
             <c:forEach
               var="board"
-              items="${list}">
+              items="${dto.boardDTOList}">
               <tr data-bno="${board.bno}">
                 <td>
                   <a href="/board/read/${board.bno}">
