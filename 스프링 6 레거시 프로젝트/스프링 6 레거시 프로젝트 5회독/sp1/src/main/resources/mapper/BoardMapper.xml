@@ -6,8 +6,8 @@
 
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
-        <!-- 게시물 등록 -->
         <insert id="insert">
+                /* 게시물 등록 */
                 <selectKey
                         order="AFTER"
                         keyProperty="bno"
@@ -29,10 +29,10 @@
                 )
         </insert>
 
-        <!-- 게시물 조회 -->
         <select
                 id="selectOne"
                 resultType="boardDTO">
+                /* 게시물 조회 */
                 SELECT
                 *
                 FROM
@@ -42,8 +42,8 @@
                 AND bno = #{bno}
         </select>
 
-        <!-- 게시물 삭제 -->
         <update id="remove">
+                /* 게시물 삭제 */
                 UPDATE
                 tbl_board
                 SET
@@ -53,8 +53,8 @@
                 AND bno = #{bno}
         </update>
 
-        <!-- 게시물 수정 -->
         <update id="update">
+                /* 게시물 수정 */
                 UPDATE
                 tbl_board
                 SET
@@ -82,8 +82,7 @@
                 1 = 1
                 AND delflag = FALSE
                 AND bno >= 1
-                ORDER BY
-                bno DESC;
+                ORDER BY bno DESC;
         </select>
 
 </mapper>
