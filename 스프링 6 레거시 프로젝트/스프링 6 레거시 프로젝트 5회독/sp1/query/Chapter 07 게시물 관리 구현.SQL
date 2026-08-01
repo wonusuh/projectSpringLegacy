@@ -39,3 +39,17 @@ LIMIT
     10
 OFFSET
     10;
+
+/* 검색어로 게시물 조회 */
+SELECT
+    bno,
+    title,
+    writer,
+    regdate
+FROM
+    tbl_board
+WHERE
+    1 >= 1
+    AND delflag = FALSE
+ORDER BY
+    bno DESC;

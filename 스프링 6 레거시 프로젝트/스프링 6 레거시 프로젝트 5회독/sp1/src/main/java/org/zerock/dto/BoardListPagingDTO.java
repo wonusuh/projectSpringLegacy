@@ -9,7 +9,7 @@ import lombok.Data;
 public class BoardListPagingDTO {
 	private List<BoardDTO> boardDTOList; // dto 리스트
 	private int totalCount; // DB 에서 조회된 전체 board 의 개수
-	private int page; // 현제 보고있는 페이지번호
+	private int page; // 현재 보고있는 페이지번호
 	private int size; // 한 페이지에 보여줄 board 의 개수
 	private int start; // 페이지바의 첫 번째 페이지번호
 	private int end; // 페이지바의 마지막 페이지번호

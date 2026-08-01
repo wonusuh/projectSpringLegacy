@@ -75,8 +75,7 @@ public class BoardController {
 	public String modifyPOST(BoardDTO boardDTO) {
 		log.info("========== modifyPOST ==========");
 		boardService.modify(boardDTO);
-		return "redirect:/board/read/" + boardDTO.getBno(); // 수정 후에 해당 게시물로
-															// 리디렉션
+		return "redirect:/board/read/" + boardDTO.getBno(); // 수정 후에 해당 게시물로 리디렉션
 	}
 
 	// 게시물 삭제
