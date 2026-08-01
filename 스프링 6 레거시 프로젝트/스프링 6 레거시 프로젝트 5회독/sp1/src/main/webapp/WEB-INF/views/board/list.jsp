@@ -21,13 +21,14 @@
             <select
               name="typeSelect"
               class="form-select form-control me-2">
-              <option value="">--</option>
-              <!-- <option value="T" ${dto.types == 'T' ? 'selected' : ''}>제목</option>
-              <option value="C" ${dto.types == 'C' ? 'selected' : ''}>내용</option>
-              <option value="W" ${dto.types == 'W' ? 'selected' : ''}>작성자</option>
-              <option value="TC" ${dto.types == 'TC' ? 'selected' : ''}>제목 OR 내용</option>
-              <option value="TW" ${dto.types == 'TW' ? 'selected' : ''}>제목 OR 작성자</option>
-              <option value="TCW" ${dto.types == 'TCW' ? 'selected' : ''}>제목 OR 내용 OR 작성자</option> -->
+              <option value=""                                              >--</option>
+              <option value="T"   ${ dto.types == 'T'   ? 'selected' : '' } >제목</option>
+              <option value="C"   ${ dto.types == 'C'   ? 'selected' : '' } >내용</option>
+              <option value="W"   ${ dto.types == 'W'   ? 'selected' : '' } >작성자</option>
+              <option value="TC"  ${ dto.types == 'TC'  ? 'selected' : '' } >제목 OR 내용</option>
+              <option value="TW"  ${ dto.types == 'TW'  ? 'selected' : '' } >제목 OR 작성자</option>
+              <option value="CW"  ${ dto.types == 'CW'  ? 'selected' : '' } >내용 OR 작성자</option>
+              <option value="TCW" ${ dto.types == 'TCW' ? 'selected' : '' } >제목 OR 내용 OR 작성자</option>
             </select>
             <input
               type="text"
