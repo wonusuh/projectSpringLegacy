@@ -28,6 +28,12 @@
                         <param-value>/WEB-INF/spring/servlet-context.xml</param-value>
                 </init-param>
                 <load-on-startup>1</load-on-startup>
+                <!-- (p. 272) 멀티파트 파일전송 설정 -->
+                <multipart-config>
+                        <max-file-size>20971520</max-file-size><!-- 1MB * 20 -->
+                        <max-request-size>41943040</max-request-size><!-- 1MB * 40 -->
+                        <file-size-threshold>20971520</file-size-threshold><!-- 1MB * 20 -->
+                </multipart-config>
         </servlet>
         <servlet-mapping>
                 <servlet-name>appServlet</servlet-name>

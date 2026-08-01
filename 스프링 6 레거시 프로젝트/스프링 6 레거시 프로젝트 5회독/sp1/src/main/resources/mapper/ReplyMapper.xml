@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.ReplyMapper">
+
+        <insert id="insert">
+                /* 댓글 저장 */
+                <selectKey
+                        order="AFTER"
+                        keyProperty="rno"
+                        resultType="long">
+                        SELECT LAST_INSERT_ID()
+                </selectKey>
+                INSERT INTO
+                tbl_reply
+                (
+                bno,
+                replytext,
+                replyer
+                )
+                VALUES
+                (
+                #{bno},
+                #{replyText},
+                #{replyer}
+                )
+        </insert>
+
+        <select
+                id="read"
+                resultType="long">
+                /* 댓글 조회 */
+                SELECT
+                *
+                FROM
+                tbl_reply
+                WHERE
+                1 = 1
+                AND rno = #{rno}
+        </select>
+
+        <update id="delete">
+                /* 댓글 삭제 */
+                UPDATE
+                tbl_reply
+                SET
+                delFlag = TRUE,
+                updateDate = NOW()
+                WHERE
+                1 = 1
+                AND rno = #{rno}
+        </update>
+
+        <update id="update">
+                /* 댓글 수정 */
+                UPDATE
+                tbl_reply
+                SET
+                replytext = #{replyText},
+                updatedate = NOW()
+                WHERE
+                1 = 1
+                AND rno = #{rno}
+        </update>
+
+        <select
+                id="listOfBoard"
+                resultType="ReplyDTO">
+                /* 댓글 목록 조회 */
+                SELECT
+                *
+                FROM
+                tbl_reply
+                WHERE
+                1 = 1
+                AND bno > 0
+                AND rno > 0
+                AND bno = #{bno}
+                ORDER BY
+                rno ASC
+                LIMIT #{limit}
+                OFFSET #{skip}
+        </select>
+
+        <select
+                id="countOfBoard"
+                resultType="int">
+                /* 특정 게시물의 전체 댓글수 조회 */
+                SELECT
+                COUNT(rno)
+                FROM
+                tbl_reply
+                WHERE
+                1 = 1
+                AND bno = #{bno}
+                AND rno > 0
+        </select>
+
+</mapper>

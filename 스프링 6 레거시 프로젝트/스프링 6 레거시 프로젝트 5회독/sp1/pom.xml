@@ -1,189 +1,212 @@
 <project
-                xmlns="http://maven.apache.org/POM/4.0.0"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>sp1</groupId>
-  <artifactId>sp1</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>sp1</groupId>
+	<artifactId>sp1</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 
-  <dependencies>
+	<dependencies>
 
-    <!-- (p. 30) 롬복 -->
-    <!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.46</version>
-      <scope>provided</scope>
-    </dependency>
+		<!-- (p. 30) 롬복 -->
+		<!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.46</version>
+			<scope>provided</scope>
+		</dependency>
 
-    <!-- (p. 32) 스프링 -->
-    <!-- Source:
+		<!-- (p. 32) 스프링 -->
+		<!-- Source:
     https://mvnrepository.com/artifact/org.springframework/spring-core -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>7.0.8</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Source:
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>7.0.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
     https://mvnrepository.com/artifact/org.springframework/spring-context -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>7.0.8</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Source:
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>7.0.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
     https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-      <version>7.0.8</version>
-      <scope>compile</scope>
-    </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>7.0.8</version>
+			<scope>compile</scope>
+		</dependency>
 
-    <!-- (p. 39) 로거-->
-    <!-- Source:
+		<!-- (p. 39) 로거-->
+		<!-- Source:
     https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j2-impl</artifactId>
-      <version>2.26.1</version>
-    </dependency>
-    <!-- Source:
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j2-impl</artifactId>
+			<version>2.26.1</version>
+		</dependency>
+		<!-- Source:
     https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.26.1</version>
-    </dependency>
-    <!-- Source:
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.26.1</version>
+		</dependency>
+		<!-- Source:
     https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>2.26.1</version>
-    </dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.26.1</version>
+		</dependency>
 
-    <!-- (p. 73) Hikari 커넥션 풀, JDBC -->
-    <!-- Source: https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
-    <dependency>
-      <groupId>com.zaxxer</groupId>
-      <artifactId>HikariCP</artifactId>
-      <version>7.1.0</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Source:
+		<!-- (p. 73) Hikari 커넥션 풀, JDBC -->
+		<!-- Source: https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>7.1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
     https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
-    <dependency>
-      <groupId>org.mariadb.jdbc</groupId>
-      <artifactId>mariadb-java-client</artifactId>
-      <version>3.5.9</version>
-      <scope>compile</scope>
-    </dependency>
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>3.5.9</version>
+			<scope>compile</scope>
+		</dependency>
 
-    <!-- (p. 76) 스프링 테스트 설정 -->
-    <!-- Source:
+		<!-- (p. 76) 스프링 테스트 설정 -->
+		<!-- Source:
     https://mvnrepository.com/artifact/org.springframework/spring-test -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>7.0.8</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Source:
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>7.0.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
     https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>6.1.1</version>
-      <scope>test</scope>
-    </dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>6.1.1</version>
+			<scope>test</scope>
+		</dependency>
 
-    <!-- (p. 103) 마이바티스 -->
-    <!-- Source: https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis</artifactId>
-      <version>3.5.19</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Source: https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-    <dependency>
-      <groupId>org.mybatis</groupId>
-      <artifactId>mybatis-spring</artifactId>
-      <version>4.1.0</version>
-      <scope>compile</scope>
-    </dependency>
+		<!-- (p. 103) 마이바티스 -->
+		<!-- Source: https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.19</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>4.1.0</version>
+			<scope>compile</scope>
+		</dependency>
 
-    <!-- (p. 104) 스프링-데이터베이스 -->
-    <!-- Source:
+		<!-- (p. 104) 스프링-데이터베이스 -->
+		<!-- Source:
     https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
-      <version>7.0.8</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Source:
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>7.0.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
     https://mvnrepository.com/artifact/org.springframework/spring-tx -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-      <version>7.0.8</version>
-      <scope>compile</scope>
-    </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>7.0.8</version>
+			<scope>compile</scope>
+		</dependency>
 
-    <!-- (p. 120) spring AOP -->
-    <!-- Source: https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-      <version>1.9.25.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Source: https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjrt</artifactId>
-      <version>1.9.25.1</version>
-      <scope>compile</scope>
-    </dependency>
+		<!-- (p. 120) spring AOP -->
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.25.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.9.25.1</version>
+			<scope>compile</scope>
+		</dependency>
 
-    <!-- (p. 208) JSTL -->
-    <!-- Source: https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
-    <dependency>
-      <groupId>jakarta.servlet.jsp.jstl</groupId>
-      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-      <version>3.1.0-M2</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Source: https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
-    <dependency>
-      <groupId>org.glassfish.web</groupId>
-      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-      <version>3.0.1</version>
-      <scope>compile</scope>
-    </dependency>
+		<!-- (p. 208) JSTL -->
+		<!-- Source:
+		https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>3.1.0-M2</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<version>3.0.1</version>
+			<scope>compile</scope>
+		</dependency>
 
-  </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
-        <configuration>
-          <release>26</release>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
-      </plugin>
-    </plugins>
-  </build>
+		<!-- (p. 271) Java 객체를 JSON 으로 변환 -->
+		<!-- Source:
+		https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>3.2.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Source:
+		https://mvnrepository.com/artifact/tools.jackson.datatype/jackson-datatype-jsr310 -->
+		<dependency>
+			<groupId>tools.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>3.0.0-rc2</version>
+			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
+				<configuration>
+					<release>26</release>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
+			</plugin>
+		</plugins>
+	</build>
 </project>
