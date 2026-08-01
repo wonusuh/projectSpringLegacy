@@ -30,7 +30,7 @@ public class ReplyController {
 	}
 
 	// 댓글 등록
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<Map<String, Long>> add(ReplyDTO replyDTO) {
 		log.info(replyDTO);
 		replyService.add(replyDTO);

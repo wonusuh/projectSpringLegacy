@@ -266,25 +266,25 @@
 <script>
   const replyForm = document.querySelector('#replyForm')
 
-  document.querySelector('.addReplyBtn').addEventListener('click', (e) => {
-    e.preventDefault()
+  // 댓글 추가
+  document.querySelector('.addReplyBtn').addEventListener(
+    'click',
+    async (e) => {
+      // 이벤트 전파 방지
+      e.preventDefault()
+      e.stopPropagation()
 
-    const formData = new FormData(replyForm)
-    const data = Object.fromEntries(formData.entries())
+      // 서비스 호출
+      const formData = new FormData(replyForm)
+      const res = await axios.post('/replies', formData)
+      console.log('=== === === server response === === ===')
+      console.log(res)
 
-    axios
-      .post('/replies/new', data)
-      .then((response) => {
-        console.log(response.data)
-        alert('댓글이 등록되었습니다.')
-        replyForm.reset()
-        loadReplies(data.bno, 1)
-      })
-      .catch((error) => {
-        console.error(error)
-        alert('댓글 등록에 실패했습니다.')
-      })
-  })
+      // 댓글 폼 초기화
+      replyForm.reset()
+    },
+    false
+  )
 </script>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
