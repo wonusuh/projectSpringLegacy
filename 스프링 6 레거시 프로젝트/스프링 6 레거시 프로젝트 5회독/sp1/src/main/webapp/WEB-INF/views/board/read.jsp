@@ -264,7 +264,27 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-  //
+  const replyForm = document.querySelector('#replyForm')
+
+  document.querySelector('.addReplyBtn').addEventListener('click', (e) => {
+    e.preventDefault()
+
+    const formData = new FormData(replyForm)
+    const data = Object.fromEntries(formData.entries())
+
+    axios
+      .post('/replies/new', data)
+      .then((response) => {
+        console.log(response.data)
+        alert('댓글이 등록되었습니다.')
+        replyForm.reset()
+        loadReplies(data.bno, 1)
+      })
+      .catch((error) => {
+        console.error(error)
+        alert('댓글 등록에 실패했습니다.')
+      })
+  })
 </script>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

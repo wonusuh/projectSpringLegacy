@@ -1,9 +1,12 @@
 package org.zerock.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.dto.ReplyDTO;
+import org.zerock.dto.ReplyListPagingDTO;
 import org.zerock.mapper.ReplyMapper;
 import org.zerock.service.exception.ReplyException;
 
@@ -67,18 +70,17 @@ public class ReplyService {
 	}
 
 	// 댓글 목록 조회
-//	public ReplyListPagingDTO listOfBoard( Long bno, int page, int size ) {
-//		try {
-//			int skip = (page -1) * size;
-//		
-//			List<ReplyDTO> replyDTOList = replyMapper.listOfBoard(bno, skip, size);
-//			
-//			int count = replyMapper.countOfBoard(bno);
-//			
-//			return new ReplyListPagingDTO(replyDTOList, count, page, size);
-//			
-//		}catch(Exception e) {
-//			throw new ReplyException(500, e.getMessage()); 
-//		}
-//	}
+	public ReplyListPagingDTO listOfBoard(Long bno, int page, int size) {
+		try {
+			int skip = (page - 1) * size;
+
+			List<ReplyDTO> replyDTOList = replyMapper.listOfBoard(bno, skip, size);
+
+			int count = replyMapper.countOfBoard(bno);
+
+			return new ReplyListPagingDTO(replyDTOList, count, page, size);
+		} catch (Exception e) {
+			throw new ReplyException(500, e.getMessage());
+		}
+	}
 }
