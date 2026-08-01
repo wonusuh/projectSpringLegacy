@@ -82,7 +82,7 @@
                 WHERE
                 1 = 1
                 AND delflag = FALSE
-                AND bno >= 1
+                AND bno = 1
                 ORDER BY bno DESC;
         </select>
 
@@ -99,7 +99,7 @@
                 tbl_board
                 WHERE
                 1 = 1
-                AND bno >= 1
+                AND bno = 1
                 AND delflag = FALSE
                 ORDER BY
                 bno DESC
@@ -116,9 +116,31 @@
                 FROM
                 tbl_board
                 WHERE
-                1 >= 1
+                1 = 1
                 AND delflag = FALSE
         </select>
+
+        <!-- 동적 쿼리 분리 -->
+        <sql id="search">
+                <if test="types != null and keyword != null">
+                        <foreach
+                                collection="types"
+                                item="type"
+                                open=" AND ( "
+                                close=" ) "
+                                separator=" OR ">
+                                <if test='type.equals("T")'>
+                                        title LIKE CONCAT('%', #{keyword}, '%')
+                                </if>
+                                <if test='type.equals("C")'>
+                                        content LIKE CONCAT('%', #{keyword}, '%')
+                                </if>
+                                <if test='type.equals("W")'>
+                                        writer LIKE CONCAT('%', #{keyword}, '%')
+                                </if>
+                        </foreach>
+                </if>
+        </sql>
 
         <select
                 id="listSearch"
@@ -132,26 +154,22 @@
                 FROM
                 tbl_board
                 WHERE
-                1 >= 1
+                1 = 1
                 AND delflag = FALSE
-                <if test="types != null and keyword != null">
-                        <foreach
-                                collection="types"
-                                item="type">
-                                <if test='type.equals("T")'>
-                                        title LIKE CONCAT('%', #{keyword}, '%')
-                                </if>
-                                <if test='type.equals("C")'>
-                                        content LIKE CONCAT('%', #{keyword}, '%')
-                                </if>
-                                <if test='type.equals("W")'>
-                                        writer LIKE CONCAT('%', #{keyword}, '%')
-                                </if>
-                        </foreach>
-                </if>
+                <include refid="search" />
                 ORDER BY bno DESC
                 LIMIT #{count}
                 OFFSET #{skip}
+        </select>
+
+        <select
+                id="listCountSearch"
+                resultType="int">
+                /* 검색어로 조회된 게시물의 개수 */
+                SELECT count(bno)
+                FROM tbl_board
+                WHERE delflag = FALSE
+                <include refid="search" />
         </select>
 
 </mapper>

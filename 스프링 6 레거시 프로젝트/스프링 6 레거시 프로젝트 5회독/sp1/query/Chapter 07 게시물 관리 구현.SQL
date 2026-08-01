@@ -51,5 +51,14 @@ FROM
 WHERE
     1 >= 1
     AND delflag = FALSE
+    AND (
+        title LIKE CONCAT ('%', ?, '%')
+        OR content LIKE CONCAT ('%', ?, '%')
+        OR writer LIKE CONCAT ('%', ?, '%')
+    )
 ORDER BY
-    bno DESC;
+    bno DESC
+LIMIT
+    ?
+OFFSET
+    ?;

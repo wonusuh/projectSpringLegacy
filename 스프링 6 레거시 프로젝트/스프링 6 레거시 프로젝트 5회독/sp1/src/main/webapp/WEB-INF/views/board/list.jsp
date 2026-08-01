@@ -158,7 +158,7 @@
   type="text/javascript"
   defer="defer">
   console.log('list.jsp')
-  const result = '${result}'
+  const result = `${result}`
   const myModal = new bootstrap.Modal(document.getElementById('myModal'))
 
   // 게시물 등록 후 리디렉션 된 경우
@@ -183,6 +183,39 @@
       const params = new URLSearchParams({
         page: targetPage,
         size: size
+      })
+
+      // 다른 페이지를 호출시 검색유형과 검색어도 같이 전달
+      const types = `${dto.types}` || null
+      const keyword = `${dto.keyword}` || null
+      if (types) {
+        params.set('types', types)
+      }
+      if (keyword) {
+        params.set('keyword', keyword)
+      }
+
+      // 요청
+      self.location = `/board/list?\${params.toString()}`
+    },
+    false
+  )
+
+  // 검색
+  document.querySelector('.searchBtn').addEventListener(
+    'click',
+    (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+
+      const keyword = document.querySelector('input[name="keywordInput"]').value.trim()
+      const selectObj = document.querySelector('select[name="typeSelect"]')
+      const types = selectObj.options[selectObj.selectedIndex].value.trim()
+
+      // 요청 파라미터
+      const params = new URLSearchParams({
+        types: types,
+        keyword: keyword
       })
 
       // 요청

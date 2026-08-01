@@ -96,8 +96,19 @@ public class BoardMapperTests {
 		int page = 2; // 조회할 페이지번호
 		int count = 10; // 한 페이지에 보여줄 게시물의 개수
 		int skip = (page - 1) * count;
-		String[] types = { "T", "C", "W" };
-		String keyword = "Test";
+//		String[] types = { "T", "C", "W" };
+		String[] types = { "W" };
+		String keyword = "";
+
+		// 빈 배열은 null 처리
+		if (types.length == 0) {
+			types = null;
+		}
+
+		// 빈 문자열은 null 처리
+		if ("".equals(keyword)) {
+			keyword = null;
+		}
 
 		boardMapper.listSearch(skip, count, types, keyword);
 	}

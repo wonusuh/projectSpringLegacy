@@ -16,15 +16,18 @@ public class BoardListPagingDTO {
 	private boolean prev; // 이전 페이지바 버튼 활성화 여부
 	private boolean next; // 다음 페이지바 버튼 활성화 여부
 	private List<Integer> pageNums; // 페이지바에 표기할 페이지번호들
-	private String types = "temp";
-	private String keyword = "temp";
+	private String types; // 검색 유형
+	private String keyword; // 검색어
 
 	// 생성자에서 페이징 계산
-	public BoardListPagingDTO(List<BoardDTO> boardDTOList, int totalCount, int page, int size) {
+	public BoardListPagingDTO(List<BoardDTO> boardDTOList, int totalCount, int page, int size, String types,
+			String keyword) {
 		this.boardDTOList = boardDTOList;
 		this.totalCount = totalCount;
 		this.page = page;
 		this.size = size;
+		this.types = types;
+		this.keyword = keyword;
 
 		// ceil(13/10.0) * 10 = 20
 		int tempEnd = (int) (Math.ceil(page / 10.0)) * 10;

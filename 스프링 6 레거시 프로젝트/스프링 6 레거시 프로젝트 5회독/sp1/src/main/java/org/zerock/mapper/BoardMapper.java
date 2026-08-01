@@ -31,4 +31,7 @@ public interface BoardMapper {
 	// 검색어로 board 검색
 	List<BoardDTO> listSearch(@Param("skip") int skip, @Param("count") int count, @Param("types") String[] types,
 			@Param("keyword") String keyword);
+
+	// 검색어로 필터링되어 조회된 board 의 개수
+	int listCountSearch(@Param("types") String[] types, @Param("keyword") String keyword);
 }
