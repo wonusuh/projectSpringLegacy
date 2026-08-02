@@ -72,12 +72,16 @@ public class ReplyService {
 	// 댓글 목록 조회
 	public ReplyListPagingDTO listOfBoard(Long bno, int page, int size) {
 		try {
+			// 3번 페이지를 로드하려면 20개의 댓글을 skip
 			int skip = (page - 1) * size;
 
+			// dto 리스트 조회
 			List<ReplyDTO> replyDTOList = replyMapper.listOfBoard(bno, skip, size);
 
+			// 해당 게시물의 전체 댓글수
 			int count = replyMapper.countOfBoard(bno);
 
+			// 페이징 계산
 			return new ReplyListPagingDTO(replyDTOList, count, page, size);
 		} catch (Exception e) {
 			throw new ReplyException(500, e.getMessage());

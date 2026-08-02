@@ -285,6 +285,99 @@
     },
     false
   )
+
+  // 댓글 목록 조회
+  let currentPage = 1
+  let currentSize = 10
+  const bno = `\${board.bno}`
+
+  // 조회 서비스 호출
+  const getReplies = async (pageNum) => {
+    const res = await axios.get(`/replies/\${bno}/list`, {
+      params: {
+        page: pageNum || currentPage,
+        size: currentSize
+      }
+    })
+
+    const data = res.data
+    console.log(data)
+    const { totalCount, page, size } = data
+
+    // 댓글의 마지막 페이지를 재호출할지 계산
+    if (totalCount > page * size) {
+      // 133개의 댓글이 있으면 마지막 페이지는 14
+      const lastPage = Math.ceil(totalCount / size)
+
+      // 재호출
+      getReplies(lastPage)
+    } else {
+      currentPage = page
+      currentSize = size
+      printReplies(data) // 출력
+    }
+  }
+
+  // 댓글 + 페이지버튼을 화면에 렌더링
+  const replyList = document.querySelector('.replyList')
+  const printReplies = (data) => {
+    const { replyDTOList, page, size, prev, next, start, end, pageNums } = data
+
+    // 댓글들을 렌더링
+    let liStr = ''
+    for (replyDTO of replyDTOList) {
+      liStr += `<li class="list-group-item" data-rno="\${replyDTO.rno}">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                        <strong>\${replyDTO.rno}</strong> - \${replyDTO.replyText}
+                    </div>
+                    <div class="text-muted small">
+                      \${replyDTO.replyDate}
+                    </div>
+                  </div>
+                  <div class="mt-1 text-secondary small">
+                    \${replyDTO.replyer}
+                  </div>
+                </li>`
+    } // end of for
+
+    replyList.innerHTML = liStr
+
+    // 페이지 버튼들을 렌더링
+    let pagingStr = ''
+
+    // 이전 버튼이 활성화인 경우
+    if (prev === true) {
+      pagingStr += `<li class="page-item">
+                      <a class="page-link" href="\${start - 1}" tabindex="-1">
+                        이전
+                      </a>
+                    </li>`
+    }
+
+    // 페이지 번호들을 순회
+    for (let i of pageNums) {
+      pagingStr += `<li class="page-item \${i === page ? 'active': ''}">
+                      <a class="page-link" href="\${i}">
+                        \${i}
+                      </a>
+                    </li>`
+    }
+
+    // 다음 버튼이 활성화인 경우
+    if (next === true) {
+      pagingStr += `<li class="page-item">
+                      <a class="page-link" href="\${end + 1}">
+                        다음
+                      </a>
+                    </li>`
+    }
+
+    document.querySelector('.pagination').innerHTML = pagingStr
+  }
+
+  // 호출
+  getReplies(1)
 </script>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

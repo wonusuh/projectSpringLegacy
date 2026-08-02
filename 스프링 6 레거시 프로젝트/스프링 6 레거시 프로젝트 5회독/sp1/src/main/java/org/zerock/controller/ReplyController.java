@@ -43,9 +43,9 @@ public class ReplyController {
 	public ResponseEntity<ReplyListPagingDTO> listOfBoard(@PathVariable("bno") Long bno,
 			@RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size) {
-		log.info("bno: " + bno);
-		log.info("page: " + page);
-		log.info("size: " + size);
+		log.info("bno : " + bno);
+		log.info("page : " + page);
+		log.info("size : " + size);
 		return ResponseEntity.ok(replyService.listOfBoard(bno, page, size));
 	}
 
