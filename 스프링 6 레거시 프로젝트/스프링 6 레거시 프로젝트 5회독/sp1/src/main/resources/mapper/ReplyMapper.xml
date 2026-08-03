@@ -31,15 +31,11 @@
 
         <select
                 id="read"
-                resultType="long">
+                resultType="ReplyDTO">
                 /* 댓글 조회 */
-                SELECT
-                *
-                FROM
-                tbl_reply
-                WHERE
-                1 = 1
-                AND rno = #{rno}
+                SELECT *
+                FROM tbl_reply
+                WHERE rno = #{rno}
         </select>
 
         <update id="delete">
