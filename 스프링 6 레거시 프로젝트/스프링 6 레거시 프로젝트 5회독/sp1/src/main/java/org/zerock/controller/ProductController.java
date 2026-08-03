@@ -11,14 +11,17 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.dto.ProductDTO;
+import org.zerock.dto.ProductListPagingDTO;
 import org.zerock.service.ProductService;
 
 import lombok.extern.log4j.Log4j2;
@@ -63,6 +66,66 @@ public class ProductController {
 		Integer pno = productService.register(productDTO);
 		redirectAttributes.addFlashAttribute("product", pno);
 
+		return "redirect:/product/list";
+	}
+
+	// 상품목록 화면 호출
+	@GetMapping("/list")
+	public String list(@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "size", defaultValue = "10") int size, Model model) {
+		ProductListPagingDTO dto = productService.getList(page, size);
+		model.addAttribute("dto", dto);
+		return "/product/list.jsp";
+	}
+
+	// 상품 조회화면 호출
+	@GetMapping("/read/{pno}")
+	public String read(@PathVariable("pno") Integer pno, Model model) {
+		log.info("pno: " + pno);
+		model.addAttribute("product", productService.read(pno));
+		return "/product/read.jsp";
+	}
+
+	// 상품 수정화면 호출
+	@GetMapping("/modify/{pno}")
+	public String modifyGET(@PathVariable("pno") Integer pno, Model model) {
+		log.info("pno: " + pno);
+		model.addAttribute("product", productService.read(pno));
+		return "/product/modify.jsp";
+	}
+
+	// 상품 수정서비스 호출
+	@PostMapping("/modify")
+	public String modifyPost(ProductDTO productDTO, @RequestParam("oldImages") String[] oldImages,
+			@RequestParam("files") MultipartFile[] files) {
+		List<String> newFileNames = uploadFiles(files);
+
+		// oldImages
+		if (oldImages != null && oldImages.length > 0) {
+			for (String oldImage : oldImages) {
+				String uuid = oldImage.substring(0, 36);
+				String fileName = oldImage.substring(37);
+				productDTO.addImage(uuid, fileName);
+			}
+		}
+
+		if (newFileNames != null && newFileNames.size() > 0) {
+			for (String newImage : newFileNames) {
+				String uuid = newImage.substring(0, 36);
+				String fileName = newImage.substring(37);
+				productDTO.addImage(uuid, fileName);
+			}
+		}
+
+		productService.modify(productDTO);
+		return "redirect:/product/read/" + productDTO.getPno();
+	}
+
+	// 상품 삭제
+	@PostMapping("/remove")
+	public String remove(@RequestParam("pno") Integer pno, RedirectAttributes rttr) {
+		productService.remove(pno);
+		rttr.addFlashAttribute("result", "deleted");
 		return "redirect:/product/list";
 	}
 
