@@ -20,6 +20,7 @@ public class BoardDTO {
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate;
 	private boolean delFlag;
+	private int replyCnt;
 
 	// JSTL 은 LocalDateTime 에 대한 처리를 지원하지 않으므로, String 으로 변환
 	public String getCreatedDate() {

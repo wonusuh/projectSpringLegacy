@@ -196,6 +196,7 @@
   </div>
 </div>
 
+<!-- 모달 -->
 <div
   class="modal fade"
   id="replyModal"
@@ -260,6 +261,7 @@
     </div>
   </div>
 </div>
+<!-- // 모달 -->
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -270,18 +272,17 @@
   document.querySelector('.addReplyBtn').addEventListener(
     'click',
     async (e) => {
-      // 이벤트 전파 방지
       e.preventDefault()
       e.stopPropagation()
 
       // 서비스 호출
       const formData = new FormData(replyForm)
       const res = await axios.post('/replies', formData)
-      console.log('=== === === server response === === ===')
+      console.log('=== === === 댓글 추가 === === ===')
       console.log(res)
-
-      // 댓글 폼 초기화
       replyForm.reset()
+
+      getReplies(1, true) // 댓글 목록 재호출
     },
     false
   )
@@ -289,10 +290,10 @@
   // 댓글 목록 조회
   let currentPage = 1
   let currentSize = 10
-  const bno = `\${board.bno}`
+  const bno = `${board.bno}`
 
   // 조회 서비스 호출
-  const getReplies = async (pageNum) => {
+  const getReplies = async (pageNum, goLast) => {
     const res = await axios.get(`/replies/\${bno}/list`, {
       params: {
         page: pageNum || currentPage,
@@ -305,7 +306,7 @@
     const { totalCount, page, size } = data
 
     // 댓글의 마지막 페이지를 재호출할지 계산
-    if (totalCount > page * size) {
+    if (goLast === true && totalCount > page * size) {
       // 133개의 댓글이 있으면 마지막 페이지는 14
       const lastPage = Math.ceil(totalCount / size)
 
@@ -376,8 +377,111 @@
     document.querySelector('.pagination').innerHTML = pagingStr
   }
 
+  // 페이지 버튼 클릭 이벤트
+  document.querySelector('.pagination').addEventListener(
+    'click',
+    (e) => {
+      e.stopPropagation()
+      e.preventDefault()
+
+      const target = e.target
+      const href = target.getAttribute('href')
+
+      if (!href) {
+        return
+      }
+
+      console.log(href)
+      getReplies(href)
+    },
+    false
+  )
+
   // 호출
-  getReplies(1)
+  getReplies(1, true)
+
+  // 댓글 클릭이벤트
+  const replyModal = new bootstrap.Modal(document.querySelector('#replyModal'))
+  const replyModForm = document.querySelector('#replyModForm')
+  replyList.addEventListener(
+    'click',
+    async (e) => {
+      e.stopPropagation()
+      e.preventDefault()
+
+      // 가장 가까운 상위 li 요소를 찾는다.
+      const targetLi = e.target.closest('li')
+      const rno = targetLi.getAttribute('data-rno')
+
+      if (!rno) {
+        return
+      }
+
+      // 댓글조회 서비스 호출
+      const res = await axios.get(`/replies/\${rno}`)
+      const targetReply = res.data
+      console.log(targetReply)
+
+      if (targetReply.delFlag === false) {
+        replyModForm.querySelector('input[name = "rno"]').value = targetReply.rno
+        replyModForm.querySelector('input[name = "replyText"]').value = targetReply.replyText
+
+        replyModal.show()
+      } else {
+        alert('삭제된 댓글은 조회할 수 없습니다.')
+        return
+      }
+    },
+    false
+  )
+
+  // 댓글 삭제버튼 클릭이벤트
+  document.querySelector('.btnReplyDel').addEventListener(
+    'click',
+    (e) => {
+      e.stopPropagation()
+      e.preventDefault()
+
+      const formData = new FormData(replyModForm)
+      const rno = formData.get('rno')
+      axios
+        .delete('/replies/' + rno)
+        .then((res) => {
+          const data = res.data
+          replyModal.hide()
+          getReplies(currentPage)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    false
+  )
+
+  // 댓글 수정버튼 클릭이벤트
+  document.querySelector('.btnReplyMod').addEventListener(
+    'click',
+    (e) => {
+      e.stopPropagation()
+      e.preventDefault()
+
+      const formData = new FormData(replyModForm)
+      const rno = formData.get('rno')
+      console.log('rno: ' + rno)
+
+      axios
+        .put('/replies/' + rno, formData)
+        .then((res) => {
+          const data = res.data
+          replyModal.hide()
+          getReplies(currentPage)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    false
+  )
 </script>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

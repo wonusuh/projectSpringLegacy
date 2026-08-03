@@ -52,14 +52,14 @@ public class ReplyController {
 	// 댓글 조회
 	@GetMapping("/{rno}")
 	public ResponseEntity<ReplyDTO> read(@PathVariable("rno") Long rno) {
-		log.info("rno: " + rno);
+		log.info("rno : " + rno);
 		return ResponseEntity.ok(replyService.getOne(rno));
 	}
 
 	// 댓글 삭제
 	@DeleteMapping("/{rno}")
 	public ResponseEntity<Map<String, String>> delete(@PathVariable("rno") Long rno) {
-		log.info("rno: " + rno);
+		log.info("delete rno : " + rno);
 		replyService.remove(rno);
 		return ResponseEntity.ok(Map.of("result", "deleted"));
 	}
@@ -67,7 +67,7 @@ public class ReplyController {
 	// 댓글 수정
 	@PutMapping("/{rno}")
 	public ResponseEntity<Map<String, String>> modify(@PathVariable("rno") Long rno, ReplyDTO replyDTO) {
-		log.info("rno: " + rno);
+		log.info("update rno: " + rno);
 		replyDTO.setRno(rno);
 		replyService.modify(replyDTO);
 		return ResponseEntity.ok(Map.of("result", "modified"));
