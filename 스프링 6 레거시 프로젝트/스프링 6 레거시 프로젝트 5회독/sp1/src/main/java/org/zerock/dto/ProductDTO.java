@@ -24,7 +24,7 @@ public class ProductDTO {
 	private LocalDateTime modDate;
 	private List<ProductImageDTO> imageList; // 상품 이미지들
 
-	// 상품 이미지 추가
+	// 상품이미지 추가
 	public void addImage(String uuid, String fileName) {
 		// 리스트 초기화
 		if (imageList == null) {
@@ -33,7 +33,11 @@ public class ProductDTO {
 
 		ProductImageDTO productImageDTO = ProductImageDTO.builder().uuid(uuid).fileName(fileName).pno(this.pno)
 				.ord(this.imageList.size()).build();
-
 		this.imageList.add(productImageDTO);
+	}
+
+	// 상품이미지 삭제
+	public void clearImages() {
+		this.imageList.clear();
 	}
 }
