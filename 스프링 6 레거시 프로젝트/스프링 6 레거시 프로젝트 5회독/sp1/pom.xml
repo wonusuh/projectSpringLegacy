@@ -192,6 +192,16 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- (p. 367) 썸네일 생성 -->
+		<!-- Source:
+		https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.21</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

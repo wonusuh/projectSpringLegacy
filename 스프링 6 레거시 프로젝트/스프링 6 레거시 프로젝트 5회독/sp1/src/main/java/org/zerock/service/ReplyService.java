@@ -76,13 +76,13 @@ public class ReplyService {
 			int skip = (page - 1) * size;
 
 			// dto 리스트 조회
-			List<ReplyDTO> replyDTOList = replyMapper.listOfBoard(bno, skip, size);
+			List<ReplyDTO> dtoList = replyMapper.listOfBoard(bno, skip, size);
 
 			// 해당 게시물의 전체 댓글수
 			int count = replyMapper.countOfBoard(bno);
 
 			// 페이징 계산
-			return new ReplyListPagingDTO(replyDTOList, count, page, size);
+			return new ReplyListPagingDTO(dtoList, count, page, size);
 		} catch (Exception e) {
 			throw new ReplyException(500, e.getMessage());
 		}

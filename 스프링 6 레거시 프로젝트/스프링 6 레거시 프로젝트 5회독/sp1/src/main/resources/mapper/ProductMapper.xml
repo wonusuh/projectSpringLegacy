@@ -1,138 +1,199 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.zerock.mapper.ProductMapper">
 
-        <insert id="insert">
-                /* 상품 등록 */
-                <selectKey
-                        order="AFTER"
-                        keyProperty="pno"
-                        resultType="int">
-                        /* 상품번호 조회 */
-                        SELECT LAST_INSERT_ID()
-                </selectKey>
-                INSERT INTO
-                tbl_product
-                (
-                pname,
-                pdesc,
-                price,
-                sale,
-                writer
-                )
-                VALUES
-                (
-                #{pname},
-                #{pdesc},
-                #{price},
-                TRUE,
-                #{writer}
-                )
-        </insert>
+  <insert id="insert">
+    /* 상품 등록 */
+    <selectKey
+      order="AFTER"
+      keyProperty="pno"
+      resultType="int">
+      /* 상품번호 조회 */
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    INSERT INTO
+    tbl_product
+    (
+    pname,
+    pdesc,
+    price,
+    sale,
+    writer
+    )
+    VALUES
+    (
+    #{pname},
+    #{pdesc},
+    #{price},
+    TRUE,
+    #{writer}
+    )
+  </insert>
 
-        <insert id="insertImages">
-                /* 상품이미지 등록 */
-                INSERT INTO
-                tbl_product_image
-                (
-                pno,
-                filename,
-                uuid,
-                ord
-                )
-                VALUES
-                <foreach
-                        collection="imageList"
-                        item="image"
-                        separator=",">
-                        (
-                        #{pno},
-                        #{image.fileName},
-                        #{image.uuid},
-                        #{image.ord}
-                        )
-                </foreach>
-        </insert>
+  <insert id="insertImages">
+    /* 상품이미지 등록 */
+    INSERT INTO
+    tbl_product_image
+    (
+    pno,
+    filename,
+    uuid,
+    ord
+    )
+    VALUES
+    <foreach
+      collection="imageList"
+      item="image"
+      separator=",">
+      (
+      #{pno},
+      #{image.fileName},
+      #{image.uuid},
+      #{image.ord}
+      )
+    </foreach>
+  </insert>
 
-        <!-- 상품 and 이미지 조회 -->
-        <resultMap
-                type="ProductDTO"
-                id="selectMap">
-                <id
-                        property="pno"
-                        column="pno" />
-                <result
-                        property="pname"
-                        column="pname" />
-                <result
-                        property="pdesc"
-                        column="pdesc" />
-                <result
-                        property="price"
-                        column="price" />
-                <result
-                        property="sale"
-                        column="sale" />
-                <result
-                        property="writer"
-                        column="writer" />
-                <collection
-                        property="imageList"
-                        ofType="ProductImageDTO">
-                        <id
-                                property="ino"
-                                column="ino" />
-                        <result
-                                property="uuid"
-                                column="uuid" />
-                        <result
-                                property="fileName"
-                                column="fileName" />
-                        <result
-                                property="ord"
-                                column="ord" />
-                </collection>
-        </resultMap>
-        <select
-                id="selectOne"
-                resultMap="selectMap">
-                /* 상품과 이미지 조회 */
-                SELECT
-                p.pno,
-                pname,
-                pdesc,
-                price,
-                sale,
-                writer,
-                p.regdate,
-                ino,
-                uuid,
-                filename,
-                ord
-                FROM
-                tbl_product AS p
-                LEFT OUTER JOIN
-                tbl_product_image AS pimg
-                ON p.pno = pimg.pno
-                WHERE
-                1 = 1
-                AND p.pno = #{pno}
-                ORDER BY pimg.ord
-        </select>
+  <!-- 상품 and 이미지 조회 -->
+  <resultMap
+    type="ProductDTO"
+    id="selectMap">
+    <id
+      property="pno"
+      column="pno" />
+    <result
+      property="pname"
+      column="pname" />
+    <result
+      property="pdesc"
+      column="pdesc" />
+    <result
+      property="price"
+      column="price" />
+    <result
+      property="sale"
+      column="sale" />
+    <result
+      property="writer"
+      column="writer" />
+    <collection
+      property="imageList"
+      ofType="ProductImageDTO">
+      <id
+        property="ino"
+        column="ino" />
+      <result
+        property="uuid"
+        column="uuid" />
+      <result
+        property="fileName"
+        column="fileName" />
+      <result
+        property="ord"
+        column="ord" />
+    </collection>
+  </resultMap>
+  <select
+    id="selectOne"
+    resultMap="selectMap">
+    /* 상품과 이미지 조회 */
+    SELECT
+    p.pno,
+    pname,
+    pdesc,
+    price,
+    sale,
+    writer,
+    p.regdate,
+    ino,
+    uuid,
+    filename,
+    ord
+    FROM
+    tbl_product AS p
+    LEFT OUTER JOIN
+    tbl_product_image AS pimg
+    ON p.pno = pimg.pno
+    WHERE
+    1 = 1
+    AND p.pno = #{pno}
+    ORDER BY pimg.ord
+  </select>
 
-        <update id="deleteOne">
-                /* 상품 삭제 */
-                UPDATE
-                tbl_product
-                SET
-                sale = FALSE
-                WHERE
-                1 = 1
-                AND pno = #{pno}
-        </update>
+  <update id="deleteOne">
+    /* 상품 삭제 */
+    UPDATE
+    tbl_product
+    SET
+    sale = FALSE
+    WHERE
+    1 = 1
+    AND pno = #{pno}
+  </update>
+
+  <delete id="deleteImages">
+    /* 상품이미지 삭제 */
+    DELETE FROM
+    tbl_product_image
+    WHERE
+    1 = 1
+    AND pno = #{pno}
+  </delete>
+
+  <update id="updateOne">
+    /* 상품 수정 */
+    UPDATE
+    tbl_product
+    SET
+    pname = #{pname},
+    pdesc = #{pdesc},
+    price = #{price}
+    WHERE
+    1 = 1
+    AND pno = #{pno}
+  </update>
+
+  <select
+    id="list"
+    resultType="ProductListDTO">
+    /* 상품목록 조회 */
+    SELECT
+    p.pno AS pno,
+    p.pname AS pname,
+    p.pdesc AS pdesc,
+    p.price AS price,
+    p.sale AS sale,
+    p.writer AS writer,
+    p.regdate AS regdate,
+    i.ino AS ino,
+    i.uuid AS uuid,
+    i.filename AS filename,
+    i.ord AS ord
+    FROM
+    tbl_product AS p
+    LEFT OUTER JOIN tbl_product_image AS i
+    ON p.pno = i.pno
+    WHERE
+    1 = 1
+    AND i.ord = 0
+    ORDER BY p.pno DESC
+    LIMIT #{count}
+    OFFSET #{skip}
+  </select>
+
+  <select
+    id="listCount"
+    resultType="int">
+    /* 전체 상품개수 조회 */
+    SELECT
+    COUNT(pno)
+    FROM tbl_product
+    WHERE
+    1 = 1
+  </select>
 
 </mapper>
