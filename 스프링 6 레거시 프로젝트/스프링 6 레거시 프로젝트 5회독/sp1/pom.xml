@@ -237,6 +237,10 @@
 				<version>3.13.0</version>
 				<configuration>
 					<release>26</release>
+					<!-- (p. 426) 서버로 전달되는 메서드의 파라미터를 표현식으로 인식할 수 있게 -->
+					<compilerArgs>
+						<arg>-parameters</arg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>

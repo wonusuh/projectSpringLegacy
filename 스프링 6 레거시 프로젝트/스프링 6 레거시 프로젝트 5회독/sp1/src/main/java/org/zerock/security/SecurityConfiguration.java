@@ -1,71 +1,56 @@
-package kr.game.sale.config;
+package org.zerock.security;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import lombok.extern.log4j.Log4j2;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+@Log4j2
 public class SecurityConfiguration {
-    private final CustomAuthSuccessHandler customAuthSuccessHandler;
+//  private final CustomAuthSuccessHandler customAuthSuccessHandler;
+
+//  @Bean
+//  public WebSecurityCustomizer webSecurityCustomizer() {
+//      return web ->
+//              web.ignoring().requestMatchers("/favicon.ico", "/resources/**", "/error");
+//  }
+
+//  @Bean
+//  AuthenticationFailureHandler customAuthFailureHandler() {
+//      return new CustomAuthFailureHandler();
+//  }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web ->
-                web.ignoring().requestMatchers("/favicon.ico", "/resources/**", "/error");
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        log.info("=== === === securityFilterChain === === ===");
+
+        // 로그인 설정
+        httpSecurity.formLogin((config) -> {
+            //
+        });
+
+        // Cross-Site Request Forgery 설정
+        httpSecurity.csrf((config) -> {
+            config.disable(); // 사용안함
+        });
+
+        // 403 핸들러
+        httpSecurity.exceptionHandling((handler) -> {
+            handler.accessDeniedHandler(new Custom403Handler());
+        });
+
+        return httpSecurity.build();
     }
 
     @Bean
-    AuthenticationFailureHandler customAuthFailureHandler() {
-        return new CustomAuthFailureHandler();
-    }
-
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable);
-        http
-                .authorizeHttpRequests(auth ->
-                        auth
-                                .requestMatchers("/user/**").authenticated()
-                                .requestMatchers("/admin/**").hasAnyRole("MANAGER", "ADMIN") // 관리자만 접근가능
-                                .anyRequest().permitAll()
-                )
-                .formLogin(form ->
-                        form
-                                .loginPage("/users/loginForm") // 우리가 만든 로그인폼으로 인터셉트됩니다.
-                                .loginProcessingUrl("/userLogin")
-                                .failureHandler(customAuthFailureHandler()) // 로그인실패시 할 작업
-                                .successHandler(customAuthSuccessHandler)
-                )
-                .oauth2Login(Customizer.withDefaults()
-                )
-                .logout(logout ->
-                        logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
-                                .logoutSuccessUrl("/")
-                                .invalidateHttpSession(true)
-                )
-                .exceptionHandling(exceptions ->
-                        exceptions
-//                                .accessDeniedHandler(accessDeniedHandler())
-                                .accessDeniedPage("/")
-                );
-        return http.build();
-    }
-
-    private AccessDeniedHandler accessDeniedHandler() {
-        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
-        accessDeniedHandler.setErrorPage("/denied");
-        return accessDeniedHandler;
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
