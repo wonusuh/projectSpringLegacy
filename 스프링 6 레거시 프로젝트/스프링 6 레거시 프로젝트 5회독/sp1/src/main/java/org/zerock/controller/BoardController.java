@@ -1,6 +1,8 @@
 package org.zerock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Controller
 @RequestMapping("/board")
+@EnableMethodSecurity
 @Log4j2
 public class BoardController {
 	private final BoardService boardService;
@@ -56,6 +59,7 @@ public class BoardController {
 
 	// 게시물 조회
 	@GetMapping("/read/{bno}")
+	@PreAuthorize("isAuthenticated()")
 	public String read(@PathVariable("bno") Long bno, Model model) {
 		log.info("========== read ==========");
 		BoardDTO boardDTO = boardService.read(bno);
@@ -74,6 +78,7 @@ public class BoardController {
 
 	// 게시물 수정서비스 호출
 	@PostMapping("/modify")
+	@PreAuthorize("authentication.name == #boardDTO.writer")
 	public String modifyPOST(BoardDTO boardDTO) {
 		log.info("========== modifyPOST ==========");
 		boardService.modify(boardDTO);
