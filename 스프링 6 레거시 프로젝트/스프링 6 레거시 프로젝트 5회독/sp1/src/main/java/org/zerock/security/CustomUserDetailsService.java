@@ -1,6 +1,5 @@
 package org.zerock.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,29 +7,25 @@ import org.springframework.stereotype.Service;
 import org.zerock.dto.AccountDTO;
 import org.zerock.mapper.AccountMapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-// /login 자동 UserDetailsService 타입으로 IoC loadUserByUserName();
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    private final AccountMapper accountMapper;
+	private final AccountMapper accountMapper;
 
-    @Autowired
-    public CustomUserDetailsService(AccountMapper accountMapper) {
-        this.accountMapper = accountMapper;
-    }
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.info("-------------loadUserByUsername------------", username);
+		AccountDTO accountDTO = accountMapper.selectOne(username);
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("=== === === loadUserByUsername === === === {}", username);
-        AccountDTO accountDTO = accountMapper.selectOne(username);
+		if (accountDTO == null) {
+			throw new UsernameNotFoundException("Account Not Found");
+		}
 
-        // 방어 로직
-        if (accountDTO == null) {
-            throw new UsernameNotFoundException("Account Not Found");
-        }
-
-        return accountDTO;
-    }
+		log.info("-------------accountDTO------------" + accountDTO);
+		return accountDTO;
+	}
 }
