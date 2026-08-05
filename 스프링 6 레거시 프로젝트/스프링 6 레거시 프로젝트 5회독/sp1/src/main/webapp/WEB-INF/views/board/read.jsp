@@ -2,6 +2,10 @@
 <!--  -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--  -->
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<!--  -->
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!--  -->
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
 <div class="row justify-content-center">
@@ -72,7 +76,14 @@
             </button>
           </a>
 
-          <c:if test="${!board.delFlag}">
+          <sec:authentication
+            property="principal"
+            var="secInfo" />
+          <sec:authentication
+            property="authorities"
+            var="roles" />
+
+          <c:if test="${ !board.delFlag && (secInfo.uid == board.writer || fn:contains(roles, 'ROLE_ADMIN')) }">
             <a
               href="/board/modify/${board.bno}"
               class="btn">

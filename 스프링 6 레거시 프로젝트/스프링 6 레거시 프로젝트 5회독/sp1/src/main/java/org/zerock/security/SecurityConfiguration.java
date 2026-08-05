@@ -5,7 +5,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,45 +17,48 @@ import lombok.extern.log4j.Log4j2;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
 @Log4j2
 public class SecurityConfiguration {
-	@Autowired
 	private DataSource dataSource;
 
+	@Autowired
+	public SecurityConfiguration(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		log.info("---------------security config----------------");
 
 		// 로그인 폼 설정
-		http.formLogin(config -> {
+		httpSecurity.formLogin((config) -> {
 			config.loginPage("/account/login");
 			config.successHandler(new CustomLoginSuccessHandler());
 		});
 
 		// 자동 로그인 설정
-		http.rememberMe(config -> {
+		httpSecurity.rememberMe((config) -> {
 			config.key("my key");
 			config.tokenRepository(persistentTokenRepository());
-			config.tokenValiditySeconds(60 * 60 * 24 * 30);
+			config.tokenValiditySeconds(60 * 60 * 20 * 30);
 		});
 
 		// 로그아웃 설정
-		http.logout(config -> {
+		httpSecurity.logout((config) -> {
 			config.deleteCookies("JSESSIONID", "remember-me");
 		});
 
 		// Cross-Site request forgery 설정
-		http.csrf(config -> {
+		httpSecurity.csrf((config) -> {
 			config.disable(); // 사용안함
 		});
 
 		// 403 핸들러 설정
-		http.exceptionHandling(handler -> {
+		httpSecurity.exceptionHandling((handler) -> {
 			handler.accessDeniedHandler(new Custom403Handler());
 		});
 
-		return http.build();
+		return httpSecurity.build();
 	}
 
 	// 복호화가 불가능한 암호화
@@ -65,12 +67,12 @@ public class SecurityConfiguration {
 		return new BCryptPasswordEncoder();
 	}
 
-	// DB 에 로그인 기록
+	// DB 에 로그인토큰을 기록
 	@Bean
 	public PersistentTokenRepository persistentTokenRepository() {
-		JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-		tokenRepository.setDataSource(dataSource);
-		// tokenRepository.setCreateTableOnStartup(true); // 테이블 자동 생성 - 추천하지 않음
-		return tokenRepository;
+		JdbcTokenRepositoryImpl jdbcTokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+		jdbcTokenRepositoryImpl.setDataSource(dataSource);
+		// jdbcTokenRepositoryImpl.setCreateTableOnStartup(true); // 테이블 자동생성 비추천
+		return jdbcTokenRepositoryImpl;
 	}
 }

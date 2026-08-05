@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j2;
 public class LogAdvice {
 	@Before("execution(* org.zerock.service.*.*(..))")
 	public void logParams(JoinPoint joinPoint) {
-		log.info("====================");
+		log.info("=== === === === === === ===");
 		log.info("logParams");
 
 		Object[] params = joinPoint.getArgs();
@@ -25,17 +25,17 @@ public class LogAdvice {
 		Object target = joinPoint.getTarget();
 		log.info(target);
 
-		log.info("====================");
+		log.info("=== === === === === === ===");
 	}
 
 	@Around("execution(* org.zerock.service.*.*(..))")
 	public Object logTime(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-		log.info("====================");
+		log.info("=== === === === === === ===");
 		log.info("logTime");
 		long start = System.currentTimeMillis();
 		Object result = proceedingJoinPoint.proceed();
 		long end = System.currentTimeMillis();
-		log.info("====================");
+		log.info("=== === === === === === ===");
 		log.info("TIME : " + (end - start));
 
 		return result;

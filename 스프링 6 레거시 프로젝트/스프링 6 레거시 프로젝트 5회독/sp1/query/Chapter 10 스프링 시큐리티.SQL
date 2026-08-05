@@ -29,3 +29,9 @@ WHERE
     AND ac.uid = 'user100'
 ORDER BY
     ar.rolename ASC;
+
+/* 자동로그인 토큰 */
+SELECT
+    *
+FROM
+    persistent_logins;
